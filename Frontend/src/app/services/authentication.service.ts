@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore,AngularFirestoreDocument} from '@angular/fire/compat/firestore';
+import { User } from './InterfaceAuth';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +9,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class AuthenticationService {
   private userData: any={};
 
-  constructor(public afAuth: AngularFireAuth) { 
+  constructor(public afAuth: AngularFireAuth,public afs: AngularFirestore) { 
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
@@ -24,6 +26,7 @@ export class AuthenticationService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
+        this.SetUserData(result.user);
         console.log(result);
       })
       .catch((error) => {
@@ -36,5 +39,20 @@ export class AuthenticationService {
     });
   }
 
+  SetUserData(user: any) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${user.uid}`
+    );
+    const userData: User = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      emailVerified: user.emailVerified,
+    };
+    return userRef.set(userData, {
+      merge: true,
+    });
+  }
 
 }
