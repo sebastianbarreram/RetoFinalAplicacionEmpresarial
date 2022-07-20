@@ -11,6 +11,7 @@ public class GameCardModel {
 
     String carId;
     int xp;
+    //Para simplificar no se tienen en cuenta estos atributos
     // String nameDescrition;
     // String Characteristic;
     String Logo;
