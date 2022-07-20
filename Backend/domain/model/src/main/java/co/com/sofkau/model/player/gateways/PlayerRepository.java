@@ -6,6 +6,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface PlayerRepository {
+
     Mono<Player> save(Player player);
 
     Flux<Player> findAll();
