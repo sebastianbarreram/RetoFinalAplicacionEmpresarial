@@ -1,4 +1,4 @@
-package co.com.sofkau.model.player;
+package co.com.sofkau.api;
 
 import co.com.sofkau.model.gamecard.GameCard;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.List;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Player {
+public class DtoPlayer {
     String playerId;
     String nickName;
     String email;
