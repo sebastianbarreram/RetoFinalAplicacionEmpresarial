@@ -18,4 +18,6 @@ public class Game {
     Date time;
     List<Player> playerModelList = new ArrayList<>();
     List<GameCard> gameCardModelList = new ArrayList<>();
+
 }
+

@@ -1,4 +1,5 @@
 package co.com.sofkau.model.player;
+
 import co.com.sofkau.model.gamecard.GameCard;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +18,7 @@ public class Player {
     String nickNAme;
     String email;
     Integer score;
-
+    // hola
     List<Integer> pointsHistory = new ArrayList<>();
     List<GameCard> gameCardModels = new ArrayList<>();
 }
