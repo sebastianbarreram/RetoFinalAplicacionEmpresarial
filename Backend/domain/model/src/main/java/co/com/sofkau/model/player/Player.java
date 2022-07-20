@@ -1,10 +1,7 @@
 package co.com.sofkau.model.player;
-<<<<<<< Updated upstream
 
-import co.com.sofkau.model.gamecard.GameCard;
-=======
-import co.com.sofkau.model.card.GameCard;
->>>>>>> Stashed changes
+
+import co.com.sofkau.model.card.Card;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +19,6 @@ public class Player {
     String nickNAme;
     String email;
     Integer score;
-    // hola
     List<Integer> pointsHistory = new ArrayList<>();
-    List<GameCard> gameCardModels = new ArrayList<>();
+    List<Card> gameCardModels = new ArrayList<>();
 }

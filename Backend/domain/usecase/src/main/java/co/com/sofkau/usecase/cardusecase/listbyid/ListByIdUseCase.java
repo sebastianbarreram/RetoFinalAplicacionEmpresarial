@@ -1,16 +1,15 @@
-package co.com.sofkau.usecase.getcards;
+package co.com.sofkau.usecase.cardusecase.listbyid;
 
 import co.com.sofkau.model.card.Card;
 import co.com.sofkau.model.card.gateways.CardRepository;
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
-public class GetCardsUseCase {
+public class ListByIdUseCase {
     private final CardRepository cardRepository;
 
-    public Flux<Card> obtenerCartas() {
-        return cardRepository.findAll();
+    public Mono<Card> listarIdPet(String id) {
+        return cardRepository.findById(id);
     }
-
 }
