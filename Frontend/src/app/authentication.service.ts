@@ -7,12 +7,23 @@ import {
 import { User } from './user';
 import * as auth from 'firebase/auth';
 
+// import { HttpClient, HttpHeaders } from "@angular/common/http";
+// import { JwtHelperService } from "@auth0/angular-jwt";
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
   userData: any; // Save logged in user data
+
+  //------------------------------------------------
+  // authUrl = "http://localhost:5000/api/auth/";
+  // employersUrl = "http://localhost:5000/api/employers/";
+  // confirmEmailUrl = "http://localhost:4200/confirm-email/";
+  // changePasswordUrl = "http://localhost:4200/change-password/";
+  // decodedToken: any;
+  // currentUser!: User;
 
   constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore) {
     this.afAuth.authState.subscribe((user) => {
@@ -92,4 +103,5 @@ export class AuthenticationService {
   //     }
   //   });
   // }
+
 }
