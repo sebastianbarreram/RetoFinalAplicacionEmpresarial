@@ -15,10 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 public class Player {
     String playerId;
-    String nickNAme;
+    String nickName;
     String email;
     Integer score;
-    // hola
+
     List<Integer> pointsHistory = new ArrayList<>();
     List<GameCard> gameCardModels = new ArrayList<>();
 }
