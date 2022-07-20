@@ -1,5 +1,5 @@
 {
-  "name": "rickandmorty",
+  "name": "angular-tour-of-heroes",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -19,7 +19,6 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
-    "bootstrap": "^5.2.0",
     "firebase": "^9.9.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
@@ -37,9 +36,5 @@
     "karma-jasmine": "~5.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "typescript": "~4.7.2"
-  },
-  "styles": [
-    "node_modules/bootstrap/dist/css/bootstrap.min.css",
-    "src/styles.scss"
-  ]
+  }
 }

@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore,AngularFirestoreDocument} from '@angular/fire/compat/firestore';
-import { User } from './InterfaceAuth';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from '@angular/fire/compat/firestore';
+import { User } from './user';
+import * as auth from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private userData: any={};
 
-  constructor(public afAuth: AngularFireAuth,public afs: AngularFirestore) { 
+  userData: any; // Save logged in user data
+
+  constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore) {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
@@ -22,17 +27,18 @@ export class AuthenticationService {
     });
   }
 
-  SignIn(email:string, password:string) {
+  SignIn(email: any, password: any) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SetUserData(result.user);
         console.log(result);
+        this.SetUserData(result.user);
       })
       .catch((error) => {
         window.alert(error.message);
       });
   }
+
   SignOut() {
     return this.afAuth.signOut().then(() => {
       window.alert('Logged out!');
@@ -55,4 +61,35 @@ export class AuthenticationService {
     });
   }
 
+  AuthLogin(provider: any) {
+    return this.afAuth
+      .signInWithPopup(provider)
+      .then((result) => {
+        this.SetUserData(result.user);
+      })
+      .catch((error) => {
+        window.alert(error);
+      });
+  }
+
+  SignUp(email: string, password: string) {
+    return this.afAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        /* Call the SendVerificaitonMail() function when new user sign
+        up and returns promise */
+        this.SetUserData(result.user);
+      })
+      .catch((error) => {
+        window.alert(error.message);
+      });
+  }
+
+  // GoogleAuth() {
+  //   return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
+  //     if (res) {
+  //       //this.router.navigate(['dashboard']);
+  //     }
+  //   });
+  // }
 }

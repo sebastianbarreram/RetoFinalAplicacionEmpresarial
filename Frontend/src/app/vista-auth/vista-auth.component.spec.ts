@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthViewComponent } from './auth-view.component';
+import { VistaAuthComponent } from './vista-auth.component';
 
-describe('AuthViewComponent', () => {
-  let component: AuthViewComponent;
-  let fixture: ComponentFixture<AuthViewComponent>;
+describe('VistaAuthComponent', () => {
+  let component: VistaAuthComponent;
+  let fixture: ComponentFixture<VistaAuthComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AuthViewComponent ]
+      declarations: [ VistaAuthComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AuthViewComponent);
+    fixture = TestBed.createComponent(VistaAuthComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

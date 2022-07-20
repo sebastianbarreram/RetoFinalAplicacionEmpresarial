@@ -4,16 +4,16 @@
 
 export const environment = {
   production: false,
-  firebaseConfig : {
-    apiKey: "AIzaSyA5mfqVw6gHbsk7sN2kTVTLWI0OZhDhSLU",
-    authDomain: "fir-mentoringjulio18.firebaseapp.com",
-    projectId: "fir-mentoringjulio18",
-    storageBucket: "fir-mentoringjulio18.appspot.com",
-    messagingSenderId: "957519178404",
-    appId: "1:957519178404:web:81dae189135f057ed5d431",
-    measurementId: "G-3VJ41B1NQ6"
+    firebaseConfig: {
+      apiKey: "AIzaSyCKbKsFdn7fU2VrkwsNkitfsayXlqhWwKw",
+      authDomain: "retofinalaplicacionempresarial.firebaseapp.com",
+      projectId: "retofinalaplicacionempresarial",
+      storageBucket: "retofinalaplicacionempresarial.appspot.com",
+      messagingSenderId: "545642575624",
+      appId: "1:545642575624:web:d7c8ec1b4059182a9f9ebd"
   }
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file
@@ -23,6 +23,3 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
-
-
-
