@@ -15,9 +15,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Game {
-    Date time;
-    List<Player> playerModelList = new ArrayList<>();
-    List<GameCard> gameCardModelList = new ArrayList<>();
+    private String id;
+    private Date time;
+    private List<Player> playerModelList = new ArrayList<>();
+    private List<GameCard> gameCardModelList = new ArrayList<>();
 
 }
 
