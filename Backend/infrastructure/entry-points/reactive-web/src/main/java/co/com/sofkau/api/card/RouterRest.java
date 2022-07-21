@@ -17,6 +17,6 @@ public RouterFunction<ServerResponse> routerFunction(HandlerCard handler) {
     .andRoute(DELETE("/api/cards/{cardId}"), handler::listenDELETECardUseCase)
     .andRoute(GET("/api/cards"), handler::listenGETCardsUseCase)
     .andRoute(GET("/api/cards/{cardId}"), handler::listenGETListByIdUseCase)
-            .and(route(PUT("/api/{cardId}"), handler::listenPUTUpdateCardUseCase));
+            .and(route(PUT("/api/cards/{cardId}"), handler::listenPUTUpdateCardUseCase));
     }
 }

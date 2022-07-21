@@ -22,11 +22,15 @@ public class CardMongoRepositoryAdapter extends AdapterOperations<Card, CardDocu
 
     @Override
     public Mono<Void> delete(String id) {
-        return null;
+        return repository.deleteById(id);
     }
 
     @Override
     public Mono<Card> update(String id, Card card) {
-        return null;
+        card.setCardId(id);
+
+        return repository
+            .save(new CardDocument(card.getCardId(),card.getXp(),card.getImage()))
+            .flatMap(element->Mono.just(card));
     }
 }
