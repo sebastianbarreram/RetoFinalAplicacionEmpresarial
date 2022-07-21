@@ -1,5 +1,6 @@
 package co.com.sofkau.mongo.game;
 
+import co.com.sofkau.model.card.Card;
 import co.com.sofkau.model.player.Player;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,4 +21,5 @@ public class GameDocument {
     private String id;
     private Date time;
     private List<Player> playerModelList = new ArrayList<>();
+    private List<Card> cardGamesList = new ArrayList<>();
 }

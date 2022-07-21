@@ -1,5 +1,5 @@
 package co.com.sofkau.model.game;
-import co.com.sofkau.model.gamecard.GameCard;
+import co.com.sofkau.model.card.Card;
 import co.com.sofkau.model.player.Player;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,10 +18,10 @@ public class Game {
     private String id;
     private Date time;
     private List<Player> playerModelList = new ArrayList<>();
-   // private List<Card> cardGamesList = new ArrayList<>();
+    private List<Card> cardGamesList = new ArrayList<>();
 
 
-    private List<GameCard> gameCardModelList = new ArrayList<>();
+    private List<Game> gameCardModelList = new ArrayList<>();
 
 }
 

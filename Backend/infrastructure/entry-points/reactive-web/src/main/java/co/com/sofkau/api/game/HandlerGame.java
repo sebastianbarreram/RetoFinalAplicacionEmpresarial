@@ -1,7 +1,7 @@
 package co.com.sofkau.api.game;
 
 import co.com.sofkau.model.game.Game;
-import co.com.sofkau.model.gamecard.gateways.GameRepository;
+import co.com.sofkau.model.game.gateways.GameRepository;
 import co.com.sofkau.usecase.gameusecase.creategame.CreateGameUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

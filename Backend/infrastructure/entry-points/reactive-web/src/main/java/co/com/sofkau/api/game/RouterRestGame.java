@@ -10,9 +10,9 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-public class RouterRest {
+public class RouterRestGame {
     @Bean
-    public RouterFunction<ServerResponse> routerFunction(HandlerGame handlerGame) {
+    public RouterFunction<ServerResponse> routerFunctionGame(HandlerGame handlerGame) {
         return route(POST("/api/usecase/game"), handlerGame::createGamePostUseCase)
                 .and(route(GET("/api/game"), handlerGame::listGameGETUseCase));
     }

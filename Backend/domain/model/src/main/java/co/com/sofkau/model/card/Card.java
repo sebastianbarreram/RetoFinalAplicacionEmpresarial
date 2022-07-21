@@ -1,4 +1,4 @@
-package co.com.sofkau.model.gamecard;
+package co.com.sofkau.model.card;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,11 +8,8 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class GameCard {
-    String carId;
-    int xp;
-    // String nameDescrition;
-    // String Characteristic;
-    String Logo;
-
+public class Card {
+    private String cardId;
+    private Integer xp;
+    private String image;
 }
