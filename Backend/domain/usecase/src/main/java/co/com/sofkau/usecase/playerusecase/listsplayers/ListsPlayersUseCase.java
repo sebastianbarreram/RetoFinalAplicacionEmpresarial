@@ -1,4 +1,4 @@
-/*package co.com.sofkau.usecase.playerusecase.listsplayers;
+package co.com.sofkau.usecase.playerusecase.listsplayers;
 
 import co.com.sofkau.model.player.Player;
 import co.com.sofkau.model.player.gateways.PlayerRepository;
@@ -12,4 +12,4 @@ public class ListsPlayersUseCase {
     public Flux<Player> listsPlayers() {
         return repository.findAll();
     }
-}*/
+}

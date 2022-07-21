@@ -1,4 +1,4 @@
-/*package co.com.sofkau.usecase.playerusecase.findplayer;
+package co.com.sofkau.usecase.playerusecase.findplayer;
 
 import co.com.sofkau.model.player.Player;
 import co.com.sofkau.model.player.gateways.PlayerRepository;
@@ -10,7 +10,7 @@ public class FindPlayerUseCase {
 
     private final PlayerRepository repository;
 
-    public Mono<Player> findPlayer(String id){
+    public Mono<Player> findPlayer(String id) {
         return repository.findById(id);
     }
-}*/
+}

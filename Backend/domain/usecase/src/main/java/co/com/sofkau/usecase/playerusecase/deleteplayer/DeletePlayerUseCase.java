@@ -1,4 +1,4 @@
-/*package co.com.sofkau.usecase.deleteplayer;
+package co.com.sofkau.usecase.deleteplayer;
 
 import co.com.sofkau.model.player.gateways.PlayerRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,4 +11,4 @@ public class DeletePlayerUseCase {
     public Mono<Void> deletePlayer(String id) {
         return repository.delete(id);
     }
-}*/
+}

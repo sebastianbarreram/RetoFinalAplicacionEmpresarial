@@ -1,4 +1,4 @@
-package co.com.sofkau.api;
+package co.com.sofkau.api.game;
 
 import co.com.sofkau.model.game.Game;
 import co.com.sofkau.model.gamecard.gateways.GameRepository;
@@ -22,11 +22,11 @@ public class HandlerGame {
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(createGameUseCase.createGame(element), Game.class));
     }
-   public Mono<ServerResponse> listGameGETUseCase(ServerRequest serverRequest) {
+
+    public Mono<ServerResponse> listGameGETUseCase(ServerRequest serverRequest) {
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(gameRepository.findAll(), Game.class);
     }
-
 
 }

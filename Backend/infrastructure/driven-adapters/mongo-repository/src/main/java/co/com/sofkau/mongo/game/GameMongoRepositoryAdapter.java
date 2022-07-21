@@ -9,13 +9,14 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public class GameMongoRepositoryAdapter extends AdapterOperations<Game, GameDocument, String, GameMongoDBRepository>
- implements GameRepository{
+        implements GameRepository {
 
     public GameMongoRepositoryAdapter(GameMongoDBRepository repository, ObjectMapper mapper) {
         /**
-         *  Could be use mapper.mapBuilder if your domain model implement builder pattern
-         *  super(repository, mapper, d -> mapper.mapBuilder(d,ObjectModel.ObjectModelBuilder.class).build());
-         *  Or using mapper.map with the class of the object model
+         * Could be use mapper.mapBuilder if your domain model implement builder pattern
+         * super(repository, mapper, d ->
+         * mapper.mapBuilder(d,ObjectModel.ObjectModelBuilder.class).build());
+         * Or using mapper.map with the class of the object model
          */
         super(repository, mapper, d -> mapper.map(d, Game.class));
     }
@@ -26,8 +27,7 @@ public class GameMongoRepositoryAdapter extends AdapterOperations<Game, GameDocu
     }
 
     @Override
-
     public Mono<Game> update(String id, Game game) {
-        return update(id,game);
+        return update(id, game);
     }
 }
