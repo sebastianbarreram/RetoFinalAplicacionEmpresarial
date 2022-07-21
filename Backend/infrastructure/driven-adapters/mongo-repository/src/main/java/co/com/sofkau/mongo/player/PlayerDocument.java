@@ -1,4 +1,4 @@
-package co.com.sofkau.mongo.documents;
+package co.com.sofkau.mongo.player;
 
 import java.util.ArrayList;
 import java.util.List;

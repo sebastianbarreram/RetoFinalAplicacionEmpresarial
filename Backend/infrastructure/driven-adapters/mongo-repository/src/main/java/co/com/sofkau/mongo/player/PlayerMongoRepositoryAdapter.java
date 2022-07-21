@@ -1,24 +1,24 @@
-package co.com.sofkau.mongo.game;
+package co.com.sofkau.mongo.player;
 
-import co.com.sofkau.model.game.Game;
-import co.com.sofkau.model.game.gateways.GameRepository;
+import co.com.sofkau.model.player.Player;
+import co.com.sofkau.model.player.gateways.PlayerRepository;
 import co.com.sofkau.mongo.helper.AdapterOperations;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 @Repository
-public class GameMongoRepositoryAdapter extends AdapterOperations<Game, GameDocument, String, GameMongoDBRepository>
- implements GameRepository
+public class PlayerMongoRepositoryAdapter extends AdapterOperations<Player, PlayerDocument, String, PlayerMongoDBRepository>
+    implements PlayerRepository
 {
 
-    public GameMongoRepositoryAdapter(GameMongoDBRepository repository, ObjectMapper mapper) {
+    public PlayerMongoRepositoryAdapter(PlayerMongoDBRepository repository, ObjectMapper mapper) {
         /**
          *  Could be use mapper.mapBuilder if your domain model implement builder pattern
          *  super(repository, mapper, d -> mapper.mapBuilder(d,ObjectModel.ObjectModelBuilder.class).build());
          *  Or using mapper.map with the class of the object model
          */
-        super(repository, mapper, d -> mapper.map(d, Game.class));
+        super(repository, mapper, d -> mapper.map(d, Player.class));
     }
 
     @Override
@@ -27,7 +27,7 @@ public class GameMongoRepositoryAdapter extends AdapterOperations<Game, GameDocu
     }
 
     @Override
-    public Mono<Game> update(String id, Game game) {
-        return update(id, game);
+    public Mono<Player> update(String id, Player player) {
+        return update(id, player);
     }
 }

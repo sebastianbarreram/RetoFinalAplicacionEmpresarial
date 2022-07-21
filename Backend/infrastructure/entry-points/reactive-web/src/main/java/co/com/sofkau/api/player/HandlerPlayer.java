@@ -1,28 +1,24 @@
-package co.com.sofkau.api;
-
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.server.ServerRequest;
-import org.springframework.web.reactive.function.server.ServerResponse;
+package co.com.sofkau.api.player;
 
 import co.com.sofkau.usecase.playerusecase.addplayer.AddPlayerUseCase;
-import co.com.sofkau.usecase.playerusecase.deleteplayer.DeletePlayerUseCase;
 import co.com.sofkau.usecase.playerusecase.findplayer.FindPlayerUseCase;
 import co.com.sofkau.usecase.playerusecase.listsplayers.ListsPlayersUseCase;
 import co.com.sofkau.usecase.playerusecase.updateplayer.UpdatePlayerUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-public class PlayerHandler {
+public class HandlerPlayer {
 
-    private final AddPlayerUseCase addPlayerUseCase;
-    private final DeletePlayerUseCase deletePlayerUseCase;
-    private final UpdatePlayerUseCase updatePlayerUseCase;
+    //private final AddPlayerUseCase addPlayerUseCase;
+    /*private final UpdatePlayerUseCase updatePlayerUseCase;
     private final FindPlayerUseCase findPlayerUseCase;
     private final ListsPlayersUseCase listsPlayersUseCase;
-
+*/
     public Mono<ServerResponse> listenGETUseCase(ServerRequest serverRequest) {
         // usecase.logic();
         return ServerResponse.ok().bodyValue("");
@@ -33,6 +29,11 @@ public class PlayerHandler {
         return ServerResponse.ok().bodyValue("");
     }
 
+  public Mono<ServerResponse> listenPOSTUseCase(ServerRequest serverRequest) {
+
+    return ServerResponse.ok().bodyValue("");
+  }
+    /*
     public Mono<ServerResponse> listenPOSTUseCase(ServerRequest serverRequest) {
 
         return serverRequest.bodyToMono(DtoPlayer.class)
@@ -44,6 +45,7 @@ public class PlayerHandler {
         // usecase.logic();
         // return ServerResponse.ok().bodyValue("");
     }
+    */
 
     /*
      * public Mono<ServerResponse> createHeroUseCase(ServerRequest serverRequest) {
