@@ -1,6 +1,6 @@
 package co.com.sofkau.model.player;
 
-import co.com.sofkau.model.gamecard.GameCard;
+//import co.com.sofkau.model.gamecard.GameCard;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

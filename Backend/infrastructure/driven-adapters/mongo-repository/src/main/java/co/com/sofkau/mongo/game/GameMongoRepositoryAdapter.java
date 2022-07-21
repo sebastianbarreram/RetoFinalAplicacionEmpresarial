@@ -1,7 +1,7 @@
 package co.com.sofkau.mongo.game;
 
 import co.com.sofkau.model.game.Game;
-import co.com.sofkau.model.gamecard.gateways.GameRepository;
+import co.com.sofkau.model.game.gateways.GameRepository;
 import co.com.sofkau.mongo.helper.AdapterOperations;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -27,7 +27,13 @@ public class GameMongoRepositoryAdapter extends AdapterOperations<Game, GameDocu
     }
 
     @Override
-    public Mono<Game> update(String id, Game game) {
-        return update(id, game);
+    public Mono<Game> updateGame(String id, Game game) {
+        game.setId(id);
+
+        return repository
+                .save(new GameDocument(game.getId(), game.getTime(), game.getPlayerModelList(), game.getCardGamesList()))
+                .flatMap(element -> Mono.just(game));
+
+
     }
 }
