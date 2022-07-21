@@ -1,7 +1,7 @@
 package co.com.sofkau.usecase.gameusecase.updategame;
 
 import co.com.sofkau.model.game.Game;
-import co.com.sofkau.model.game.gateways.GameRepository;
+import co.com.sofkau.model.gamecard.gateways.GameRepository;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 

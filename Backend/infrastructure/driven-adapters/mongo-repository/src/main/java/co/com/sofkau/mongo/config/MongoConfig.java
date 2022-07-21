@@ -18,7 +18,7 @@ public class MongoConfig {
     @Bean
     public MongoDBSecret dbSecret(Environment env) {
         return MongoDBSecret.builder()
-                .uri(env.getProperty("mongodb+srv://duvan:duvan@cardsgame.alqn6.mongodb.net/?retryWrites=true&w=majority"))
+                .uri(env.getProperty("spring.data.mongodb.uri"))
                 .build();
     }
 

@@ -12,12 +12,15 @@ import java.util.List;
 
 @Data
 @Builder(toBuilder = true)
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Game {
     private String id;
     private Date time;
     private List<Player> playerModelList = new ArrayList<>();
+   // private List<Card> cardGamesList = new ArrayList<>();
+
+
     private List<GameCard> gameCardModelList = new ArrayList<>();
 
 }

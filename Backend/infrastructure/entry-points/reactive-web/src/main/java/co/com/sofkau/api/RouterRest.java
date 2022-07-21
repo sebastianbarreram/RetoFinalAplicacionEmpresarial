@@ -10,10 +10,11 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 
 
 @Configuration
+
 public class RouterRest {
 @Bean
-public RouterFunction<ServerResponse> routerFunction(HandlerGame handler) {
-    return route(POST("/api/usecase/game"), handler::createGamePostUseCase)
-            .and(route(GET("/api/game"), handler::listGameGETUseCase));
+public RouterFunction<ServerResponse> routerFunction(HandlerGame handlerGame) {
+    return route(POST("/api/usecase/game"), handlerGame::createGamePostUseCase)
+            .and(route(GET("/api/game"), handlerGame::listGameGETUseCase));
     }
 }

@@ -1,6 +1,6 @@
-package co.com.sofkau.usecase.playerusecase.addplayer;
+/*package co.com.sofkau.usecase.playerusecase.addplayer;
 
-import co.com.sofkau.api.DtoPlayer;
+
 import co.com.sofkau.model.player.Player;
 import co.com.sofkau.model.player.gateways.PlayerRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ public class AddPlayerUseCase {
 
     private final PlayerRepository repository;
 
-    public Mono<Player> addPlayer(DtoPlayer transformerPlayer) {
+    public Mono<Player> addPlayer(Player transformerPlayer) {
         return repository.save(transformerPlayer);
     }
-}
+}*/

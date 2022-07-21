@@ -1,4 +1,4 @@
-package co.com.sofkau.mongo.documents;
+/*package co.com.sofkau.mongo.documents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 /**
  * PlayerDocument
  */
+/*
 @Document
 @Data
 @NoArgsConstructor
@@ -30,4 +31,4 @@ public class PlayerDocument {
     private List<Integer> pointsHistory = new ArrayList<>();
     private List<GameCard> gameCardModels = new ArrayList<>();
 
-}
+}*/

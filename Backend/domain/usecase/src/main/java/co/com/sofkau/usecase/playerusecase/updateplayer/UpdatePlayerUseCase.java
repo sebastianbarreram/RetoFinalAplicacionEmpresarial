@@ -1,4 +1,4 @@
-package co.com.sofkau.usecase.playerusecase.updateplayer;
+/*package co.com.sofkau.usecase.playerusecase.updateplayer;
 
 import co.com.sofkau.model.player.Player;
 import co.com.sofkau.model.player.gateways.PlayerRepository;
@@ -14,4 +14,4 @@ public class UpdatePlayerUseCase {
         return repository.update(id, player);
     }
 
-}
+}*/
