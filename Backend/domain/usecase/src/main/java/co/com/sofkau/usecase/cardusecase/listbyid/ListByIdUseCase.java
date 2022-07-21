@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 public class ListByIdUseCase {
     private final CardRepository cardRepository;
 
-    public Mono<Card> listarIdPet(String id) {
+    public Mono<Card> listarIdCard(String id) {
         return cardRepository.findById(id);
     }
 }
