@@ -43,7 +43,7 @@ public class HandlerCard {
     }
 
     public Mono<ServerResponse> listenGETListByIdUseCase(ServerRequest serverRequest) {
-        var id = serverRequest.pathVariable("id");
+        var id = serverRequest.pathVariable("cardId");
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(listByIdUseCase.listarIdCard(id), Card.class);

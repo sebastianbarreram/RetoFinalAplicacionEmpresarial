@@ -26,7 +26,7 @@ public class CardMongoRepositoryAdapter extends AdapterOperations<Card, CardDocu
     }
 
     @Override
-    public Mono<Card> update(String id, Card gameCard) {
+    public Mono<Card> update(String id, Card card) {
         return null;
     }
 }

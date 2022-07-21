@@ -9,5 +9,5 @@ public interface CardRepository {
     Flux<Card> findAll();
     Mono<Card> findById(String id);
     Mono<Void> delete(String id);
-    Mono<Card> update(String id, Card gameCard);
+    Mono<Card> update(String id, Card card);
 }
