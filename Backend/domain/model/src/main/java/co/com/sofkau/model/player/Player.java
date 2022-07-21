@@ -14,11 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Player {
-    String playerId;
-    String nickName;
-    String email;
-    Integer score;
+    private String playerId;
+    private String nickName;
+    private String email;
+    private Integer score;
 
-    List<Integer> pointsHistory = new ArrayList<>();
-    List<GameCard> gameCardModels = new ArrayList<>();
+    private final List<Integer> pointsHistory = new ArrayList<>();
+    //private List<GameCard> gameCardModels = new ArrayList<>();
 }

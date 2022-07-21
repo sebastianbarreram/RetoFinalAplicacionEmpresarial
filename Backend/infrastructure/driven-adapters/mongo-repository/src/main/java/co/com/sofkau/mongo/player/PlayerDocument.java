@@ -1,4 +1,4 @@
-/*package co.com.sofkau.mongo.documents;
+package co.com.sofkau.mongo.player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +29,6 @@ public class PlayerDocument {
     private Integer score;
 
     private List<Integer> pointsHistory = new ArrayList<>();
-    private List<GameCard> gameCardModels = new ArrayList<>();
+    //private List<GameCard> gameCardModels = new ArrayList<>();
 
-}*/
+}
