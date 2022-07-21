@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 /**
  * PlayerDocument
  */
+/*
 @Document
 @Data
 @NoArgsConstructor

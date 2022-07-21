@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class UpdatePlayerUseCase {
 
-    private  final PlayerRepository repository;
+    private final PlayerRepository repository;
 
     public Mono<Player> updatePlayer(String id, Player player) {
         return repository.updatePlayer(id, player);

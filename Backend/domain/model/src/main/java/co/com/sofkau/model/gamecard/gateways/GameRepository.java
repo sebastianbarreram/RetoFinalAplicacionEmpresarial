@@ -1,4 +1,4 @@
-package co.com.sofkau.model.game.gateways;
+package co.com.sofkau.model.gamecard.gateways;
 
 import co.com.sofkau.model.game.Game;
 import reactor.core.publisher.Flux;
