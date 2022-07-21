@@ -6,14 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
-@NoArgsConstructor
-@AllArgsConstructor
+
+@RequiredArgsConstructor
 public class UpdatePlayerUseCase {
 
-    private  PlayerRepository repository;
+    private  final PlayerRepository repository;
 
-    public Mono<Player> updatePlayer(Player player, String id) {
-        return repository.update(id, player);
+    public Mono<Player> updatePlayer(String id, Player player) {
+        return repository.updatePlayer(id, player);
     }
 
 }

@@ -17,11 +17,11 @@ import java.util.List;
 public class Game {
     private String id;
     private Date time;
-    private final List<Player> playerModelList = new ArrayList<>();
+    private List<Player> playerModelList = new ArrayList<>();
     // private List<Card> cardGamesList = new ArrayList<>();
 
 
-    private final List<GameCard> gameCardModelList = new ArrayList<>();
+    private List<GameCard> gameCardModelList = new ArrayList<>();
 
 }
 

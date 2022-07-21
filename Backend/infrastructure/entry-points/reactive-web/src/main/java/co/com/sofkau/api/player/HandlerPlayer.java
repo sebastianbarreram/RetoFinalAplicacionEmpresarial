@@ -1,10 +1,13 @@
 package co.com.sofkau.api.player;
 
+import co.com.sofkau.model.player.Player;
+import co.com.sofkau.usecase.deleteplayer.DeletePlayerUseCase;
 import co.com.sofkau.usecase.playerusecase.addplayer.AddPlayerUseCase;
 import co.com.sofkau.usecase.playerusecase.findplayer.FindPlayerUseCase;
 import co.com.sofkau.usecase.playerusecase.listsplayers.ListsPlayersUseCase;
 import co.com.sofkau.usecase.playerusecase.updateplayer.UpdatePlayerUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -14,78 +17,51 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class HandlerPlayer {
 
-    //private final AddPlayerUseCase addPlayerUseCase;
-    /*private final UpdatePlayerUseCase updatePlayerUseCase;
-    private final FindPlayerUseCase findPlayerUseCase;
-    private final ListsPlayersUseCase listsPlayersUseCase;
-*/
-    public Mono<ServerResponse> listenGETUseCase(ServerRequest serverRequest) {
-        // usecase.logic();
-        return ServerResponse.ok().bodyValue("");
-    }
+  private final AddPlayerUseCase addPlayerUseCase;
+  private final ListsPlayersUseCase listsPlayersUseCase;
+  private final UpdatePlayerUseCase updatePlayerUseCase;
+  private final FindPlayerUseCase findPlayerUseCase;
+  private final DeletePlayerUseCase deletePlayerUseCase;
 
-    public Mono<ServerResponse> listenGETOtherUseCase(ServerRequest serverRequest) {
-        // useCase2.logic();
-        return ServerResponse.ok().bodyValue("");
-    }
+  public Mono<ServerResponse> listenPostAddPlayerUseCase(ServerRequest serverRequest) {
 
-  public Mono<ServerResponse> listenPOSTUseCase(ServerRequest serverRequest) {
-
-    return ServerResponse.ok().bodyValue("");
+    return serverRequest
+        .bodyToMono(Player.class)
+        .flatMap(
+            player ->
+                ServerResponse.ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(addPlayerUseCase.addPlayer(player), Player.class));
   }
-    /*
-    public Mono<ServerResponse> listenPOSTUseCase(ServerRequest serverRequest) {
 
-        return serverRequest.bodyToMono(DtoPlayer.class)
-                .flatMap(transformerPlayer -> addPlayerUseCase.addPlayer(transformerPlayer))
-                .flatMap(player -> ServerResponse.ok()
-                        .contentType(MediaType.APPICATION_JSON)
-                        .body(addPlayerUseCase.addPlayer(player), DtoPlayer.class));
+  public Mono<ServerResponse> listenListAllPlayersUseCase(ServerRequest serverRequest) {
+    return ServerResponse.ok()
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(listsPlayersUseCase.listsPlayers(), Player.class);
+  }
 
-        // usecase.logic();
-        // return ServerResponse.ok().bodyValue("");
-    }
-    */
+   public Mono<ServerResponse> listenUpdatePlayerUseCase(ServerRequest serverRequest) {
+   var id = serverRequest.pathVariable("id");
 
-    /*
-     * public Mono<ServerResponse> createHeroUseCase(ServerRequest serverRequest) {
-     * return serverRequest.bodyToMono(Hero.class)
-     * .flatMap(element -> createHeroUseCase.createHero(element))
-     * .flatMap(element -> ServerResponse.ok()
-     * .contentType(MediaType.APPLICATION_JSON)
-     * .body(heroRepository.save(element), Hero.class));
-     * }
-     *
-     * public Mono<ServerResponse> listAllUseCase(ServerRequest serverRequest) {
-     * return ServerResponse.ok()
-     * .contentType(MediaType.APPLICATION_JSON)
-     * .body(heroRepository.findAll(), Hero.class);
-     * }
-     *
-     * public Mono<ServerResponse> listForIdUseCase(ServerRequest serverRequest) {
-     * var id = serverRequest.pathVariable("id");
-     *
-     * return ServerResponse.ok()
-     * .contentType(MediaType.APPLICATION_JSON)
-     * .body(heroRepository.findById(id), Hero.class);
-     * }
-     *
-     * public Mono<ServerResponse> updateForHero(ServerRequest serverRequest) {
-     * var id = serverRequest.pathVariable("id");
-     *
-     * return serverRequest.bodyToMono(Hero.class)
-     * .flatMap(element -> ServerResponse.ok()
-     * .contentType(MediaType.APPLICATION_JSON)
-     * .body(heroRepository.update(id, element), Hero.class));
-     * }
-     *
-     * public Mono<ServerResponse> deleteHero(ServerRequest serverRequest) {
-     * var id = serverRequest.pathVariable("id");
-     *
-     * return ServerResponse.ok()
-     * .contentType(MediaType.APPLICATION_JSON)
-     * .body(heroRepository.delete(id), Hero.class);
-     * }
-     *
-     */
+   return serverRequest.bodyToMono(Player.class)
+             .flatMap(element -> ServerResponse.ok()
+             .contentType(MediaType.APPLICATION_JSON)
+             .body(  updatePlayerUseCase.updatePlayer(id, element), Player.class));
+   }
+  public Mono<ServerResponse> listenDeletePlayerUseCase(ServerRequest serverRequest) {
+    var id = serverRequest.pathVariable("id");
+
+    return ServerResponse.ok()
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(deletePlayerUseCase.deletePlayer(id), Player.class);
+  }
+
+
+   public Mono<ServerResponse> listenListPlayerByIdUseCase(ServerRequest serverRequest) {
+   var id = serverRequest.pathVariable("id");
+   return ServerResponse.ok()
+   .contentType(MediaType.APPLICATION_JSON)
+   .body(findPlayerUseCase.findPlayer(id), Player.class);
+   }
+
 }

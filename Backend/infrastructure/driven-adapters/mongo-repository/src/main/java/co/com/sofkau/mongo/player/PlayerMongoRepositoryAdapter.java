@@ -27,7 +27,9 @@ public class PlayerMongoRepositoryAdapter extends AdapterOperations<Player, Play
     }
 
     @Override
-    public Mono<Player> update(String id, Player player) {
-        return update(id, player);
+    public Mono<Player> updatePlayer(String id, Player player) {
+        player.setPlayerId(id);
+
+        return save(player);
     }
 }

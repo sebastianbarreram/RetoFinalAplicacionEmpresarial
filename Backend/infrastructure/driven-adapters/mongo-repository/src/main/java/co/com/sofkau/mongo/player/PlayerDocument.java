@@ -28,6 +28,6 @@ public class PlayerDocument {
     private Integer score;
 
     private List<Integer> pointsHistory = new ArrayList<>();
-    private List<GameCard> gameCardModels = new ArrayList<>();
+    //private List<GameCard> gameCardModels = new ArrayList<>();
 
 }

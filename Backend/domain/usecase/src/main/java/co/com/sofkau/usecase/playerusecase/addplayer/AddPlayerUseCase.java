@@ -5,19 +5,12 @@ import co.com.sofkau.model.player.gateways.PlayerRepository;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
+
+@RequiredArgsConstructor
 public class AddPlayerUseCase {
+    private final PlayerRepository repository;
 
-    public AddPlayerUseCase() {
-
-    }
-
-    public AddPlayerUseCase(PlayerRepository repository) {
-        this.repository = repository;
-    }
-
-    private PlayerRepository repository;
-
-    public Mono<Player> addPlayer(Player transformerPlayer) {
-        return repository.save(transformerPlayer);
+    public Mono<Player> addPlayer(Player player){
+        return repository.save(player);
     }
 }
