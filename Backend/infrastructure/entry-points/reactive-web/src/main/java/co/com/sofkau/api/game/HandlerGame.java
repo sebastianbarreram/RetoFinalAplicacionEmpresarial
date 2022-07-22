@@ -64,9 +64,7 @@ public class HandlerGame {
 
     public Mono<ServerResponse> listenRetireGamePlayerUseCase(ServerRequest serverRequest) {
         var idPlayer = serverRequest.pathVariable("id");
-
      //   var idGame = serverRequest.pathVariable("idGame");
-
         return serverRequest.bodyToMono(Game.class)
                 .flatMap(element -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
