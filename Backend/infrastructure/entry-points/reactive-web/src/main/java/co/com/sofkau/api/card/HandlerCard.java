@@ -4,6 +4,7 @@ import co.com.sofkau.model.card.Card;
 import co.com.sofkau.usecase.cardusecase.createcardusecase.CreateCardUseCase;
 import co.com.sofkau.usecase.cardusecase.deletecard.DeleteCardUseCase;
 import co.com.sofkau.usecase.cardusecase.getcardsusecase.GetCardsUseCase;
+import co.com.sofkau.usecase.cardusecase.getrandomcards.GetRandomCardsUseCase;
 import co.com.sofkau.usecase.cardusecase.listbyid.ListByIdUseCase;
 import co.com.sofkau.usecase.cardusecase.updatecard.UpdateCardUseCase;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,8 @@ public class HandlerCard {
     private final GetCardsUseCase getCardsUseCase;
     private final ListByIdUseCase listByIdUseCase;
     private final UpdateCardUseCase updateCardUseCase;
+
+    private final GetRandomCardsUseCase getRandomCardsUseCase;
 
     public Mono<ServerResponse> listenPOSTCreateCardUseCase(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(Card.class)
@@ -55,5 +58,12 @@ public class HandlerCard {
                 .flatMap(element -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(updateCardUseCase.actualizarCarta(id, element), Card.class));
+    }
+
+    public Mono<ServerResponse> listenGETRandomCards(ServerRequest serverRequest) {
+        var numberOfCards = Integer.valueOf(serverRequest.pathVariable("numberOfCards"));
+        return ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(getRandomCardsUseCase.obtenerCartasAleatorias(numberOfCards), Card.class);
     }
 }
