@@ -35,7 +35,7 @@ public class GameMongoRepositoryAdapter extends AdapterOperations<Game, GameDocu
         game.setId(id);
 
         return repository
-                .save(new GameDocument(game.getId(), game.getTime(), game.getPlayerModelList(), game.getCardGamesList()))
+                .save(new GameDocument(game.getId(), game.getNumberPlayers(), game.getPlayerModelList(), game.getCardGamesList()))
                 .flatMap(element -> Mono.just(game));
 
 
@@ -44,6 +44,7 @@ public class GameMongoRepositoryAdapter extends AdapterOperations<Game, GameDocu
     @Override
     public Mono<Game> retireGamePlayer(Game game) {
 
+
         return repository.save(
                 new GameDocument(
                         game.getId(),
@@ -51,5 +52,6 @@ public class GameMongoRepositoryAdapter extends AdapterOperations<Game, GameDocu
                         game.getPlayerModelList(),
                         game.getCardGamesList())
                 ).flatMap(element -> Mono.just(game));
+
     }
 }
