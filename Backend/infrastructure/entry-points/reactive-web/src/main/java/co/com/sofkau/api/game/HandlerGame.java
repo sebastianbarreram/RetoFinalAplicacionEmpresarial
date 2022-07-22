@@ -5,7 +5,6 @@ import co.com.sofkau.model.game.Game;
 import co.com.sofkau.model.game.gateways.GameRepository;
 import co.com.sofkau.model.player.Player;
 import co.com.sofkau.usecase.gameusecase.creategame.CreateGameUseCase;
-import co.com.sofkau.usecase.gameusecase.dealcards.DealCardsUseCase;
 import co.com.sofkau.usecase.gameusecase.deletegame.DeletegameUseCase;
 
 import co.com.sofkau.usecase.gameusecase.retiregameplayer.RetireGamePlayerUseCase;
@@ -26,7 +25,6 @@ public class HandlerGame {
     private final GameRepository gameRepository;
     private final DeletegameUseCase deletegameUseCase;
     private final UpdategameUseCase updategameUseCase;
-    private final DealCardsUseCase dealCardsUseCase;
     private final GetgameUseCase getgameUseCase;
     private final ListgamebyidUseCase listgamebyidUseCase;
 
