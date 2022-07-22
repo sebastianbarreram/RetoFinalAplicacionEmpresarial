@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { VistaAuthComponent } from './vista-auth.component';
+import { VistaAuthComponent } from "./vista-auth.component";
 
-describe('VistaAuthComponent', () => {
-  let component: VistaAuthComponent;
-  let fixture: ComponentFixture<VistaAuthComponent>;
+describe("VistaAuthComponent", () => {
+	let component: VistaAuthComponent;
+	let fixture: ComponentFixture<VistaAuthComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ VistaAuthComponent ]
-    })
-    .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			declarations: [VistaAuthComponent],
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(VistaAuthComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		fixture = TestBed.createComponent(VistaAuthComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it("should create", () => {
+		expect(component).toBeTruthy();
+	});
 });
