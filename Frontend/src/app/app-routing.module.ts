@@ -7,7 +7,7 @@ import { VistaAuthComponent } from './vista-auth/vista-auth.component';
 import { VistaRegistroComponent } from './vista-registro/vista-registro.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/auth', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'detail/:id', component: HeroDetailComponent },
   { path: 'heroes', component: HeroesComponent },
