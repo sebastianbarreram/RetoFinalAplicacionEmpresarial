@@ -20,8 +20,5 @@ public class Game {
     private List<Player> playerModelList = new ArrayList<>();
     private List<Card> cardGamesList = new ArrayList<>();
 
-
-    private List<Game> gameCardModelList = new ArrayList<>();
-
 }
 
