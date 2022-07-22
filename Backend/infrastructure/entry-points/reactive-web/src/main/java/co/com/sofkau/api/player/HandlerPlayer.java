@@ -3,6 +3,7 @@ package co.com.sofkau.api.player;
 import co.com.sofkau.model.player.Player;
 import co.com.sofkau.usecase.deleteplayer.DeletePlayerUseCase;
 import co.com.sofkau.usecase.playerusecase.addplayer.AddPlayerUseCase;
+import co.com.sofkau.usecase.playerusecase.addpointshistory.AddPointsHistoryUseCase;
 import co.com.sofkau.usecase.playerusecase.findplayer.FindPlayerUseCase;
 import co.com.sofkau.usecase.playerusecase.listsplayers.ListsPlayersUseCase;
 import co.com.sofkau.usecase.playerusecase.updateplayer.UpdatePlayerUseCase;
@@ -22,6 +23,7 @@ public class HandlerPlayer {
   private final UpdatePlayerUseCase updatePlayerUseCase;
   private final FindPlayerUseCase findPlayerUseCase;
   private final DeletePlayerUseCase deletePlayerUseCase;
+  private final AddPointsHistoryUseCase addPointsHistoryUseCase;
 
   public Mono<ServerResponse> listenPostAddPlayerUseCase(ServerRequest serverRequest) {
 
@@ -62,6 +64,14 @@ public class HandlerPlayer {
    return ServerResponse.ok()
    .contentType(MediaType.APPLICATION_JSON)
    .body(findPlayerUseCase.findPlayer(id), Player.class);
+   }
+
+   public Mono<ServerResponse> listenaddPointsHistoryUseCase(ServerRequest serverRequest) {
+       var points = serverRequest.pathVariable("points");
+      return serverRequest.bodyToMono(Player.class)
+               .flatMap(player -> ServerResponse.ok()
+                       .contentType(MediaType.APPLICATION_JSON)
+                       .body(  addPointsHistoryUseCase.addpointshistory( points, player), Player.class));
    }
 
 }
