@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class WinroundUseCase {
@@ -17,10 +18,11 @@ public class WinroundUseCase {
     private final GetCardsUseCase getCardsUseCase;
     private final CardRepository cardRepository;
 
-   /* Mono<Board> DefineWinRound(){
-           var cardMono = cardRepository.findById()
-                        .map(e->e.getXp())
-                        .reduce((exp1,exp2)->(exp1>exp2)? exp1:exp2)
-
-    }*/
+    Mono<Optional<Card>> DefineWinRound(String id){
+        var cardMono = boardRepository.findById(id)
+                        .map(e->e.getListCard().stream()
+                                .reduce((value1,value2)->(value1.getXp()>value2.getXp())?value1:value2))
+                   ;
+        return cardMono;
+    }
 }

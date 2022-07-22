@@ -13,6 +13,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardDocument, String, BoardMongoDBRepository>
@@ -37,9 +38,7 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
     }
 
     @Override
-    public Mono<Board> winRound(Mono<Board> win) {
-        return win;
+    public Mono<String> winRound(Mono<Optional<Card>> win) {
+        return win.map(a->a.get().getPlayerId());
     }
-
-
 }
