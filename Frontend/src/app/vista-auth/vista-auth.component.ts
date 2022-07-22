@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../authentication.service';
+import { Component, OnInit } from "@angular/core";
+import { AuthenticationService } from "../authentication.service";
 
 @Component({
   selector: 'app-vista-auth',
@@ -7,10 +7,7 @@ import { AuthenticationService } from '../authentication.service';
   styleUrls: ['./vista-auth.component.css']
 })
 export class VistaAuthComponent implements OnInit {
+	constructor(public authenticationService: AuthenticationService) {}
 
-  constructor(public authenticationService: AuthenticationService) { }
-
-  ngOnInit(): void {
-  }
-
+	ngOnInit(): void {}
 }
