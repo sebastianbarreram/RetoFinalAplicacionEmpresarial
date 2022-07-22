@@ -96,12 +96,12 @@ export class AuthenticationService {
       });
   }
 
-  // GoogleAuth() {
-  //   return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-  //     if (res) {
-  //       //this.router.navigate(['dashboard']);
-  //     }
-  //   });
-  // }
+  GoogleAuth() {
+    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
+      if (res) {
+        //this.router.navigate(['dashboard']);
+      }
+    });
+  }
 
 }
