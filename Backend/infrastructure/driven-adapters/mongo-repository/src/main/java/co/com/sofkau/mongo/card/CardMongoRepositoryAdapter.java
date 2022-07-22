@@ -5,7 +5,12 @@ import co.com.sofkau.model.card.gateways.CardRepository;
 import co.com.sofkau.mongo.helper.AdapterOperations;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class CardMongoRepositoryAdapter extends AdapterOperations<Card, CardDocument, String, CardMongoDBRepository>
@@ -30,7 +35,12 @@ public class CardMongoRepositoryAdapter extends AdapterOperations<Card, CardDocu
         card.setCardId(id);
 
         return repository
-            .save(new CardDocument(card.getCardId(),card.getXp(),card.getImage()))
-            .flatMap(element->Mono.just(card));
+                .save(new CardDocument(card.getCardId(), card.getXp(), card.getImage()))
+                .flatMap(element -> Mono.just(card));
+    }
+
+    @Override
+    public Flux<Card> randomCards(List<Card> newCards) {
+        return Flux.fromIterable(newCards);
     }
 }
