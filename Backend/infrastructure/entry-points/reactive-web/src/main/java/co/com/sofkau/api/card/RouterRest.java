@@ -18,6 +18,7 @@ public RouterFunction<ServerResponse> routerFunction(HandlerCard handler) {
     .andRoute(GET("/api/cards"), handler::listenGETCardsUseCase)
     .andRoute(GET("/api/cards/{cardId}"), handler::listenGETListByIdUseCase)
             .and(route(PUT("/api/cards/{cardId}"), handler::listenPUTUpdateCardUseCase))
-            .andRoute(GET("/api/cards/random/{numberOfCards}"),handler::listenGETRandomCards);
+            .andRoute(GET("/api/cards/random/{numberOfCards}"),handler::listenGETRandomCards)
+            .andRoute(GET("/api/cards/player/{playerId}"),handler::listenGETListByPlayerId);
     }
 }
