@@ -14,8 +14,8 @@ public class RouterRestGame {
     public RouterFunction<ServerResponse> routerFunctionGame(HandlerGame handlerGame) {
         return route(POST("/api/usecase/game"), handlerGame::createGamePostUseCase)
                 .and(route(GET("/api/game"), handlerGame::listGameGETUseCase))
-                .and(route(DELETE("/api/game/{id}"), handlerGame::listDELETEGameUseCase));
-               // .and(route(PUT("/game/{id}"), handlerGame::listenUpdatePlayerUseCase));
-
+                .and(route(DELETE("/api/game/{id}"), handlerGame::listDELETEGameUseCase))
+                .and(route(PUT("/api/game/retire/{id}"), handlerGame::listenRetireGamePlayerUseCase));
+                //.and(route(PUT("/game/{id}"), handlerGame::listenUpdatePlayerUseCase));
     }
 }

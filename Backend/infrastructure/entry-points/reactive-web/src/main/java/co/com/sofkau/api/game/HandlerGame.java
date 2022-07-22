@@ -3,8 +3,10 @@ package co.com.sofkau.api.game;
 import co.com.sofkau.model.card.Card;
 import co.com.sofkau.model.game.Game;
 import co.com.sofkau.model.game.gateways.GameRepository;
+import co.com.sofkau.model.player.Player;
 import co.com.sofkau.usecase.gameusecase.creategame.CreateGameUseCase;
 import co.com.sofkau.usecase.gameusecase.deletegame.DeletegameUseCase;
+import co.com.sofkau.usecase.gameusecase.retiregameplayer.RetireGamePlayerUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -18,6 +20,7 @@ public class HandlerGame {
     private final CreateGameUseCase createGameUseCase;
     private final GameRepository gameRepository;
 
+    private final RetireGamePlayerUseCase retireGamePlayerUseCase;
     public Mono<ServerResponse> createGamePostUseCase(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(Game.class)
                 .flatMap(element -> ServerResponse.ok()
@@ -36,4 +39,16 @@ public class HandlerGame {
                 .body(gameRepository.delete(id), Game.class);
     }
 
+
+
+    public Mono<ServerResponse> listenRetireGamePlayerUseCase(ServerRequest serverRequest) {
+        var idPlayer = serverRequest.pathVariable("id");
+
+     //   var idGame = serverRequest.pathVariable("idGame");
+
+        return serverRequest.bodyToMono(Game.class)
+                .flatMap(element -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(  retireGamePlayerUseCase.retireGamePlayer (idPlayer, element), Game.class));
+    }
 }

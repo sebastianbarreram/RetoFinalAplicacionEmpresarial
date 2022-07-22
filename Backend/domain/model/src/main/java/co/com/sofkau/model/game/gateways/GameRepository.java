@@ -15,4 +15,6 @@ public interface GameRepository {
     Mono<Void> delete(String id);
 
     Mono<Game> updateGame(String id, Game game);
+
+    Mono<Game> retireGamePlayer(String idPlayer, Game game);
 }
