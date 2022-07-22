@@ -1,6 +1,7 @@
 package co.com.sofkau.model.player;
 
-//import co.com.sofkau.model.gamecard.GameCard;
+
+import co.com.sofkau.model.card.Card;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,6 @@ public class Player {
     private String email;
     private Integer score;
 
-    private final List<Integer> pointsHistory = new ArrayList<>();
-    //private List<GameCard> gameCardModels = new ArrayList<>();
+    private  List<Integer> pointsHistory = new ArrayList<>();
+    private  List<Card> cardModels = new ArrayList<>();
 }

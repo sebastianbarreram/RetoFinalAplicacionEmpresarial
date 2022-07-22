@@ -24,17 +24,16 @@ public class HandlerGame {
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(createGameUseCase.createGame(element), Game.class));
     }
-
     public Mono<ServerResponse> listGameGETUseCase(ServerRequest serverRequest) {
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(gameRepository.findAll(), Game.class);
     }
-    public Mono<ServerResponse> listenDELETEGameUseCase(ServerRequest serverRequest) {
-        var id = serverRequest.pathVariable("GameId");
+    public Mono<ServerResponse> listDELETEGameUseCase(ServerRequest serverRequest) {
+        var id = serverRequest.pathVariable("id");
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(gameRepository.delete(id), Card.class);
+                .body(gameRepository.delete(id), Game.class);
     }
 
 }
