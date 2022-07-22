@@ -48,7 +48,7 @@ public class GameMongoRepositoryAdapter extends AdapterOperations<Game, GameDocu
         return repository.save(
                 new GameDocument(
                         game.getId(),
-                        game.getTime(),
+                        game.getNumberPlayers(),
                         game.getPlayerModelList(),
                         game.getCardGamesList())
                 ).flatMap(element -> Mono.just(game));
