@@ -1,4 +1,4 @@
-package co.com.sofkau.usecase.listbyplayerid;
+package co.com.sofkau.usecase.cardusecase.listbyplayerid;
 
 import co.com.sofkau.model.card.Card;
 import co.com.sofkau.model.card.gateways.CardRepository;

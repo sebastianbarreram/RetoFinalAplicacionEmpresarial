@@ -7,7 +7,7 @@ import co.com.sofkau.usecase.cardusecase.getcardsusecase.GetCardsUseCase;
 import co.com.sofkau.usecase.cardusecase.getrandomcards.GetRandomCardsUseCase;
 import co.com.sofkau.usecase.cardusecase.listbyid.ListByIdUseCase;
 import co.com.sofkau.usecase.cardusecase.updatecard.UpdateCardUseCase;
-import co.com.sofkau.usecase.listbyplayerid.ListByPlayerIdUseCase;
+import co.com.sofkau.usecase.cardusecase.listbyplayerid.ListByPlayerIdUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
