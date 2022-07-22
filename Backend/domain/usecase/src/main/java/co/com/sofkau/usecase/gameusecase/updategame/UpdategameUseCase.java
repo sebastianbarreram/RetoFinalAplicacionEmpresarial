@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class UpdategameUseCase {
     private final GameRepository repository;
-    public Mono<Game> updateGame(String id,Game game){
+    public Mono<Game> updateGame(String id, Game game){
         return repository.updateGame(id,game);
     }
 }

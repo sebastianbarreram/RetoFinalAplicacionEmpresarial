@@ -19,7 +19,6 @@ public class Game {
     private Date time;
     private List<Player> playerModelList = new ArrayList<>();
     private List<Card> cardGamesList = new ArrayList<>();
-    private List<Game> cardModelList = new ArrayList<>();
 
 }
 
