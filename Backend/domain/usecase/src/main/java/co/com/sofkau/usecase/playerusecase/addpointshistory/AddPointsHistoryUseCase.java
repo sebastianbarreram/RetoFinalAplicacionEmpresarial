@@ -11,10 +11,12 @@ import java.util.List;
 public class AddPointsHistoryUseCase {
     private final PlayerRepository repository;
 
-    public Mono<Player> addpointshistory(Integer pointshistory, Player player){
+    public Mono<Player> addpointshistory(String pointshistory, Player player){
+
+        Integer points = Integer.parseInt(pointshistory);
 
         List<Integer>  listsPointshistory = player.getPointsHistory();
-        listsPointshistory.add(pointshistory);
+        listsPointshistory.add(points);
         player.setPointsHistory(listsPointshistory);
 
         return repository.addPointsHistory(player);
