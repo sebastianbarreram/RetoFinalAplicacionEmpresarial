@@ -30,6 +30,28 @@ public class PlayerMongoRepositoryAdapter extends AdapterOperations<Player, Play
     public Mono<Player> updatePlayer(String id, Player player) {
         player.setPlayerId(id);
 
-        return save(player);
+        return  repository.save(
+                new PlayerDocument(
+                        player.getPlayerId(),
+                        player.getNickName(),
+                        player.getEmail(),
+                        player.getScore(),
+                        player.getPointsHistory(),
+                        player.getCardModels())
+        ).flatMap(element -> Mono.just(player));
+    }
+
+    @Override
+    public Mono<Player> addPointsHistory(Player player) {
+
+        return  repository.save(
+                new PlayerDocument(
+                        player.getPlayerId(),
+                        player.getNickName(),
+                        player.getEmail(),
+                        player.getScore(),
+                        player.getPointsHistory(),
+                        player.getCardModels())
+        ).flatMap(element -> Mono.just(player));
     }
 }

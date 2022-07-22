@@ -42,13 +42,14 @@ public class GameMongoRepositoryAdapter extends AdapterOperations<Game, GameDocu
     }
 
     @Override
-    public Mono<Game> retireGamePlayer(String idPlayer, Game game) {
+    public Mono<Game> retireGamePlayer(Game game) {
 
-        List<Player> playerNew =  game.getPlayerModelList().stream().filter(player-> !player.getPlayerId().equals(idPlayer) ).collect(Collectors.toList());
-
-        game.setPlayerModelList(playerNew);
-
-        return repository.save(new GameDocument(game.getId(), game.getTime(), game.getPlayerModelList(), game.getCardGamesList()))
-                .flatMap(element -> Mono.just(game));
+        return repository.save(
+                new GameDocument(
+                        game.getId(),
+                        game.getTime(),
+                        game.getPlayerModelList(),
+                        game.getCardGamesList())
+                ).flatMap(element -> Mono.just(game));
     }
 }
