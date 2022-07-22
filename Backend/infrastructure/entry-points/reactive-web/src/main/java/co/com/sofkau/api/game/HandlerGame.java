@@ -3,9 +3,12 @@ package co.com.sofkau.api.game;
 import co.com.sofkau.model.card.Card;
 import co.com.sofkau.model.game.Game;
 import co.com.sofkau.model.game.gateways.GameRepository;
+import co.com.sofkau.model.player.Player;
 import co.com.sofkau.usecase.gameusecase.creategame.CreateGameUseCase;
 import co.com.sofkau.usecase.gameusecase.dealcards.DealCardsUseCase;
 import co.com.sofkau.usecase.gameusecase.deletegame.DeletegameUseCase;
+
+import co.com.sofkau.usecase.gameusecase.retiregameplayer.RetireGamePlayerUseCase;
 import co.com.sofkau.usecase.gameusecase.getgame.GetgameUseCase;
 import co.com.sofkau.usecase.gameusecase.listgamebyid.ListgamebyidUseCase;
 import co.com.sofkau.usecase.gameusecase.updategame.UpdategameUseCase;
@@ -27,6 +30,7 @@ public class HandlerGame {
     private final GetgameUseCase getgameUseCase;
     private final ListgamebyidUseCase listgamebyidUseCase;
 
+    private final RetireGamePlayerUseCase retireGamePlayerUseCase;
     public Mono<ServerResponse> createGamePostUseCase(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(Game.class)
                 .flatMap(element -> ServerResponse.ok()
@@ -58,4 +62,16 @@ public class HandlerGame {
                 .body(listgamebyidUseCase.listGameId(id), Game.class);
     }
 
+
+
+    public Mono<ServerResponse> listenRetireGamePlayerUseCase(ServerRequest serverRequest) {
+        var idPlayer = serverRequest.pathVariable("id");
+
+     //   var idGame = serverRequest.pathVariable("idGame");
+
+        return serverRequest.bodyToMono(Game.class)
+                .flatMap(element -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(  retireGamePlayerUseCase.retireGamePlayer (idPlayer, element), Game.class));
+    }
 }
