@@ -10,8 +10,8 @@ public class ListByPlayerIdUseCase {
     private final CardRepository cardRepository;
     public Flux<Card> listarCardByPlayerId(String playerId) {
         Flux<Card> playerCards = cardRepository
-                .findAll();
-//                .filter(filtro -> filtro.getPlayerId().contains(playerId));
+                .findAll()
+                .filter(filtro -> filtro.getPlayerId().equals(playerId)) ;
         return cardRepository.findByPlayerId(playerCards);
     }
 }
