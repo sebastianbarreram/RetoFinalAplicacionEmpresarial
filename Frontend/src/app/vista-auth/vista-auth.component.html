@@ -1,18 +1,109 @@
-<div class="authBlock">
-  <h3>Angular Firebase Signout / Logout Example</h3>
-  <!-- Calling SignOut Api from AuthenticationService -->
-  <div class="formGroup">
-    <input type="button" class="btn btnPrimary" value="Log in" (click)="authenticationService.SignOut()" />
-  </div>
-</div>
-<div class="formGroup">
-  <input type="text" class="formControl" placeholder="Username" #userName required>
-</div>
-<div class="formGroup">
-  <input type="password" class="formControl" placeholder="Password" #userPassword required>
-</div>
-<!-- Calling SignIn Api from AuthService -->
-<div class="formGroup">
-  <input type="button" class="btn btnPrimary" value="Log in"
-    (click)="authenticationService.SignIn(userName.value, userPassword.value)">
-</div>
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 text-center mb-5">
+				<h2 class="heading-section">Login</h2>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-md-6 col-lg-4">
+				<div class="login-wrap p-0">
+			      	<h3 class="mb-4 text-center">
+			      		¿Tiene una cuenta?
+			      	</h3>
+			      	<form action="#" class="signin-form">
+			      		<div class="form-group">
+				  			<input type="text" class="form-control" placeholder="Username" required>
+						</div>
+					    <div class="form-group">
+							<input id="password-field" type="password" class="form-control" placeholder="Password" required>
+							<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="form-control btn btn-primary submit px-3">
+								Sign In
+							</button>
+						</div>
+						<div class="text-center p-t-57 p-b-20">
+							<span class="txt1">
+								O inicie sesión con
+							</span>
+						</div>
+						<div class="flex-c p-b-112  btn-google">
+							<a href="#" class="login100-social-item">
+								<img src="../../assets/icon-google.png" alt="GOOGLE">
+							</a>
+						</div>
+						<div class="text-center">
+						<a href="#" class="txt2 hov1">
+							Sign Up
+						</a>
+						</div>
+					</form>
+				</div>
+			</div>
+	    </div>
+	</div>
+</section>
+
+
+
+
+
+
+<!-- <div class="background"> -->
+<!---->
+<!---->
+<!-- <div class="authBlock"> -->
+<!--   <button type="button" class="btn btn-primary">Primary</button> -->
+<!--   <h3>Angular Firebase Signout / Logout Example</h3> -->
+<!--   <!-- Calling SignOut Api from AuthenticationService --> -->
+<!--   <div class="formGroup"> -->
+<!--     <input -->
+<!--       type="button" -->
+<!--       class="btn btnPrimary" -->
+<!--       value="Log out" -->
+<!--       (click)="authenticationService.SignOut()" -->
+<!--     /> -->
+<!--   </div> -->
+<!-- </div> -->
+<!-- <div class="formGroup"> -->
+<!--   <input -->
+<!--     type="text" -->
+<!--     class="formControl" -->
+<!--     placeholder="Username" -->
+<!--     #userName -->
+<!--     required -->
+<!--   /> -->
+<!-- </div> -->
+<!-- <div class="formGroup"> -->
+<!--   <input -->
+<!--     type="password" -->
+<!--     class="formControl" -->
+<!--     placeholder="Password" -->
+<!--     #userPassword -->
+<!--     required -->
+<!--   /> -->
+<!-- </div> -->
+<!-- <!-- Calling SignIn Api from AuthService --> -->
+<!-- <div class="formGroup"> -->
+<!--   <input -->
+<!--     type="button" -->
+<!--     class="btn btnPrimary" -->
+<!--     value="Log in" -->
+<!--     (click)="authenticationService.SignIn(userName.value, userPassword.value)" -->
+<!--   /> -->
+<!-- </div> -->
+<!-- <!-- Calling GoogleAuth Api from AuthService --> -->
+<!-- <div class="formGroup"> -->
+<!--   <button -->
+<!--     type="button" -->
+<!--     class="btn googleBtn" -->
+<!--     (click)="authenticationService.GoogleAuth()" -->
+<!--   > -->
+<!--     <i class="fab fa-google-plus-g"></i> -->
+<!--     Log in with Google -->
+<!--   </button> -->
+<!-- </div> -->
+<!---->
+<!-- </div> -->

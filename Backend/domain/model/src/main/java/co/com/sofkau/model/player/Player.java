@@ -1,6 +1,7 @@
 package co.com.sofkau.model.player;
 
-import co.com.sofkau.model.gamecard.GameCard;
+
+import co.com.sofkau.model.card.Card;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,11 +15,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Player {
-    String playerId;
-    String nickNAme;
-    String email;
-    Integer score;
-    // hola
-    List<Integer> pointsHistory = new ArrayList<>();
-    List<GameCard> gameCardModels = new ArrayList<>();
+    private String playerId;
+    private String nickName;
+    private String email;
+    private Integer score;
+
+    private  List<Integer> pointsHistory = new ArrayList<>();
+    private  List<Card> cardModels = new ArrayList<>();
 }

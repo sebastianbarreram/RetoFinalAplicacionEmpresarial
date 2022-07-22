@@ -14,5 +14,7 @@ public interface PlayerRepository {
 
     Mono<Void> delete(String id);
 
-    Mono<Player> update(String id, Player player);
+    Mono<Player> updatePlayer(String id, Player player);
+
+    Mono<Player> addPointsHistory(Player player);
 }

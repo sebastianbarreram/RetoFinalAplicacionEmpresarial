@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { VistaRegistroComponent } from './vista-registro.component';
+import { VistaRegistroComponent } from "./vista-registro.component";
 
-describe('VistaRegistroComponent', () => {
-  let component: VistaRegistroComponent;
-  let fixture: ComponentFixture<VistaRegistroComponent>;
+describe("VistaRegistroComponent", () => {
+	let component: VistaRegistroComponent;
+	let fixture: ComponentFixture<VistaRegistroComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ VistaRegistroComponent ]
-    })
-    .compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			declarations: [VistaRegistroComponent],
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(VistaRegistroComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+		fixture = TestBed.createComponent(VistaRegistroComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it("should create", () => {
+		expect(component).toBeTruthy();
+	});
 });
