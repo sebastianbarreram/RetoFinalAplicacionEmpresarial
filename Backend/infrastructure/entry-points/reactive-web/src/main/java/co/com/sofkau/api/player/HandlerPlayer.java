@@ -7,6 +7,7 @@ import co.com.sofkau.usecase.playerusecase.addpointshistory.AddPointsHistoryUseC
 import co.com.sofkau.usecase.playerusecase.addscore.AddScoreUseCase;
 import co.com.sofkau.usecase.playerusecase.findplayer.FindPlayerUseCase;
 import co.com.sofkau.usecase.playerusecase.listsplayers.ListsPlayersUseCase;
+import co.com.sofkau.usecase.playerusecase.reallocatecards.ReallocateCardsUseCase;
 import co.com.sofkau.usecase.playerusecase.updateplayer.UpdatePlayerUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -26,8 +27,7 @@ public class HandlerPlayer {
   private final DeletePlayerUseCase deletePlayerUseCase;
   private final AddPointsHistoryUseCase addPointsHistoryUseCase;
   private final AddScoreUseCase addScoreUseCase;
-
-
+private final ReallocateCardsUseCase reallocateCardsUseCase;
   public Mono<ServerResponse> listenPostAddPlayerUseCase(ServerRequest serverRequest) {
 
     return serverRequest
@@ -85,4 +85,12 @@ public class HandlerPlayer {
                        .contentType(MediaType.APPLICATION_JSON)
                        .body(  addScoreUseCase.addScore( points, player), Player.class));
    }
+
+    public Mono<ServerResponse> listenReallocateCardsUseCase(ServerRequest serverRequest) {
+        var id = serverRequest.pathVariable("id");
+
+        return  ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                .body(  reallocateCardsUseCase.reallocateCards(id) , Player.class);
+    }
+
 }
