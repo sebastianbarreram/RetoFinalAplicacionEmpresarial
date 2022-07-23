@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -16,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Game {
     private String id;
-    private Date time;
+    private Integer numberPlayers;
     private List<Player> playerModelList = new ArrayList<>();
     private List<Card> cardGamesList = new ArrayList<>();
 

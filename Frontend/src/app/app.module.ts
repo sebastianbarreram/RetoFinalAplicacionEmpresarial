@@ -15,6 +15,7 @@ import { environment } from "src/environments/environment";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 import { VistaRegistroComponent } from "./vista-registro/vista-registro.component";
+import { HallComponent } from "./hall/hall.component";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,8 @@ import { VistaRegistroComponent } from "./vista-registro/vista-registro.componen
     DashboardComponent,
     VistaAuthComponent,
     VistaRegistroComponent,
+    HallComponent
+    
   ],
   imports: [
     BrowserModule,

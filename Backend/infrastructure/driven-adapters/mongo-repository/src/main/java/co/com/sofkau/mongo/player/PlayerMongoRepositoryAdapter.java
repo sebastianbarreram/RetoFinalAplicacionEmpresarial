@@ -54,4 +54,31 @@ public class PlayerMongoRepositoryAdapter extends AdapterOperations<Player, Play
                         player.getCardModels())
         ).flatMap(element -> Mono.just(player));
     }
+
+    @Override
+    public Mono<Player> addScore(Player player) {
+        return repository.save(
+                new PlayerDocument(
+                        player.getPlayerId(),
+                        player.getNickName(),
+                        player.getEmail(),
+                        player.getScore(),
+                        player.getPointsHistory(),
+                        player.getCardModels())
+        ).flatMap(element -> Mono.just(player));
+    }
+
+  @Override
+  public Mono<Player> reallocateCards(Player player) {
+    return repository
+        .save(
+            new PlayerDocument(
+                player.getPlayerId(),
+                player.getNickName(),
+                player.getEmail(),
+                player.getScore(),
+                player.getPointsHistory(),
+                player.getCardModels()))
+        .flatMap(element -> Mono.just(player));
+    }
 }

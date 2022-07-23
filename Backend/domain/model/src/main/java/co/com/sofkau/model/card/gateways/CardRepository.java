@@ -12,6 +12,6 @@ public interface CardRepository {
     Mono<Card> findById(String id);
     Mono<Void> delete(String id);
     Mono<Card> update(String id, Card card);
-
     Flux<Card> randomCards(List<Card> newCards);
+    Flux<Card> findByPlayerId(Flux<Card> playerCards);
 }

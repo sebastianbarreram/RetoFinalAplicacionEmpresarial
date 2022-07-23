@@ -12,4 +12,6 @@ public class Card {
     private String cardId;
     private Integer xp;
     private String image;
+    private Boolean hidden;
+    private String playerId;
 }

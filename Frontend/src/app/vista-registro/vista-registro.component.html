@@ -1,8 +1,46 @@
-<input type="email" class="formControl" placeholder="Email Address" #userEmail required />
-<div class="formGroup">
-  <input type="password" class="formControl" placeholder="Password" #userPwd required />
-</div>
-<div class="formGroup">
-  <input type="button" class="btn btnPrimary" value="Sign Up"
-    (click)="authService.SignUp(userEmail.value, userPwd.value)" />
-</div>
+<!-- <input type="email" class="formControl" placeholder="Email Address" #userEmail required /> -->
+<!-- <div class="formGroup"> -->
+<!--   <input type="password" class="formControl" placeholder="Password" #userPwd required /> -->
+<!-- </div> -->
+<!-- <div class="formGroup"> -->
+<!--   <input type="button" class="btn btnPrimary" value="Sign Up" -->
+<!--     (click)="authService.SignUp(userEmail.value, userPwd.value)" /> -->
+<!-- </div> -->
+
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 text-center mb-5">
+				<h2 class="heading-section">Registro</h2>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-md-6 col-lg-4">
+				<div class="login-wrap p-0">
+			      	<h3 class="mb-4 text-center">
+			      		!Crea una cuenta¡
+			      	</h3>
+					<form action="#" class="signin-form">
+						<div class="form-group">
+				  			<input type="text" class="form-control" placeholder="Correo Electrónico" #userEmail required>
+						</div>
+					    <div class="form-group">
+							  <input id="password-field" type="password" class="form-control" placeholder="Contraseña" #userPwd required>
+							  <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+						 </div>
+						<!-- Calling SignIn Api from AuthService -->
+						<div class="form-group formGroup">
+							<button type="submit" class="form-control btn btn-primary submit px-3"
+								value="Registrarse"
+							     (click)="authService.SignUp(userEmail.value, userPwd.value)">
+							    Registro
+							</button>
+				 		</div>
+					</form>
+				</div>
+			</div>
+	    </div>
+	</div>
+</section>
+
+
