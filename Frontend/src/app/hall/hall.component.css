@@ -86,12 +86,15 @@ body {
     transform: scale(.98);
   }
   div.cards-container {
-
-  margin-left: 5px;
+    width: 800px;
+    margin-left: 5px;
     display: flex;
-    justify-content: space-around;
     float: bottom; 
     position: relative;
-    bottom: 5px;
-    position:fixed;
+    clear: both;
   }
+
+  .carousel-control-next,
+.carousel-control-prev /*, .carousel-indicators */ {
+    filter: invert(100%);
+}

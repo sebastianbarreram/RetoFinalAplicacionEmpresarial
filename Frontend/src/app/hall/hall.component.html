@@ -1,6 +1,106 @@
 <p>hall works!</p>
 
-<div class="cards-container">
+<!-- <div
+  id="carouselExampleControls"
+  class="carousel slide"
+  data-interval="false"
+  data-bs-ride="carousel"
+>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="cards-container">
+        <body>
+          <div>
+            <div class="card">
+              <div class="monster-image">
+                <img src="../../assets/Pack 108 Pepsicards marvel/0E0.jpg" />
+              </div>
+              <div class="description">
+                <p class="atk-def">XP/1000</p>
+              </div>
+            </div>
+          </div>
+        </body>
+        <body>
+          <div id="container">
+            <div class="card">
+              <div class="monster-image">
+                <img src="../../assets/Pack 108 Pepsicards marvel/287.jpg" />
+              </div>
+              <div class="description">
+                <p class="atk-def">XP/800</p>
+              </div>
+            </div>
+          </div>
+        </body>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="cards-container">
+        <body>
+          <div id="container">
+            <div class="card">
+              <div class="monster-image">
+                <img src="../../assets/Pack 108 Pepsicards marvel/E5E.jpg" />
+              </div>
+              <div class="description">
+                <p class="atk-def">XP/500</p>
+              </div>
+            </div>
+          </div>
+        </body>
+        <body>
+          <div id="container">
+            <div class="card">
+              <div class="monster-image">
+                <img src="../../assets/Pack 108 Pepsicards marvel/740.jpg" />
+              </div>
+              <div class="description">
+                <p class="atk-def">XP/800</p>
+              </div>
+            </div>
+          </div>
+        </body>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="cards-container">
+        <body>
+          <div id="container">
+            <div class="card">
+              <div class="monster-image">
+                <img src="../../assets/Pack 108 Pepsicards marvel/175.jpg" />
+              </div>
+              <div class="description">
+                <p class="atk-def">XP/800</p>
+              </div>
+            </div>
+          </div>
+        </body>
+      </div>
+    </div>
+  </div>
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleControls"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExampleControls"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div> -->
+
+<div class="cards-container overflow-auto">
   <body>
     <div id="container">
       <div class="card">
@@ -61,7 +161,70 @@
       </div>
     </div>
   </body>
- 
+  <body>
+    <div id="container">
+      <div class="card">
+        <div class="monster-image">
+          <img src="../../assets/Pack 108 Pepsicards marvel/0E0.jpg" />
+        </div>
+        <div class="description">
+          <p class="atk-def">XP/1000</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <body>
+    <div id="container">
+      <div class="card">
+        <div class="monster-image">
+          <img src="../../assets/Pack 108 Pepsicards marvel/0E0.jpg" />
+        </div>
+        <div class="description">
+          <p class="atk-def">XP/1000</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <body>
+    <div id="container">
+      <div class="card">
+        <div class="monster-image">
+          <img src="../../assets/Pack 108 Pepsicards marvel/0E0.jpg" />
+        </div>
+        <div class="description">
+          <p class="atk-def">XP/1000</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <body>
+    <div id="container">
+      <div class="card">
+        <div class="monster-image">
+          <img src="../../assets/Pack 108 Pepsicards marvel/0E0.jpg" />
+        </div>
+        <div class="description">
+          <p class="atk-def">XP/1000</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</div>
+
+<div class="cards-container overflow-auto">
+  <body *ngFor="let card of cards">
+    <div id="container">
+      <div class="card">
+        <div class="monster-image">
+          <img [src]="!card.hidden ? card.image: '../../assets/hiddenCard.jpg'" />
+        </div>
+        <div class="description">
+          <p class="atk-def" *ngIf="!card.hidden">XP/{{ card.xp }}</p>
+          <p class="atk-def" *ngIf="card.hidden">XP/????</p>
+        </div>
+      </div>
+    </div>
+  </body>
 </div>
 
 <div>Detesto cuando pasa esto</div>
