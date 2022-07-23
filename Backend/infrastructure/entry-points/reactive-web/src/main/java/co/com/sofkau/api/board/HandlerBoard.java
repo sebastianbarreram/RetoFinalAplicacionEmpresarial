@@ -6,6 +6,7 @@ import co.com.sofkau.model.game.Game;
 import co.com.sofkau.usecase.boardusecase.createboard.CreateBoardUseCase;
 import co.com.sofkau.usecase.boardusecase.gettablerobyid.GettablerobyidUseCase;
 import co.com.sofkau.usecase.boardusecase.updateboard.UpdateboardUseCase;
+import co.com.sofkau.usecase.boardusecase.usecard.UsecardUseCase;
 import co.com.sofkau.usecase.boardusecase.winround.WinroundUseCase;
 import co.com.sofkau.usecase.cardusecase.createcardusecase.CreateCardUseCase;
 import co.com.sofkau.usecase.cardusecase.deletecard.DeleteCardUseCase;
@@ -28,6 +29,7 @@ public class HandlerBoard {
     private final GettablerobyidUseCase gettablerobyidUseCase;
     private final CreateBoardUseCase createBoardUseCase;
     private final WinroundUseCase winroundUseCase;
+    private final UsecardUseCase usecardUseCase;
 
     public Mono<ServerResponse> listenPOSTCreateBoardUseCase(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(Board.class)
@@ -43,7 +45,6 @@ public class HandlerBoard {
     }
     public Mono<ServerResponse> listenPUTUpdateBoardUseCase(ServerRequest serverRequest) {
         var id = serverRequest.pathVariable("id");
-
         return serverRequest.bodyToMono(Board.class)
                 .flatMap(element -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
@@ -51,13 +52,16 @@ public class HandlerBoard {
     }
     public Mono<ServerResponse>listenGetWinBoardUseCase(ServerRequest serverRequest){
         var id = serverRequest.pathVariable("id");
-       /* return serverRequest.bodyToMono(Board.class)
-                .flatMap(element -> ServerResponse.ok()
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(winroundUseCase.winRound(id), Game.class));*/
-
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(winroundUseCase.winRound(id ), Board.class);
+    }
+    public Mono<ServerResponse>listenUseCardUseCase(ServerRequest serverRequest){
+        var id = serverRequest.pathVariable("id");
+        var idCard = serverRequest.pathVariable("idCard");
+        return  serverRequest.bodyToMono(Board.class)
+                .flatMap(element -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(usecardUseCase.useCard(id,idCard,element),Board.class));
     }
 }
