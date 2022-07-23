@@ -28,6 +28,7 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
          */
         super(repository, mapper, d -> mapper.map(d, Board.class));
     }
+
     @Override
     public Mono<Void> delete(String id) {
         return repository.deleteById(id);
@@ -37,7 +38,7 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
     public Mono<Board> update(String id, Board board) {
 
         board.setId(id);
-        return repository.save(new BoardDocument(board.getId(),board.getListCard(),board.getTime()))
+        return repository.save(new BoardDocument(board.getId(),board.getTime(), board.getListCard(), board.getListplayer()))
                 .flatMap(element -> Mono.just(board));
     }
 
