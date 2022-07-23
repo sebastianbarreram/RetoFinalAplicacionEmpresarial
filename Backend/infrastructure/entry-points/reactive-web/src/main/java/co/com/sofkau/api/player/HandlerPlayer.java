@@ -4,6 +4,7 @@ import co.com.sofkau.model.player.Player;
 import co.com.sofkau.usecase.deleteplayer.DeletePlayerUseCase;
 import co.com.sofkau.usecase.playerusecase.addplayer.AddPlayerUseCase;
 import co.com.sofkau.usecase.playerusecase.addpointshistory.AddPointsHistoryUseCase;
+import co.com.sofkau.usecase.playerusecase.addscore.AddScoreUseCase;
 import co.com.sofkau.usecase.playerusecase.findplayer.FindPlayerUseCase;
 import co.com.sofkau.usecase.playerusecase.listsplayers.ListsPlayersUseCase;
 import co.com.sofkau.usecase.playerusecase.updateplayer.UpdatePlayerUseCase;
@@ -24,6 +25,8 @@ public class HandlerPlayer {
   private final FindPlayerUseCase findPlayerUseCase;
   private final DeletePlayerUseCase deletePlayerUseCase;
   private final AddPointsHistoryUseCase addPointsHistoryUseCase;
+  private final AddScoreUseCase addScoreUseCase;
+
 
   public Mono<ServerResponse> listenPostAddPlayerUseCase(ServerRequest serverRequest) {
 
@@ -74,4 +77,12 @@ public class HandlerPlayer {
                        .body(  addPointsHistoryUseCase.addpointshistory( points, player), Player.class));
    }
 
+   public Mono<ServerResponse> listenaddScoreUseCase(ServerRequest serverRequest) {
+       var points = serverRequest.pathVariable("score");
+
+       return serverRequest.bodyToMono(Player.class)
+               .flatMap(player -> ServerResponse.ok()
+                       .contentType(MediaType.APPLICATION_JSON)
+                       .body(  addScoreUseCase.addScore( points, player), Player.class));
+   }
 }
