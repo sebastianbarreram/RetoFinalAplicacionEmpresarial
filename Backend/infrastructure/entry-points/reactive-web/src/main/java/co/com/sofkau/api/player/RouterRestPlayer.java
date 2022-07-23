@@ -13,12 +13,12 @@ public class RouterRestPlayer {
 
     @Bean
     public RouterFunction<ServerResponse> routerFunctionPlayer(HandlerPlayer handlerPlayer) {
-    return route(POST("/player"), handlerPlayer::listenPostAddPlayerUseCase)
-            .and(route(GET("/player"), handlerPlayer::listenListAllPlayersUseCase))
-            .and(route(GET("/player/{id}"), handlerPlayer::listenListPlayerByIdUseCase))
-            .and(route(PUT("/player/{id}"), handlerPlayer::listenUpdatePlayerUseCase))
-            .and(route(PUT("/player/points/{points}"), handlerPlayer::listenaddPointsHistoryUseCase))
-            .and(route(PUT("/player/score/{score}"), handlerPlayer::listenaddScoreUseCase))
-            .and(route(DELETE("/player/{id}"), handlerPlayer::listenDeletePlayerUseCase));
+    return route(POST("/api/player"), handlerPlayer::listenPostAddPlayerUseCase)
+            .and(route(GET("/api/player"), handlerPlayer::listenListAllPlayersUseCase))
+            .and(route(GET("/api/player/{id}"), handlerPlayer::listenListPlayerByIdUseCase))
+            .and(route(PUT("/api/player/{id}"), handlerPlayer::listenUpdatePlayerUseCase))
+            .and(route(PUT("/api/player/points/{points}"), handlerPlayer::listenaddPointsHistoryUseCase))
+            .and(route(PUT("/api/player/score/{score}"), handlerPlayer::listenaddScoreUseCase))
+            .and(route(DELETE("/api/player/{id}"), handlerPlayer::listenDeletePlayerUseCase));
     }
 }

@@ -26,8 +26,8 @@ import reactor.core.publisher.Mono;
 public class HandlerBoard {
     private final UpdateboardUseCase updateboardUseCase;
     private final GettablerobyidUseCase gettablerobyidUseCase;
-    private final WinroundUseCase winroundUseCase;
     private final CreateBoardUseCase createBoardUseCase;
+    private final WinroundUseCase winroundUseCase;
 
     public Mono<ServerResponse> listenPOSTCreateBoardUseCase(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(Board.class)
@@ -43,6 +43,7 @@ public class HandlerBoard {
     }
     public Mono<ServerResponse> listenPUTUpdateBoardUseCase(ServerRequest serverRequest) {
         var id = serverRequest.pathVariable("id");
+
         return serverRequest.bodyToMono(Board.class)
                 .flatMap(element -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
@@ -50,9 +51,13 @@ public class HandlerBoard {
     }
     public Mono<ServerResponse>listenGetWinBoardUseCase(ServerRequest serverRequest){
         var id = serverRequest.pathVariable("id");
-        return serverRequest.bodyToMono(Board.class)
+       /* return serverRequest.bodyToMono(Board.class)
                 .flatMap(element -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(winroundUseCase.winRound(id), Game.class));
+                        .body(winroundUseCase.winRound(id), Game.class));*/
+
+        return ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(winroundUseCase.winRound(id ), Board.class);
     }
 }
