@@ -5,7 +5,6 @@ import co.com.sofkau.model.board.gateways.BoardRepository;
 import co.com.sofkau.model.card.Card;
 import co.com.sofkau.model.card.gateways.CardRepository;
 import co.com.sofkau.usecase.cardusecase.getcardsusecase.GetCardsUseCase;
-import co.com.sofkau.usecase.gameusecase.getgame.GetgameUseCase;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
@@ -18,11 +17,10 @@ public class WinroundUseCase {
     private final GetCardsUseCase getCardsUseCase;
     private final CardRepository cardRepository;
 
-    Mono<Optional<Card>> DefineWinRound(String id){
+    public Mono<Optional<Card>> winRound(String id){
         var cardMono = boardRepository.findById(id)
                         .map(e->e.getListCard().stream()
-                                .reduce((value1,value2)->(value1.getXp()>value2.getXp())?value1:value2))
-                   ;
+                                .reduce((value1,value2)->(value1.getXp()>value2.getXp())?value1:value2));
         return cardMono;
     }
 }
