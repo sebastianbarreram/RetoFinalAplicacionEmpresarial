@@ -7,6 +7,7 @@ import co.com.sofkau.usecase.boardusecase.gettablerobyid.GettablerobyidUseCase;
 import co.com.sofkau.usecase.boardusecase.tiebreak.TieBreakUseCase;
 import co.com.sofkau.usecase.boardusecase.reallocatecards.ReallocateCardsUseCase;
 import co.com.sofkau.usecase.boardusecase.updateboard.UpdateboardUseCase;
+import co.com.sofkau.usecase.boardusecase.usecard.UsecardUseCase;
 import co.com.sofkau.usecase.boardusecase.winround.WinroundUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -22,6 +23,8 @@ public class HandlerBoard {
     private final GettablerobyidUseCase gettablerobyidUseCase;
     private final CreateBoardUseCase createBoardUseCase;
     private final WinroundUseCase winroundUseCase;
+    private final UsecardUseCase usecardUseCase;
+
     private final ReallocateCardsUseCase reallocateCardsUseCase;
     private final TieBreakUseCase tieBreakUseCase;
 
@@ -40,7 +43,6 @@ public class HandlerBoard {
     }
     public Mono<ServerResponse> listenPUTUpdateBoardUseCase(ServerRequest serverRequest) {
         var id = serverRequest.pathVariable("id");
-
         return serverRequest.bodyToMono(Board.class)
                 .flatMap(element -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
@@ -48,7 +50,6 @@ public class HandlerBoard {
     }
     public Mono<ServerResponse>listenGetWinBoardUseCase(ServerRequest serverRequest){
         var id = serverRequest.pathVariable("id");
-
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(winroundUseCase.winRound(id ), Board.class);
@@ -67,4 +68,13 @@ public class HandlerBoard {
         return  ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                 .body(   tieBreakUseCase.tieBreak(id) , Board.class);
     }
+    public Mono<ServerResponse>listenUseCardUseCase(ServerRequest serverRequest){
+        var id = serverRequest.pathVariable("id");
+        var idCard = serverRequest.pathVariable("idCard");
+        return  serverRequest.bodyToMono(Board.class)
+                .flatMap(element -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(usecardUseCase.useCard(id,idCard,element),Board.class));
+    }
 }
+

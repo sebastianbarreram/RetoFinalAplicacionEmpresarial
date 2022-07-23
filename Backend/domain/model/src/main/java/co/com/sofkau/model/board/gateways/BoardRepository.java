@@ -13,6 +13,7 @@ public interface BoardRepository {
     Mono<Void> delete(String id);
     Mono<Board> update(String id, Board board);
     Mono<String> winRound(Mono<Optional<Card>> win);
+    Mono<Board> useCard(Board board);
 
 
 }
