@@ -33,6 +33,8 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
 
     @Override
     public Mono<Board> update(String id, Board board) {
+
+        board.setId(id);
         return repository.save(new BoardDocument(board.getId(),board.getListCard(),board.getTime()))
                 .flatMap(element -> Mono.just(board));
     }
