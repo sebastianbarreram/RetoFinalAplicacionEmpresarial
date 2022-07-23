@@ -39,7 +39,7 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
 
     @Override
     public Mono<String> winRound(Mono<Optional<Card>> win) {
-        //return win.map(a->a.get().getPlayerId());
-        return Mono.just("hola");
+        return win.map(a->a.get().getPlayerId());
     }
+
 }
