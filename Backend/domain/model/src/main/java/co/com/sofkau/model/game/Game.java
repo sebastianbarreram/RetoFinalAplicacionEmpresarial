@@ -1,4 +1,5 @@
 package co.com.sofkau.model.game;
+import co.com.sofkau.model.board.Board;
 import co.com.sofkau.model.card.Card;
 import co.com.sofkau.model.player.Player;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ public class Game {
     private Integer numberPlayers;
     private List<Player> playerModelList = new ArrayList<>();
     private List<Card> cardGamesList = new ArrayList<>();
+    //private List<Board> Board = new ArrayList<>();
 
 }
 

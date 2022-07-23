@@ -1,6 +1,7 @@
 package co.com.sofkau.model.board;
 
 import co.com.sofkau.model.card.Card;
+import co.com.sofkau.model.player.Player;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,7 @@ import java.util.Map;
 public class Board {
 
     private String id;
-    private List<Card> listCard;
     private Date time;
+    private List<Card> listCard;
+    private List<Player> listplayer;
 }

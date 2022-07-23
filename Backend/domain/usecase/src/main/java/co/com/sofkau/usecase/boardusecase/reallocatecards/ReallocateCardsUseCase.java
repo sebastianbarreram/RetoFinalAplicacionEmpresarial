@@ -1,4 +1,4 @@
-package co.com.sofkau.usecase.playerusecase.reallocatecards;
+package co.com.sofkau.usecase.boardusecase.reallocatecards;
 
 import co.com.sofkau.model.card.Card;
 import co.com.sofkau.model.player.Player;
@@ -48,7 +48,7 @@ public class ReallocateCardsUseCase {
 
     playerWin.setCardModels(listCardPlayer);
 
-    //return  playerRepository.reallocateCards(playerWin);
-    return playerRepository.updatePlayer(winId, playerWin);
+    return  playerRepository.reallocateCards(playerWin);
+
   }
 }

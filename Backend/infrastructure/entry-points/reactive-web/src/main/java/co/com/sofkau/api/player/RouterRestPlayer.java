@@ -19,7 +19,6 @@ public class RouterRestPlayer {
             .and(route(PUT("/api/player/{id}"), handlerPlayer::listenUpdatePlayerUseCase))
             .and(route(PUT("/api/player/points/{points}"), handlerPlayer::listenaddPointsHistoryUseCase))
             .and(route(PUT("/api/player/score/{score}"), handlerPlayer::listenaddScoreUseCase))
-            .and(route(PUT("/api/player/cards/{id}"), handlerPlayer::listenReallocateCardsUseCase))
             .and(route(DELETE("/api/player/{id}"), handlerPlayer::listenDeletePlayerUseCase));
     }
 }

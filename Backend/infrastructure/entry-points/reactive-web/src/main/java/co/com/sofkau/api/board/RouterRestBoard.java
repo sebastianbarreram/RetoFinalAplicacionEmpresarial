@@ -17,6 +17,8 @@ public RouterFunction<ServerResponse> routerFunctionBoard(HandlerBoard handler) 
     return route(GET("/api/board/win/{id}"), handler::listenGetWinBoardUseCase)
             .andRoute(POST("/api/board"), handler::listenPOSTCreateBoardUseCase)
             .andRoute(PUT("/api/board/{id}"), handler::listenPUTUpdateBoardUseCase)
+            .and(route(PUT("/api/board/reallocatecards/{id}"), handler::listenReallocateCardsUseCase))
+            .and(route(PUT("/api/board/tiebreak/{id}"), handler::listenTieBreakUseCase))
             .andRoute(GET("/api/board/{id}"), handler::listenGETListByIdUseCase);
     }
 }
