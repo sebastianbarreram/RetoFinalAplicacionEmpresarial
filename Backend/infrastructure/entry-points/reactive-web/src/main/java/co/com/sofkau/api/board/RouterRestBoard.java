@@ -14,11 +14,13 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class RouterRestBoard {
 @Bean
 public RouterFunction<ServerResponse> routerFunctionBoard(HandlerBoard handler) {
-    return route(GET("/api/board/win/{id}"), handler::listenGetWinBoardUseCase)
-            .andRoute(POST("/api/board"), handler::listenPOSTCreateBoardUseCase)
+    return route(POST("/api/board"), handler::listenPOSTCreateBoardUseCase)
+            .andRoute(GET("/api/board/win/{id}"), handler::listenGetWinBoardUseCase)
             .andRoute(PUT("/api/board/{id}"), handler::listenPUTUpdateBoardUseCase)
             .and(route(PUT("/api/board/reallocatecards/{id}"), handler::listenReallocateCardsUseCase))
             .and(route(PUT("/api/board/tiebreak/{id}"), handler::listenTieBreakUseCase))
             .andRoute(GET("/api/board/{id}"), handler::listenGETListByIdUseCase);
+            .andRoute(GET("/api/board/{id}"), handler::listenGETListByIdUseCase)
+            .andRoute(PUT("/api/board/set/{id}/{idCard}"),handler::listenUseCardUseCase);
     }
 }
