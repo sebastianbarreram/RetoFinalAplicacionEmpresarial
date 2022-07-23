@@ -33,14 +33,18 @@ public class CardMongoRepositoryAdapter extends AdapterOperations<Card, CardDocu
     @Override
     public Mono<Card> update(String id, Card card) {
         card.setCardId(id);
-
         return repository
-                .save(new CardDocument(card.getCardId(), card.getXp(), card.getImage()))
+                .save(new CardDocument(card.getCardId(), card.getXp(), card.getImage(),card.getHidden(),card.getPlayerId()))
                 .flatMap(element -> Mono.just(card));
     }
 
     @Override
     public Flux<Card> randomCards(List<Card> newCards) {
         return Flux.fromIterable(newCards);
+    }
+
+    @Override
+    public Flux<Card> findByPlayerId(Flux<Card> playerCards) {
+        return playerCards;
     }
 }

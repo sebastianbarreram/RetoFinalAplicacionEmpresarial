@@ -9,7 +9,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Document
@@ -19,7 +18,7 @@ import java.util.List;
 public class GameDocument {
     @Id
     private String id;
-    private Date time;
+    private Integer numberPlayers;
     private List<Player> playerModelList = new ArrayList<>();
     private List<Card> cardGamesList = new ArrayList<>();
 }
