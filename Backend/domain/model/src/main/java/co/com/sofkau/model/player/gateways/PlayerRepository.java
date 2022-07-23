@@ -13,4 +13,6 @@ public interface PlayerRepository {
     Mono<Player> updatePlayer(String id, Player player);
     Mono<Player> addPointsHistory(Player player);
     Mono<Player> addScore(Player player);
+
+    Mono<Player> reallocateCards(Player player);
 }

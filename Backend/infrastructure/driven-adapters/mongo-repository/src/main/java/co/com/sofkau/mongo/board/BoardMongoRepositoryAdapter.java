@@ -5,6 +5,7 @@ import co.com.sofkau.model.board.gateways.BoardRepository;
 import co.com.sofkau.model.card.Card;
 
 import co.com.sofkau.mongo.helper.AdapterOperations;
+import co.com.sofkau.mongo.player.PlayerDocument;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
 
