@@ -18,7 +18,7 @@ import { VistaRegistroComponent } from "./vista-registro/vista-registro.componen
 import { HallComponent } from "./hall/hall.component";
 
 import { ComponentsModule } from "./components/components.module";
-import { BoardComponent } from './board/board.component';
+import { BoardComponent } from './components/board/board.component';
 
 
 @NgModule({
