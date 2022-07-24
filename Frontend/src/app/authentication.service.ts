@@ -18,17 +18,12 @@ import { Router } from '@angular/router';
 export class AuthenticationService {
 	userData: any; // Save logged in user data
 
-	//------------------------------------------------
-	// authUrl = "http://localhost:5000/api/auth/";
-	// employersUrl = "http://localhost:5000/api/employers/";
-	// confirmEmailUrl = "http://localhost:4200/confirm-email/";
-	// changePasswordUrl = "http://localhost:4200/change-password/";
-	// decodedToken: any;
-	// currentUser!: User;
+	Players :Player[] = [];
+	playerId: string = "";
 
 	player: Player = {
 			playerId : "",
-				nickName : 0,
+				nickName : "",
 				email: "",
 				score: 0,
 
@@ -61,16 +56,14 @@ export class AuthenticationService {
 			.then((result) => {
 				console.log(result);
 				this.SetUserData(result.user);
-				//localStorage.setItem("uid",JSON.stringify(result.user.uid||""));
-			if(result.user){	
-			this.player.playerId= result.user.uid;
-			this.player.email = email;
-		    this.playerAPIService.addPlayer(this.player);
-		}
-			
-			this.router.navigate(['hall']);
+				if(result.user){
+					this.player.playerId = result.user.uid;
+					this.player.email = email;
+					this.playerAPIService.addPlayer(this.player)
+					.subscribe(playerNew => this.Players.push(playerNew));
+				}
 
-
+				this.router.navigate(['hall']);
 
 			})
 			.catch((error) => {
