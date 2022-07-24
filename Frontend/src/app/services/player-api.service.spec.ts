@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PayerAPIService } from './payer-api.service';
+import { PayerAPIService } from './player-api.service';
 
 describe('PayerAPIService', () => {
   let service: PayerAPIService;

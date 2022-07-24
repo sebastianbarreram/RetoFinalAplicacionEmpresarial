@@ -4,10 +4,11 @@ import {
 	AngularFirestore,
 	AngularFirestoreDocument,
 } from "@angular/fire/compat/firestore";
-import { User } from "./user";
+import { User } from "../user";
 import * as auth from "firebase/auth";
-// import { HttpClient, HttpHeaders } from "@angular/common/http";
-// import { JwtHelperService } from "@auth0/angular-jwt";
+import {PlayerAPIService} from "./player-api.service";
+import { Player } from "../interfaces/player"
+
 import { Router } from '@angular/router';
 
 
@@ -25,7 +26,21 @@ export class AuthenticationService {
 	// decodedToken: any;
 	// currentUser!: User;
 
-	constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore, public router: Router) {
+	player: Player = {
+			playerId = "",
+				nickName = 0,
+				email: "",
+				score: 0,
+
+				pointsHistory= [],
+				cardModels= [],
+	}
+
+	constructor(public afAuth: AngularFireAuth,
+				public afs: AngularFirestore,
+				public router: Router,
+				public playerAPIService: PlayerAPIService,
+			   ) {
 		this.afAuth.authState.subscribe((user) => {
 			if (user) {
 				this.userData = user;
@@ -38,13 +53,20 @@ export class AuthenticationService {
 		});
 	}
 
+
+
 	SignIn(email: any, password: any) {
 		return this.afAuth
 			.signInWithEmailAndPassword(email, password)
 			.then((result) => {
 				console.log(result);
 				this.SetUserData(result.user);
-				this.router.navigate(['hall']);
+
+			this.player.playerId= result.user.uid;
+			this.player.email = email;
+		    this.playerAPIService.addPlayer(this.player);
+
+			this.router.navigate(['hall']);
 
 
 
