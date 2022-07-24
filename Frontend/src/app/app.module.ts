@@ -16,7 +16,10 @@ import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 import { VistaRegistroComponent } from "./vista-registro/vista-registro.component";
 import { HallComponent } from "./hall/hall.component";
+
 import { ComponentsModule } from "./components/components.module";
+import { BoardComponent } from './board/board.component';
+
 
 @NgModule({
   declarations: [
@@ -27,8 +30,8 @@ import { ComponentsModule } from "./components/components.module";
     DashboardComponent,
     VistaAuthComponent,
     VistaRegistroComponent,
-    HallComponent
-
+    HallComponent,
+    BoardComponent
   ],
   imports: [
     BrowserModule,
