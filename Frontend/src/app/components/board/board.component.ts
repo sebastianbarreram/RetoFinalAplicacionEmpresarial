@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Card } from 'src/app/interfaces/card';
-import { CardGameAPIService } from 'src/app/services/card-game-api.service';
+import { CardGameAPIService } from 'src/app/services/card-api.service';
 
 @Component({
   selector: 'app-board',
@@ -59,6 +59,5 @@ export class BoardComponent implements OnInit {
   //     "playerId": "62dd5edd1a07e0562b2cb03e"
   //   }
   // ];
-
 
 }

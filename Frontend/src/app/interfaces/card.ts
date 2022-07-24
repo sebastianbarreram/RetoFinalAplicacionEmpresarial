@@ -2,6 +2,6 @@ export interface Card {
     cardId: string;
     xp: number;
     image: string;
-    hidden: string;
+    hidden: boolean;
     playerId: string;
 }
