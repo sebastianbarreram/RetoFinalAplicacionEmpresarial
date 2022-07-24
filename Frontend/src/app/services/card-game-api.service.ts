@@ -25,7 +25,7 @@ export class CardGameAPIService {
         catchError(this.handleError<Card[]>('getCards', []))
       );
   }
-  
+
 
   /**
    * Handle Http operation that failed.
