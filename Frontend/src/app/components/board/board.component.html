@@ -3,7 +3,7 @@
       <div id="container">
         <div class="card">
           <div class="monster-image">
-            <img [src]="!card.hidden ? card.image: '../../assets/hiddenCard.jpg'" />
+            <img [src]="card.hidden ? card.image: '../../assets/hiddenCard.jpg'" />
           </div>
           <div class="description">
             <p class="atk-def" *ngIf="!card.hidden">XP/{{ card.xp }}</p>

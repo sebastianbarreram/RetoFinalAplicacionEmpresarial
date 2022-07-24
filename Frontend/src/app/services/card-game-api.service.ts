@@ -9,7 +9,7 @@ import { Card } from '../interfaces/card';
   providedIn: 'root'
 })
 export class CardGameAPIService {
-  private cardUrl = 'cards/';  // URL to web api
+  private cardUrl = 'api/cards/';  // URL to web api
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
