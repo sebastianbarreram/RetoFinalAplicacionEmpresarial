@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from "../../authentication.service";
 
 @Component({
   selector: 'app-header',
@@ -51,7 +52,8 @@ export class HeaderComponent implements OnInit {
     "subMenuQuantity": 2,
   }];
 
-  constructor() { }
+  constructor(public authenticationService: AuthenticationService) {}
+
 
   ngOnInit(): void {
   }

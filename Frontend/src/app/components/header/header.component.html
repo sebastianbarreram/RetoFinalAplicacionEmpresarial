@@ -1,112 +1,16 @@
-<div class="w-100 heightForHeaderHidden" style="height: 96px;"></div>
-<header class="header standfields_header" [style.backgroundColor]="DATA.backgroundColor">
+<header class="p-1 bg-dark text-white">
+    <div class="container">
+      <div class="header d-flex flex-wrap align-items-center">
+        <a [routerLink]="['/hall']" class="logo d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <img src="../../../assets/Logo.png" class="img-fluid" alt="" style="width: auto;max-height: 80px;">
+        </a>
 
-    <div class="header-bottom-container container wide">
-
-        <div class="logo-with-offcanvas d-flex">
-            <div class="logo">
-                <a [routerLink]="['/']">
-                    <img src="../../../assets/Logo.png" class="img-fluid" alt="" style="width: auto;max-height: 96px;">
-                </a>
-            </div>
+        <div class="text-end">
+          <button type="button"
+          class="btn btn-warning"
+          value="Log out"
+          (click)="authenticationService.SignOut()">Salir</button>
         </div>
-
-        <nav class="header-bottom-navigation site-main-nav d-none d-lg-block site-nav center-menu">
-            <ul>
-                <ng-container *ngFor="let d of ITEMS_MENU; index as i">
-                    <li [class.menu-item-has-children]="d['subMenuQuantity']>0">
-                        <a [style.color]="DATA.colorText" [routerLink]="[d['url']]">{{d["name"]}}</a>
-
-                        <i *ngIf="d['subMenuQuantity']>0"
-                            class="ion-chevron-down float-right mt-2 font-weight-bold standfields_iconMenuHeader"
-                            aria-hidden="true"></i>
-
-                        <ul class="sub-menu border" style="width: 250px;top: 80px;">
-                            <ng-container *ngFor="let subItem of d['subMenu']">
-                                <li class="d-block p-3 cursor-pointer" style="border-bottom: 2px solid #ccc;">
-                                    <a [routerLink]="[subItem['url']]"
-                                        [style.color]="DATA.colorText">{{subItem["name"]}}</a>
-                                </li>
-                            </ng-container>
-
-                        </ul>
-                    </li>
-                </ng-container>
-            </ul>
-        </nav>
-
-        <div class="header-right-container">
-
-            <div class="header-right-icons d-flex justify-content-end align-items-center h-100">
-
-                <div class="single-icon user-login m-2">
-                    <a>
-                        <i class="ion-android-person text-primary"></i>
-                    </a>
-                </div>
-
-                <div *ngIf="DATA.displayWishList===1" class="single-icon wishlist m-2">
-                    <a id="offcanvas-wishlist-icon">
-                        <i [style.color]="DATA.colorText" class="ion-android-favorite-outline m-1"></i>
-                        <span class="count">2</span>
-                    </a>
-                </div>
-
-                <div *ngIf="DATA.displayCart===1" class="single-icon cart m-2">
-                    <a id="offcanvas-cart-icon">
-                        <i [style.color]="DATA.colorText" class="ion-ios-cart m-1"></i>
-                        <span class="count">3</span>
-                    </a>
-                </div>
-
-                <div class="site-mobile-navigation d-block d-lg-none">
-                    <div id="dl-menu" class="dl-menuwrapper site-mobile-nav">
-                        <i [style.color]="DATA.colorText" (click)="toggleActiveMenuMobileState()"
-                            class="ion-android-menu m-1"></i>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
+      </div>
     </div>
-
 </header>
-
-<div class="menuMobile-overlay {{statusToShow.activeMenuMobileState}}" id="menuMobile-overlay">
-    <div class="menuMobile-overlay-close inactive"></div>
-
-    <div *ngIf="statusToShow.activeMenuMobileState!==''" class="menuMobile-overlay-content">
-
-        <span class="close-icon" id="menuMobile-close-icon">
-            <a (click)="toggleActiveMenuMobileState()">
-                <i class="ion-android-close"></i>
-            </a>
-        </span>
-
-        <div class="offcanvas-menuMobile-content-container">
-            <h3 class="">Menu</h3>
-        </div>
-
-        <ul>
-            <ng-container *ngFor="let d of ITEMS_MENU; index as i">
-                <li [class.menu-item-has-children]="d['subMenuQuantity']>0" style="padding: 10px 5px;">
-                    <a class="font-weight-bold" [style.color]="DATA.colorText"
-                        [routerLink]="[d['url']]">{{d["name"]}}</a>
-
-                    <i *ngIf="d['subMenuQuantity']>0" class="ion-android-add float-right mt-2 font-weight-bold"
-                        (click)="toggleSubMenus(d['id'])" aria-hidden="true"></i>
-                    <ul class="w-100" style="display: none;" id="boxSubMenuOfMenu_{{d['id']}}">
-                        <ng-container *ngFor="let subItem of d['subMenu']">
-                            <li class="d-block p-1 cursor-pointer" style="border-bottom: 2px solid #ccc;">
-                                <a [routerLink]="[subItem['url']]"
-                                    [style.color]="DATA.colorText">{{subItem["name"]}}</a>
-                            </li>
-                        </ng-container>
-                    </ul>
-                </li>
-            </ng-container>
-        </ul>
-    </div>
-
-</div>

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from "../authentication.service";
-
 
 
 @Component({
@@ -10,7 +8,7 @@ import { AuthenticationService } from "../authentication.service";
 })
 export class HallComponent implements OnInit {
 
-	constructor(public authenticationService: AuthenticationService) {}
+	constructor() {}
 
   ngOnInit(): void {
 
