@@ -112,14 +112,14 @@ label {
   text-align: center;
   padding: 18px 18px;
   padding-top: 100px;
-  color: var(--title);
+  color: #fff;
   font-family: "Mr Bedfort", cursive;
   font-size: 50px;
 }
 
 .btns {
   height: auto;
-  width: 100%;
+  width: 75%;
   display: grid;
   margin: 40px auto;
   margin-top: 80px;
@@ -128,7 +128,7 @@ label {
 .btn1 {
   margin: 20px auto;
   width: 200px;
-  background-color: #ebe07b;
+  background-color: var(--red-darck );
   border: none;
   border-radius: 50px;
   color: var(--black-color);
@@ -159,14 +159,13 @@ label {
 
 .ftco-section {
   background-image: url(../../../assets/imagen-login.jpg);
-  height: 650px;
 
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
 
-  padding: 4em 0;
+  padding: 8em 0;
 }
 
 .ftco-section::after {
