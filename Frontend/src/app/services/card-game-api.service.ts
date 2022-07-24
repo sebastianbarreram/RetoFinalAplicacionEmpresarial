@@ -15,7 +15,8 @@ export class CardGameAPIService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) { }
+
     /** GET cards from the server */
   getCards(): Observable<Card[]> {
     return this.http.get<Card[]>(this.cardUrl)
@@ -24,7 +25,7 @@ export class CardGameAPIService {
         catchError(this.handleError<Card[]>('getCards', []))
       );
   }
-  }
+  
 
   /**
    * Handle Http operation that failed.
