@@ -4,11 +4,12 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Game } from '../interfaces/game';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-  private gameUrl = 'api/game/';  // URL to web api
+  private gameUrl = 'api/game/'; // URL to web api
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,19 +18,39 @@ export class GameService {
   constructor(private http: HttpClient) { }
   
     /** GET cards from the server */
-  createGame(): Observable<Game[]> {
-    return this.http.post<Game[]>(this.gameUrl)
+  getGame(): Observable<Game[]> {
+    return this.http.get<Game[]>(this.gameUrl)
       .pipe(
         tap(_ => console.log('creating game')),
         catchError(this.handleError<Game[]>('createGame', []))
       );
   }
+  
   addGame(game: Game): Observable<Game> {
     return this.http.post<Game>(this.gameUrl, game, this.httpOptions).pipe(
       tap((newGame: Game) => console.log(`creating game w/ id=${newGame.id}`)),
       catchError(this.handleError<Game>('addGame'))
     );
   }
+  deleteGame(id: string): Observable<Game> {
+    const url = `${this.gameUrl}/${id}`;
+    return this.http.delete<Game>(url, this.httpOptions).pipe(
+      tap(_ => console.log(`deleted game gameId=${id}`)),
+      catchError(this.handleError<Game>('deleteGame'))
+    );
+  }
+  updateGame(game: Game,id: string): Observable<any> {
+    return this.http.put(`${this.gameUrl}/actualizar/${id}`, game, this.httpOptions).pipe(
+      tap(_ => console.log(`updated card cardId=${game.id}`)),
+      catchError(this.handleError<any>('updateCard'))
+    );
+  }
+  retireGame(idPlayer:string,game: Game):Observable<any>{
+  return this.http.put(`${this.gameUrl}/retire/${idPlayer}`, game, this.httpOptions).pipe(
+    tap(_ => console.log(`retired player id=${game.id}`)),
+      catchError(this.handleError<any>('retireGame'))
+  );
+}
 
   /**
    * Handle Http operation that failed.
