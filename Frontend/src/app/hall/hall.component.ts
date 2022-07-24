@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../services/game.service';
 import { Game } from '../interfaces/game';
+import { User } from '../models/user';
 
 
 @Component({
@@ -12,9 +13,8 @@ export class HallComponent implements OnInit {
 
 	constructor(private game : GameService) {}
   ngOnInit(): void {
-    let userId = (localStorage.getItem("user"));
-    userId = localStorage.getItem('uri');
-        console.log(userId);
+    var userId = JSON.parse(localStorage.getItem('user')||"").uid;
+        console.log((userId));
   }
   crearSala():void{
    

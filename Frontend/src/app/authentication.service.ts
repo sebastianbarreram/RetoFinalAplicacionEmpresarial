@@ -61,11 +61,13 @@ export class AuthenticationService {
 			.then((result) => {
 				console.log(result);
 				this.SetUserData(result.user);
+				//localStorage.setItem("uid",JSON.stringify(result.user.uid||""));
 			if(result.user){	
 			this.player.playerId= result.user.uid;
 			this.player.email = email;
 		    this.playerAPIService.addPlayer(this.player);
 		}
+			
 			this.router.navigate(['hall']);
 
 
