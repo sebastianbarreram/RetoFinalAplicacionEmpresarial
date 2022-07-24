@@ -26,11 +26,11 @@ export class CardGameAPIService {
       );
   }
 
-  /** GET card by id. Will 404 if id not found */
+  /** GET card by cardId. Will 404 if id not found */
   getCardById(cardId: string | null): Observable<Card> {
     const url = `${this.cardUrl}/${cardId}`;
     return this.http.get<Card>(url).pipe(
-      tap(_ => console.log(`fetched hero cardId=${cardId}`)),
+      tap(_ => console.log(`fetched card cardId=${cardId}`)),
       catchError(this.handleError<Card>(`getCardById cardId=${cardId}`))
     );
   }
@@ -61,10 +61,23 @@ export class CardGameAPIService {
     );
   }
 
+  /** GET cards by playerId. Will 404 if id not found */
+  getCardByPlayerId(playerId: string | null): Observable<Card> {
+    const url = `${this.cardUrl}/player/${playerId}`;
+    return this.http.get<Card>(url).pipe(
+      tap(_ => console.log(`fetched card cardId=${playerId}`)),
+      catchError(this.handleError<Card>(`getCardById cardId=${playerId}`))
+    );
+  }
 
-
-
-  
+  /** GET random cards. Will 404 if id not found */
+  getRandomCards(numberOfCards: number | null): Observable<Card> {
+    const url = `${this.cardUrl}/random/${numberOfCards}`;
+    return this.http.get<Card>(url).pipe(
+      tap(_ => console.log(`fetched ${numberOfCards} random cards`)),
+      catchError(this.handleError<Card>(`getRandomCards numberOfCards=${numberOfCards}`))
+    );
+  }
 
   /**
    * Handle Http operation that failed.
