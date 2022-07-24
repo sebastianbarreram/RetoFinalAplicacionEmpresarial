@@ -17,6 +17,7 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 import { VistaRegistroComponent } from "./vista-registro/vista-registro.component";
 import { HallComponent } from "./hall/hall.component";
 import { ComponentsModule } from "./components/components.module";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ComponentsModule } from "./components/components.module";
     AngularFireAuthModule,
     AngularFirestoreModule,
     ComponentsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
