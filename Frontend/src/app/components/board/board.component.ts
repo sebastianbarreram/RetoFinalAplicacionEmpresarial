@@ -17,6 +17,11 @@ export class BoardComponent implements OnInit {
     this.getCards();
   }
 
+  getCards(): void {
+    this.cardGameAPI.getCards()
+      .subscribe(cards => this.cards = cards);
+  }
+
   // cards = [
   //   {
   //     "cardId": "62dc7e8104e748902a9a82ec",
@@ -55,9 +60,4 @@ export class BoardComponent implements OnInit {
   //   }
   // ];
 
-  getCards(): void {
-    this.cardGameAPI.getCards()
-      .subscribe(cards => this.cards = cards);
-  }
- 
 }
