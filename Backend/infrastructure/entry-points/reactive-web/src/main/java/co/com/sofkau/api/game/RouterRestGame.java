@@ -12,12 +12,12 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class RouterRestGame {
     @Bean
     public RouterFunction<ServerResponse> routerFunctionGame(HandlerGame handlerGame) {
-        return route(POST("/api/usecase/game"), handlerGame::createGamePostUseCase)
+        return route(POST("/api/game/new"), handlerGame::createGamePostUseCase)
 
                 .and(route(GET("/api/game"), handlerGame::listenGameGETUseCase))
                 .and(route(DELETE("/api/game/{id}"), handlerGame::listenDELETEGameUseCase))
                 .and(route(PUT("/api/game/actualizar/{id}"), handlerGame::listenPUTUpdateGameUseCase))
-                .and(route(GET("/api/gameId/{id}"), handlerGame::listenGETListByIdUseCase))
+                .and(route(GET("/api/game/id/{id}"), handlerGame::listenGETListByIdUseCase))
                 .and(route(PUT("/api/game/retire/{id}"), handlerGame::listenRetireGamePlayerUseCase));
 
     }
