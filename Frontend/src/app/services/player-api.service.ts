@@ -9,7 +9,7 @@ import { Player } from '../interfaces/player';
 @Injectable({
   providedIn: 'root'
 })
-export class PayerAPIService {
+export class PlayerAPIService {
 
   private playerUrl = 'api/player/';  // URL to web api
 

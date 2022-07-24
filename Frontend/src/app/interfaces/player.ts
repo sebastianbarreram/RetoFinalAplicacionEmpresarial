@@ -1,10 +1,10 @@
 import { Card } from "./card";
 
 export interface Player{
-  playerId: string;
+  playerId: string | null;
   nickName: number;
   email: string;
-  score: string;
+  score: number;
 
   pointsHistory: number[];
   cardModels: Card[];
