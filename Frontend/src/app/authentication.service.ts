@@ -36,7 +36,7 @@ export class AuthenticationService {
 				public router: Router,
 				public playerAPIService: PlayerAPIService,
 			   ) {
-		this.afAuth.authState.subscribe((user) => {
+			this.afAuth.authState.subscribe((user) => {
 			if (user) {
 				this.userData = user;
 				localStorage.setItem("user", JSON.stringify(this.userData));
@@ -56,12 +56,6 @@ export class AuthenticationService {
 			.then((result) => {
 				console.log(result);
 				this.SetUserData(result.user);
-				if(result.user){
-					this.player.playerId = result.user.uid;
-					this.player.email = email;
-					this.playerAPIService.addPlayer(this.player)
-					.subscribe(playerNew => this.Players.push(playerNew));
-				}
 
 				this.router.navigate(['hall']);
 
@@ -120,9 +114,19 @@ export class AuthenticationService {
 
 	GoogleAuth() {
 		return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-			if (res) {
-			}
-				this.router.navigate(['hall']);
+
+			var userId = JSON.parse(localStorage.getItem('user')||"").uid;
+			var userEmail = JSON.parse(localStorage.getItem('user')||"").email;
+			console.log((userEmail));
+
+			this.player.playerId = userId;
+			this.player.email = userEmail;
+
+			this.playerAPIService.addPlayer(this.player)
+				.subscribe(playerNew => this.Players.push(playerNew));
+
+			this.router.navigate(['hall']);
+
 		});
 	}
 }
