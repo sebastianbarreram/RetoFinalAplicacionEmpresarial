@@ -147,7 +147,7 @@
   .btn.btn-primary {
     background: #a52a2a !important;
     border: 1px solid #a52a21 !important;
-    color: #000 !important; }
+    color: #fff !important; }
     .btn.btn-primary:hover {
       border: 1px solid #a52a2a;
       background: transparent;

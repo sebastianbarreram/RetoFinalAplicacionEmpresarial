@@ -19,7 +19,6 @@ public RouterFunction<ServerResponse> routerFunctionBoard(HandlerBoard handler) 
             .andRoute(PUT("/api/board/{id}"), handler::listenPUTUpdateBoardUseCase)
             .and(route(PUT("/api/board/reallocatecards/{id}"), handler::listenReallocateCardsUseCase))
             .and(route(PUT("/api/board/tiebreak/{id}"), handler::listenTieBreakUseCase))
-            .andRoute(GET("/api/board/{id}"), handler::listenGETListByIdUseCase);
             .andRoute(GET("/api/board/{id}"), handler::listenGETListByIdUseCase)
             .andRoute(PUT("/api/board/set/{id}/{idCard}"),handler::listenUseCardUseCase);
     }

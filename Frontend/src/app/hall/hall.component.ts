@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from "../authentication.service";
+
+
 
 @Component({
   selector: 'app-hall',
@@ -6,13 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hall.component.css']
 })
 export class HallComponent implements OnInit {
-  
-  constructor() { 
-    
-  }
+
+	constructor(public authenticationService: AuthenticationService) {}
 
   ngOnInit(): void {
-    
+
   }
 
   cards = [
