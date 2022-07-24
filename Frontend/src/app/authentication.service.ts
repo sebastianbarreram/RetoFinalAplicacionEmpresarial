@@ -4,10 +4,10 @@ import {
 	AngularFirestore,
 	AngularFirestoreDocument,
 } from "@angular/fire/compat/firestore";
-import { User } from "../user";
+import { User } from "./user";
 import * as auth from "firebase/auth";
-import {PlayerAPIService} from "./player-api.service";
-import { Player } from "../interfaces/player"
+import {PlayerAPIService} from "./services/player-api.service";
+import { Player } from "./interfaces/player"
 
 import { Router } from '@angular/router';
 
@@ -27,13 +27,13 @@ export class AuthenticationService {
 	// currentUser!: User;
 
 	player: Player = {
-			playerId = "",
-				nickName = 0,
+			playerId : "",
+				nickName : 0,
 				email: "",
 				score: 0,
 
-				pointsHistory= [],
-				cardModels= [],
+				pointsHistory: [],
+				cardModels: [],
 	}
 
 	constructor(public afAuth: AngularFireAuth,
@@ -61,11 +61,11 @@ export class AuthenticationService {
 			.then((result) => {
 				console.log(result);
 				this.SetUserData(result.user);
-
+			if(result.user){	
 			this.player.playerId= result.user.uid;
 			this.player.email = email;
 		    this.playerAPIService.addPlayer(this.player);
-
+		}
 			this.router.navigate(['hall']);
 
 
