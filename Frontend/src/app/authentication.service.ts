@@ -6,9 +6,10 @@ import {
 } from "@angular/fire/compat/firestore";
 import { User } from "./user";
 import * as auth from "firebase/auth";
-
 // import { HttpClient, HttpHeaders } from "@angular/common/http";
 // import { JwtHelperService } from "@auth0/angular-jwt";
+import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class AuthenticationService {
 	// decodedToken: any;
 	// currentUser!: User;
 
-	constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore) {
+	constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore, public router: Router) {
 		this.afAuth.authState.subscribe((user) => {
 			if (user) {
 				this.userData = user;
@@ -43,6 +44,10 @@ export class AuthenticationService {
 			.then((result) => {
 				console.log(result);
 				this.SetUserData(result.user);
+				this.router.navigate(['hall']);
+
+
+
 			})
 			.catch((error) => {
 				window.alert(error.message);
@@ -51,7 +56,8 @@ export class AuthenticationService {
 
 	SignOut() {
 		return this.afAuth.signOut().then(() => {
-			window.alert("Logged out!");
+			window.alert("se ha cerrado la sesión");
+			this.router.navigate(['auth']);
 		});
 	}
 
@@ -98,8 +104,8 @@ export class AuthenticationService {
 	GoogleAuth() {
 		return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
 			if (res) {
-				//this.router.navigate(['dashboard']);
 			}
+				this.router.navigate(['hall']);
 		});
 	}
 }

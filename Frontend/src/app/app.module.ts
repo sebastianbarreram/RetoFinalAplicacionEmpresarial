@@ -7,7 +7,7 @@ import { HeroesComponent } from "./heroes/heroes.component";
 import { HeroDetailComponent } from "./hero-detail/hero-detail.component";
 import { MessagesComponent } from "./messages/messages.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { DashboardComponent } from "./dashboard/dashboard.component";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { HttpClientModule } from "@angular/common/http";
 import { VistaAuthComponent } from "./vista-auth/vista-auth.component";
 import { AngularFireModule } from "@angular/fire/compat";
@@ -16,6 +16,7 @@ import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 import { VistaRegistroComponent } from "./vista-registro/vista-registro.component";
 import { HallComponent } from "./hall/hall.component";
+import { ComponentsModule } from "./components/components.module";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { HallComponent } from "./hall/hall.component";
     VistaAuthComponent,
     VistaRegistroComponent,
     HallComponent
-    
+
   ],
   imports: [
     BrowserModule,
@@ -36,7 +37,8 @@ import { HallComponent } from "./hall/hall.component";
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    ComponentsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
