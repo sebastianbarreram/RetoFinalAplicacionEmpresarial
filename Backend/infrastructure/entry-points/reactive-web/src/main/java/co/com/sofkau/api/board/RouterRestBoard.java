@@ -22,6 +22,7 @@ public RouterFunction<ServerResponse> routerFunctionBoard(HandlerBoard handler) 
             .and(route(PUT("/api/board/tiebreak/{id}"), handler::listenTieBreakUseCase))
             .andRoute(GET("/api/board/{id}"), handler::listenGETListByIdUseCase)
             .andRoute(PUT("/api/board/set/{id}"),handler::listenUseCardUseCase)
-            .andRoute(PUT("/api/board/player/{idplayer}"),handler::listenAddPlayerInBoardUseCase);
+            .andRoute(PUT("/api/board/player/{idplayer}"),handler::listenAddPlayerInBoardUseCase)
+            .andRoute(PUT("/api/board/players/{idboard}"),handler::listenUpdatePlayerInBoardUseCase);
     }
 }

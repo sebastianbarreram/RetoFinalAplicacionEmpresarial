@@ -1,0 +1,38 @@
+<div class="cards-container overflow-auto">
+  <body *ngFor="let card of cards" [id]="card.cardId">
+    <div *ngIf="playerId==card.playerId" [id]="card.cardId">
+      <div class="card" [id]="card.cardId">
+        <div class="monster-image" [id]="card.cardId">
+          <img
+            [src]="playerId==card.playerId ? card.image : '../../assets/hiddenCard.jpg'"
+            [id]="card.cardId"
+          />
+        </div>
+        <div class="description" [id]="card.cardId">
+          <p class="atk-def" *ngIf="playerId==card.playerId" [id]="card.cardId">XP/{{ card.xp }}</p>
+          <!-- <p class="atk-def" *ngIf="card.hidden">XP/????</p> -->
+        </div>
+      </div>
+    </div>
+  </body>
+</div>
+
+<div class="bet-cards overflow-auto">
+  <body *ngFor="let card of bettingCards">
+    <div id="container">
+      <div class="card">
+        <div class="monster-image">
+          <img
+            [src]="playerId==card.playerId ? card.image : '../../assets/hiddenCard.jpg'"
+          />
+        </div>
+        <div class="description">
+          <p class="atk-def" *ngIf="playerId==card.playerId">XP/{{ card.xp }}</p>
+          <p class="atk-def" *ngIf="playerId!=card.playerId">XP/????</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</div>
+
+<div>{{display}}</div>
