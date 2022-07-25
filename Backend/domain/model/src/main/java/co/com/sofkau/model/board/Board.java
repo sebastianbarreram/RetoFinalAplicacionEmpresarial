@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,10 @@ public class Board {
 
     private String id;
     private Date time;
+
+    private List<String> listWinRound;
     private List<Card> listCard;
+    private List<Player> listplayer ;
     private List<String> idplayers;
+
 }

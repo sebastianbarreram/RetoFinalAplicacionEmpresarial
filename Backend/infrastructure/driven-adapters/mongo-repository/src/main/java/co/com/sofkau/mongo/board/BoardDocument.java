@@ -20,6 +20,7 @@ public class BoardDocument {
     @Id
     private String id;
     private Date time;
+    private List<String> listWinRound;
     private List<Card> listCard;
     private List<String> idPlayers;
 }
