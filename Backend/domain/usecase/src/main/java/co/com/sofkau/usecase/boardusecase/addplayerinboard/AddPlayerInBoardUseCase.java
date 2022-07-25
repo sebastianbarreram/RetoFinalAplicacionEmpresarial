@@ -34,6 +34,7 @@ public class AddPlayerInBoardUseCase {
                                        board.getListCard(),
                                        listsPlayers,
                                        playerId
+
                                );
                            }).toFuture().join();
 
