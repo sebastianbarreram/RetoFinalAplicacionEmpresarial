@@ -39,9 +39,10 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
         board.setId(id);
         return repository.save(new BoardDocument(
                 board.getId(),
-                        board.getTime(),
                         board.getListWinRound(),
+                        board.getTime(),
                         board.getListCard(),
+                        board.getListplayer(),
                         board.getIdplayers()))
                 .flatMap(element -> Mono.just(board));
     }

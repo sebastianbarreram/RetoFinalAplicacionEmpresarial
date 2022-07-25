@@ -18,13 +18,8 @@ import java.util.List;
 public class Board {
 
     private String id;
-<<<<<<< Updated upstream
-    private Date time;
-
     private List<String> listWinRound;
-=======
     private Integer time;
->>>>>>> Stashed changes
     private List<Card> listCard;
     private List<Player> listplayer ;
     private List<String> idplayers;
