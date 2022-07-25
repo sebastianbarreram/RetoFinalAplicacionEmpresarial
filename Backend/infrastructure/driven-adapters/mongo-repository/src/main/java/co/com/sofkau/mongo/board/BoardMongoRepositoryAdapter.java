@@ -84,5 +84,18 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
        .flatMap(element -> Mono.just(board));
     }
 
+    @Override
+    public Mono<Board> updatePlayerInBoard(Board board) {
+
+        return repository.save(new BoardDocument(
+                        board.getId(),
+                        board.getTime(),
+                        board.getListWinRound(),
+                        board.getListCard(),
+                        board.getListplayer(),
+                        board.getIdplayers()))
+                .flatMap(element -> Mono.just(board));
+    }
+
 
 }
