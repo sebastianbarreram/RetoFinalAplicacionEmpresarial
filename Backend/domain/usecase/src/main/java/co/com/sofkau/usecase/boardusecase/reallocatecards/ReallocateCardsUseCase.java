@@ -25,11 +25,8 @@ public class ReallocateCardsUseCase {
   public Mono<Player> reallocateCards(String idBoard) {
 
     var listCardRound = gettablerobyidUseCase.listBoardId(idBoard).map(board -> board.getListCard());
-
     var winId = winroundUseCase.winRound(idBoard).toFuture().join();
     var playerWin = findPlayerUseCase.findPlayer(winId).toFuture().join();
-
-
 
      var listCardRoundNew= listCardRound.map(lists -> {
               return lists.stream().map(

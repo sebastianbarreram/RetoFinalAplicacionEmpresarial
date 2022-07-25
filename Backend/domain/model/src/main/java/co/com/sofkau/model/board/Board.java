@@ -23,6 +23,8 @@ public class Board {
     private List<Card> listCard= new ArrayList<>();
     private List<Player> listplayer = new ArrayList<>();
 
+    private List<String> idplayers;
+
     public void addNewWinRound(String playerId){
         listWinRound.add(playerId);
 
@@ -66,5 +68,13 @@ public class Board {
 
     public void setListplayer(List<Player> listplayer) {
         this.listplayer = listplayer;
+    }
+
+    public List<String> getIdplayers() {
+        return idplayers;
+    }
+
+    public void setIdplayers(List<String> idplayers) {
+        this.idplayers = idplayers;
     }
 }

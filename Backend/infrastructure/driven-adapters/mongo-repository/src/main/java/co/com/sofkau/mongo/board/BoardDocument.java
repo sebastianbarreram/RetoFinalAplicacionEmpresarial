@@ -22,5 +22,5 @@ public class BoardDocument {
     private Date time;
     private List<String> listWinRound;
     private List<Card> listCard;
-    private List<Player> listplayer;
+    private List<String> idPlayers;
 }
