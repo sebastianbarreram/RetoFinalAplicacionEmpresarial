@@ -4,34 +4,32 @@
 			<div class="col-md-6 text-center mb-3">
 				<h2 class="heading-section">¡Crea tu propia aventura!</h2>
 			</div>
-		</div><
+		</div>
 		<div class="row justify-content-center">
 			<div class="col-md-6 col-lg-4">
 				<div class="login-wrap p-0">
 			      	<h3 class="mb-4 text-center">
-                Crear juego
+                Iniciar Juego
 			      	</h3>
 			      	<form action="#" class="signin-form">
-			      		<div class="form-group">
-				  			<input type="text" class="form-control" placeholder="Nombre de la sala" #userName required>
-						</div>
-
 						<!-- Calling SignIn Api from AuthService -->
 						<div class="form-group formGroup">
 							<button type="button" class="form-control btn btn-primary submit px-3"
-							   value="Log in"
+							   value="Log in" (click)="iniciarJuego()"
 							>
-							Crear
+							Jugar
 							</button>
+              <div>
+              {{player}}
+              </div>
 						</div>
-
 					</form>
 				</div>
 			</div>
 	    </div>
 	</div>
 </section>
-
+<!--
 <section>
   <div class="menu_home">
     <div class="first_course"  id="course1">
@@ -73,6 +71,7 @@
   </div>
 
 </section>
+-->
 
 
 

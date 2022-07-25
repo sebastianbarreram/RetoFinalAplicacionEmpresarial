@@ -29,7 +29,7 @@ export class PlayerAPIService {
     }
 
   /** GET Player by id*/
-  getHero(id: String | null): Observable<Player> {
+  getPlayer(id: string | null): Observable<Player> {
     const url = `${this.playerUrl}/${id}`;
     return this.http.get<Player>(url).pipe(
       tap(_ => console.log(`fetched player id=${id}`)),

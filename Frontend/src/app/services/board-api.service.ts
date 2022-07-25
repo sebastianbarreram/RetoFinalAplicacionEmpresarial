@@ -12,7 +12,7 @@ import { Board } from '../interfaces/board';
 })
 export class BoardAPIService {
 
-  private boardUrl = 'api/board/';  // URL to web api
+  private boardUrl = 'api/board';  // URL to web api
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -60,8 +60,8 @@ addBoard(board: Board): Observable<Board> {
 
 
 
-/** PUT: update the hero on the server */
-updatePlayer(id: string,  board: Board): Observable<any> {
+/** PUT: update the board on the server */
+updateBoard(id: string,  board: Board): Observable<any> {
   const url = `${this.boardUrl}/${id}`;
   return this.http.put(url, board, this.httpOptions).pipe(
     tap(_ => console.log(`updated board id=${board.id}`)),
@@ -98,7 +98,7 @@ updateUseCards(id: string, idCard: string ): Observable<any> {
 
 /** DELETE: delete the hero from the server */
 deleteHero(id: number): Observable<Player> {
-  const url = `${this.playerUrl}/${id}`;
+  const url = `${this.boardUrl}/${id}`;
 
   return this.http.delete<Player>(url, this.httpOptions).pipe(
     tap(_ => console.log(`Delete player id=${id}`)),
@@ -108,7 +108,7 @@ deleteHero(id: number): Observable<Player> {
 
 /** GET Player by id. Return `undefined` when id not found */
  getPlayerNo404<Data>(id: String | null): Observable<Player> {
-    const url = `${this.playerUrl}/?id=${id}`;
+    const url = `${this.boardUrl}/?id=${id}`;
     return this.http.get<Player[]>(url)
       .pipe(
         map(player => player[0]), // returns a {0|1} element array

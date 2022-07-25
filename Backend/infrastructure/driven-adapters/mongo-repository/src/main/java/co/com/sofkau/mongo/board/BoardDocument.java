@@ -21,5 +21,5 @@ public class BoardDocument {
     private String id;
     private Date time;
     private List<Card> listCard;
-    private List<Player> listplayer;
+    private List<String> idPlayers;
 }

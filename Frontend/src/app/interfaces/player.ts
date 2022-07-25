@@ -2,7 +2,7 @@ import { Card } from "./card";
 
 export interface Player{
   playerId: string | null;
-  nickName: String;
+  nickName: string;
   email: string;
   score: number;
 

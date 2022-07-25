@@ -13,11 +13,10 @@ export class HallComponent implements OnInit {
 
 	constructor(private game : GameService) {}
   ngOnInit(): void {
-    var userId = JSON.parse(localStorage.getItem('user')||"").uid;
-        console.log((userId));
+    // var userId = JSON.parse(localStorage.getItem('user')||"").uid;
+    //     console.log((userId));
   }
   crearSala():void{
-   
     //this.game.updateGame({Game},"62dd61651a07e0562b2cb040")
   }
  

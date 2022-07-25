@@ -54,7 +54,6 @@ export class AuthenticationService {
 		return this.afAuth
 			.signInWithEmailAndPassword(email, password)
 			.then((result) => {
-				console.log(result);
 				this.SetUserData(result.user);
 
 				this.router.navigate(['hall']);
