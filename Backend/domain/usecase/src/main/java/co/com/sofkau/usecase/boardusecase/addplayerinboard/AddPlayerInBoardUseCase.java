@@ -22,7 +22,7 @@ public class AddPlayerInBoardUseCase {
                            map(  player1 -> {
 
                                var listsPlayers = board.getListplayer();
-                               var playerId = board.getIdplayers();
+                               var playerId = board.getIdPlayers();
 
                                 listsPlayers.add(player1);
                                 playerId.add(player1.getPlayerId());

@@ -39,14 +39,17 @@ idPlayers: []
 
   constructor(private playerAPIService: PlayerAPIService, 
     private boardAPIService: BoardAPIService) {
-      this.getPlayer();
       this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb")
-      .subscribe(board=>this.board=board);
-      this.board.idPlayers.push(this.playerId); 
+    .subscribe(board=>{this.board=board})
+    
+      
       }
       
   
   ngOnInit(): void {
+    if(this.board){
+      this.getPlayer();
+    }
     this.addPlayerToBoard();
     
   }
@@ -54,36 +57,21 @@ idPlayers: []
   }
   getPlayer():void{
     this.playerId=(localStorage.getItem("uid")!);
+    
     if (!this.playerId) {
       location.reload();
-    }
-    this.board.idPlayers.push(this.playerId)
-  }
-  addPlayerToBoard(): void {
-    // if(this.playerId==null){
-    //   location.reload();
-    // }
-    //  this.playerAPIService.getPlayer(this.playerId).subscribe(element=>{  
 
-    //   this.boardAPIService.addBoard(this.board)
-    //   console.log(JSON.stringify(this.board.listPlayer));
-      
-    // }
-    //   ) 
-    if (this.board) {
-      
-      console.log(this.board.idPlayers);
-      this.boardAPIService.addBoard(this.board).subscribe(respuesta=>console.log(respuesta));
     }
     
   }
+  addPlayerToBoard(): void {
 
-    // this.boardAPIService.getBoardById("62dd61651a07e0562b2cb040")
-    //   .subscribe(board=>
-    //     board.idplayers.push(playerId||"")
-    //     this.boardAPIService.updateBoard("62dd61651a07e0562b2cb040",board) )
-    //     //board.listplayer.push(playerId}
-
+    if (this.board) {
+      console.log(this.board.idPlayers);
+      this.boardAPIService.addPlayerInBoard(this.playerId,this.board)
+      .subscribe(respuesta=>console.log(respuesta));
+    } 
+  }
   }
 
   

@@ -69,6 +69,7 @@ export class AuthenticationService {
 	SignOut() {
 		return this.afAuth.signOut().then(() => {
 			window.alert("se ha cerrado la sesión");
+			localStorage.clear();
 			this.router.navigate(['auth']);
 		});
 	}
