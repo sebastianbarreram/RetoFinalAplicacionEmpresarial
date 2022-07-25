@@ -3,8 +3,9 @@ import { Player } from "./player";
 
 export interface Board {
   id: string;
-  time: Date;
-
+  time: number;
+  listWindRound:string[];
   listCard: Card[];
-  listplayer: Player[];
+  listPlayer:Player[];
+  idplayers: string[];
 }

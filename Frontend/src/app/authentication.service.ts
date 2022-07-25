@@ -40,6 +40,7 @@ export class AuthenticationService {
 			if (user) {
 				this.userData = user;
 				localStorage.setItem("user", JSON.stringify(this.userData));
+				localStorage.setItem('uid',JSON.parse(localStorage.getItem('user') || "").uid);
 				JSON.parse(localStorage.getItem("user")!);
 			} else {
 				localStorage.setItem("user", "null");
@@ -72,6 +73,7 @@ export class AuthenticationService {
 	}
 
 	SetUserData(user: any) {
+		
 		const userRef: AngularFirestoreDocument<any> = this.afs.doc(
 			`users/${user.uid}`,
 		);
@@ -105,6 +107,7 @@ export class AuthenticationService {
 				/* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
 				this.SetUserData(result.user);
+				
 			})
 			.catch((error) => {
 				window.alert(error.message);

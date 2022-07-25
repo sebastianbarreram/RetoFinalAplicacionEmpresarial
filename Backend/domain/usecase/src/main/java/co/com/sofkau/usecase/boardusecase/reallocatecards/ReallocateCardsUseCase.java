@@ -41,7 +41,8 @@ public class ReallocateCardsUseCase {
             }).toFuture().join();
 
      var listsCardPlayerNew=  Mono.just(playerWin.getCardModels()).toFuture().join();
-      List<Card> listCardPlayer = Stream.concat(listCardRoundNew.stream(), listsCardPlayerNew.stream()).collect(Collectors.toList());
+
+    List<Card> listCardPlayer = Stream.concat(listCardRoundNew.stream(), listsCardPlayerNew.stream()).collect(Collectors.toList());
 
     playerWin.setCardModels(listCardPlayer);
 

@@ -5,6 +5,7 @@ import { BoardAPIService } from '../../services/board-api.service';
 import { Board } from 'src/app/interfaces/board';
 
 
+
 @Component({
   selector: 'app-list-games',
   templateUrl: './list-games.component.html',
@@ -12,10 +13,9 @@ import { Board } from 'src/app/interfaces/board';
 })
 export class ListGamesComponent implements OnInit {
 
-  Players : Player[]=[];
+  boards : Board[]=[];
 	playerId: string = "";
-  boardId: string ="";
-
+  
 	player: Player = {
 			playerId : "",
 				nickName : "",
@@ -26,54 +26,52 @@ export class ListGamesComponent implements OnInit {
 				cardModels: [],
 	}
 
-  boards: Board | undefined;
+  board: Board = {
+    id: "62dd61651a07e0562b2cb040",
+    time: 1,
+    listWindRound:[],
+    listCard: [],
+    listPlayer:[],
+    idplayers: [],
+  }
+  listaPlayers: string[]=[];
 
   constructor(private playerAPIService: PlayerAPIService, 
     private boardAPIService: BoardAPIService) {
-
+      
   }
   ngOnInit(): void {
-    // this.addPlayerToBoard();
-    this.getBoard();
+   
+    this.addPlayerToBoard();
   }
   iniciarJuego(): void {
     
     // var playerId = JSON.parse(localStorage.getItem('user') || "").uid;
     // console.log(playerId);
-    // this.playerAPIService.getPlayer(playerId).subscribe(player => this.player = player)
+     
     //this.playerAPIService.getPlayer(playerId).subscribe(player =>  console.log(player.email));
     
   }
 
-  getBoard(): void {
+  addPlayerToBoard(): void {
    
-    this.boardAPIService.getBoardById("62dd61651a07e0562b2cb040")
-    .subscribe(board=>{
-      this.boardId=board.id});
-      console.log(this.boardId);
-      
+    this.playerId =JSON.parse(localStorage.getItem('user') || "").uid;
+     this.playerAPIService.getPlayer(this.playerId).subscribe(player =>{
+      this.board.listPlayer.push(player)
+      player.playerId
+      this.boardAPIService.updateBoard(this.board.id, this.board)
+    .subscribe();
+  });
+   
+    // this.boardAPIService.getBoardById("62dd61651a07e0562b2cb040")
+    //   .subscribe(board=>
+    //     board.idplayers.push(playerId||"")
+    //     this.boardAPIService.updateBoard("62dd61651a07e0562b2cb040",board) )
+    //     //board.listplayer.push(playerId}
+
   }
 
-  addPlayerToBoard(): void {
-    const playerId = localStorage.getItem('uid');
-    console.log(playerId);
-    
-    this.playerAPIService.getPlayer(playerId)
-    .subscribe(player => {
-      this.boardAPIService.getBoardById("62dd61651a07e0562b2cb040")
-      .subscribe(board=>{
-        var newBoard=board;
-        var listaJugadores=newBoard.listplayer;
-        console.log(listaJugadores);
-        listaJugadores.push(player);
-        console.log(listaJugadores);
-        board.listplayer=listaJugadores;
-        console.log(typeof(board))
-        this.boardAPIService.updateBoard("62dd61651a07e0562b2cb040",board);
-        console.log("Tiene que actualizar")
-      });
-    })
-  }
+  
 
 
 
