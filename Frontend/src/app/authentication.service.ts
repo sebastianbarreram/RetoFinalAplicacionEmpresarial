@@ -50,7 +50,9 @@ export class AuthenticationService {
 	}
 
 
-
+	/**
+	 * Metodo para ingresar a al cuenta
+	 * */
 	SignIn(email: any, password: any) {
 		return this.afAuth
 			.signInWithEmailAndPassword(email, password)
@@ -73,7 +75,7 @@ export class AuthenticationService {
 	}
 
 	SetUserData(user: any) {
-		
+
 		const userRef: AngularFirestoreDocument<any> = this.afs.doc(
 			`users/${user.uid}`,
 		);
@@ -100,14 +102,28 @@ export class AuthenticationService {
 			});
 	}
 
+	/**
+	 * Incripcion
+	 * */
 	SignUp(email: string, password: string) {
 		return this.afAuth
 			.createUserWithEmailAndPassword(email, password)
 			.then((result) => {
 				/* Call the SendVerificaitonMail() function when new user sign
-        up and returns promise */
+				up and returns promise */
+
 				this.SetUserData(result.user);
-				
+				console.log("Hola John")
+
+				this.player.playerId = result.user?.uid || " ";
+				this.player.email = email;
+
+				this.playerAPIService.addPlayer(this.player)
+					.subscribe(playerNew => this.Players.push(playerNew));
+
+				this.router.navigate(['hall']);
+
+
 			})
 			.catch((error) => {
 				window.alert(error.message);
@@ -119,7 +135,6 @@ export class AuthenticationService {
 
 			var userId = JSON.parse(localStorage.getItem('user')||"").uid;
 			var userEmail = JSON.parse(localStorage.getItem('user')||"").email;
-			console.log((userEmail));
 
 			this.player.playerId = userId;
 			this.player.email = userEmail;
