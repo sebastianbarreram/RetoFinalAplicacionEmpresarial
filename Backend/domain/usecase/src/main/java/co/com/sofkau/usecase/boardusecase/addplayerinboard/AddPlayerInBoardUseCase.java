@@ -16,7 +16,7 @@ public class AddPlayerInBoardUseCase {
     private final GetCardsUseCase getCardsUseCase;
     private final CardRepository cardRepository;
 
-    public Mono<Board>    addPlayerInBord(String idPlayer , Board board){
+    public Mono<Board>addPlayerInBord(String idPlayer , Board board){
 
        var newBoard =  playerRepository.findById(idPlayer).
                            map(  player1 -> {

@@ -88,7 +88,7 @@ updateTieBreak(id: string): Observable<any> {
 */
 
 updateUseCards(id: string, idCard: string ): Observable<any> {
-  const url = `${this.boardUrl}/set/${id}/${idCard}`;
+  const url = `${this.boardUrl}/set/${idCard}`;
   return this.http.put(url, this.httpOptions).pipe(
     tap(_ => console.log(`updateUseCards`)),
     catchError(this.handleError<any>('updateUseCards'))
@@ -119,6 +119,12 @@ deleteHero(id: number): Observable<Player> {
         catchError(this.handleError<Player>(`getplayer id=${id}`))
       );
   }
+  addPlayerBoard(id:string|null, board:Board):Observable<any>{
+    const url = `${this.boardUrl}/player/${id}`;
+    return this.http.put(url, this.httpOptions).pipe(
+      tap(_ => console.log(`updateUseCards`)),
+      catchError(this.handleError<any>('updateUseCards')))
+    }
 
 /**
  * Handle Http operation that failed.

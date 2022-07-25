@@ -40,7 +40,7 @@ export class AuthenticationService {
 			if (user) {
 				this.userData = user;
 				localStorage.setItem("user", JSON.stringify(this.userData));
-				localStorage.setItem('uid',JSON.parse(localStorage.getItem('user') || "").uid);
+				localStorage.setItem("uid",this.userData.uid);
 				JSON.parse(localStorage.getItem("user")!);
 			} else {
 				localStorage.setItem("user", "null");
@@ -56,9 +56,8 @@ export class AuthenticationService {
 			.signInWithEmailAndPassword(email, password)
 			.then((result) => {
 				this.SetUserData(result.user);
-
 				this.router.navigate(['hall']);
-
+				
 			})
 			.catch((error) => {
 				window.alert(error.message);

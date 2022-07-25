@@ -14,7 +14,7 @@ import { Board } from 'src/app/interfaces/board';
 export class ListGamesComponent implements OnInit {
 
   boards : Board[]=[];
-	playerId: string = "";
+	playerId: string= "";
   
 	player: Player = {
 			playerId : "",
@@ -27,7 +27,7 @@ export class ListGamesComponent implements OnInit {
 	}
 
   board: Board = {
-    id: "62dd61651a07e0562b2cb040",
+    id: "62debea588fdc0240d2ced4d",
     time: 1,
     listWindRound:[],
     listCard: [],
@@ -38,31 +38,31 @@ export class ListGamesComponent implements OnInit {
 
   constructor(private playerAPIService: PlayerAPIService, 
     private boardAPIService: BoardAPIService) {
-      
+     
   }
   ngOnInit(): void {
-   
+    this.getPlayer();
     this.addPlayerToBoard();
+    
   }
   iniciarJuego(): void {
-    
-    // var playerId = JSON.parse(localStorage.getItem('user') || "").uid;
-    // console.log(playerId);
-     
-    //this.playerAPIService.getPlayer(playerId).subscribe(player =>  console.log(player.email));
+  }
+  getPlayer():void{
+    this.playerId=(localStorage.getItem("uid")!);
     
   }
-
   addPlayerToBoard(): void {
-   
-    this.playerId =JSON.parse(localStorage.getItem('user') || "").uid;
-     this.playerAPIService.getPlayer(this.playerId).subscribe(player =>{
-      this.board.listPlayer.push(player)
-      player.playerId
-      this.boardAPIService.updateBoard(this.board.id, this.board)
-    .subscribe();
-  });
-   
+    console.log(this.playerId);
+   this.playerAPIService.getPlayer(this.playerId).subscribe(element=>{  
+      this.board.listPlayer.push(this.player)  
+      this.boardAPIService.addPlayerBoard(this.playerId,this.board).subscribe()
+      console.log(this.board);
+    }
+      ) 
+      
+      
+  }
+
     // this.boardAPIService.getBoardById("62dd61651a07e0562b2cb040")
     //   .subscribe(board=>
     //     board.idplayers.push(playerId||"")
@@ -75,4 +75,4 @@ export class ListGamesComponent implements OnInit {
 
 
 
-}
+

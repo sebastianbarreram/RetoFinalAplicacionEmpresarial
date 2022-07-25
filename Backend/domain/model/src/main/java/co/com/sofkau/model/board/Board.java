@@ -19,7 +19,6 @@ public class Board {
 
     private String id;
     private Integer time;
-
     private List<String> listWinRound;
     private List<Card> listCard;
     private List<Player> listplayer ;
