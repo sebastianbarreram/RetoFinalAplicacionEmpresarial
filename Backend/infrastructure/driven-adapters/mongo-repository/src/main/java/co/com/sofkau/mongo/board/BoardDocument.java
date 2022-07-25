@@ -19,8 +19,12 @@ import java.util.Map;
 public class BoardDocument {
     @Id
     private String id;
+<<<<<<< Updated upstream
     private Date time;
     private List<String> listWinRound;
+=======
+    private Integer time;
+>>>>>>> Stashed changes
     private List<Card> listCard;
     private List<String> idPlayers;
 }

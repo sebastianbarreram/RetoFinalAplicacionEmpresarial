@@ -4,7 +4,7 @@ import { Player } from '../../interfaces/player';
 import { BoardAPIService } from '../../services/board-api.service';
 import { Board } from 'src/app/interfaces/board';
 import { ignoreElements, map } from 'rxjs/operators';
-import { BoundTarget } from '@angular/compiler';
+import { BoundTarget, ElementSchemaRegistry } from '@angular/compiler';
 
 
 @Component({
@@ -14,10 +14,9 @@ import { BoundTarget } from '@angular/compiler';
 })
 export class ListGamesComponent implements OnInit {
 
-  Players : Player[]=[];
+  boards : Board[]=[];
 	playerId: string = "";
-  boardId: string="";
-
+  
 	player: Player = {
 			playerId : "",
 				nickName : "",
@@ -38,34 +37,28 @@ export class ListGamesComponent implements OnInit {
 
   constructor(private playerAPIService: PlayerAPIService, 
     private boardAPIService: BoardAPIService) {
-      this.playerId = localStorage.getItem('uid')||"";
-
+      
   }
   ngOnInit(): void {
-    
+    this.playerId =localStorage.getItem('uid') || "";
     this.addPlayerToBoard();
   }
   iniciarJuego(): void {
     
     // var playerId = JSON.parse(localStorage.getItem('user') || "").uid;
     // console.log(playerId);
-    // this.playerAPIService.getPlayer(playerId).subscribe(player => this.player = player)
+     
     //this.playerAPIService.getPlayer(playerId).subscribe(player =>  console.log(player.email));
     
   }
 
   addPlayerToBoard(): void {
-    
-    this.boardAPIService.getBoardById("62dd61651a07e0562b2cb040")
-    .subscribe(board=>{
-      this.board.idplayers=board.idplayers;
-      this.board.idplayers.push(this.playerId);
-    })
-    
-    this.boardAPIService.addBoard(this.board)
-    .subscribe(board => this.listaPlayers.push(this.playerId));
-    
-    
+     this.playerAPIService.getPlayer(this.playerId).subscribe(player =>{
+      this.board.idplayers.push(player.playerId||"")
+      this.boardAPIService.updateBoard(this.board.id, this.board)
+    .subscribe();
+  });console.log(this.board.idplayers)
+   
     // this.boardAPIService.getBoardById("62dd61651a07e0562b2cb040")
     //   .subscribe(board=>
     //     board.idplayers.push(playerId||"")

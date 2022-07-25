@@ -40,6 +40,7 @@ export class AuthenticationService {
 			if (user) {
 				this.userData = user;
 				localStorage.setItem("user", JSON.stringify(this.userData));
+				localStorage.setItem('uid',JSON.parse(localStorage.getItem('user') || "").uid)
 				JSON.parse(localStorage.getItem("user")!);
 			} else {
 				localStorage.setItem("user", "null");
