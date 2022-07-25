@@ -19,6 +19,7 @@ import { HallComponent } from "./hall/hall.component";
 
 import { ComponentsModule } from "./components/components.module";
 import { BoardComponent } from './components/board/board.component';
+import { GameComponent } from './components/game/game.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { BoardComponent } from './components/board/board.component';
     VistaAuthComponent,
     VistaRegistroComponent,
     HallComponent,
-    BoardComponent
+    BoardComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,
