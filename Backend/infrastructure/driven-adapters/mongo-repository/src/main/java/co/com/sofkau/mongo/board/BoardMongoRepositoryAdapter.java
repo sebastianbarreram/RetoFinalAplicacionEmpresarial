@@ -4,6 +4,7 @@ import co.com.sofkau.model.board.Board;
 import co.com.sofkau.model.board.gateways.BoardRepository;
 import co.com.sofkau.model.card.Card;
 
+import co.com.sofkau.model.player.Player;
 import co.com.sofkau.mongo.helper.AdapterOperations;
 import co.com.sofkau.mongo.player.PlayerDocument;
 import org.reactivecommons.utils.ObjectMapper;
@@ -46,16 +47,14 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
     }
 
     @Override
-    public Mono<String> winRound(String idPlayer,  Board board) {
+    public Mono<String> winRound(Mono<String> playerId) {
 
-//        board.setListWinRound(listWinRound);
+        return playerId;
+    }
 
-        //board.addNewWinRound(idPlayer);
-        //repository.save(new BoardDocument(board.getId(),board.getTime(),board.getListWinRound(), board.getListCard(), board.getListplayer()))
-        //        .flatMap(element -> Mono.just(board));
-        //return win.map(a->a.get().getPlayerId());
-        //return Mono.just(idPlayer);
-        return Mono.just(idPlayer);
+    @Override
+    public Mono<String> winGame(Mono<String> playerId) {
+        return playerId;
     }
 
     @Override

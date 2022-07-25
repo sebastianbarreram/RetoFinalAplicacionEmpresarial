@@ -12,7 +12,8 @@ public interface BoardRepository {
     Mono<Board> findById(String id);
     Mono<Void> delete(String id);
     Mono<Board> update(String id, Board board);
-    Mono<String> winRound(String idPlayer ,Board board);
+    Mono<String> winRound(Mono<String> playerId);
+    Mono<String> winGame(Mono<String> playerId);
     Mono<Board> useCard(Board board);
 
 
