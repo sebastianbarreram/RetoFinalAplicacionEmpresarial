@@ -19,6 +19,7 @@ import java.util.Map;
 public class BoardDocument {
     @Id
     private String id;
+
     private Integer time;
     private List<String> listWinRound;
     private List<Card> listCard;
