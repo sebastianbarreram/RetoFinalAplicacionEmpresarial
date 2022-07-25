@@ -18,5 +18,6 @@ public interface BoardRepository {
 
     Mono<Board> addplayerinboard(Board board);
 
+    Mono<Board> updatePlayerInBoard(Board board);
 
 }

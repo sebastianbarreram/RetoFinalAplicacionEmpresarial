@@ -3,8 +3,7 @@ import { PlayerAPIService } from '../../services/player-api.service';
 import { Player } from '../../interfaces/player';
 import { BoardAPIService } from '../../services/board-api.service';
 import { Board } from 'src/app/interfaces/board';
-import { ignoreElements, map } from 'rxjs/operators';
-import { BoundTarget, ElementSchemaRegistry } from '@angular/compiler';
+
 
 
 @Component({
@@ -30,7 +29,9 @@ export class ListGamesComponent implements OnInit {
   board: Board = {
     id: "62dd61651a07e0562b2cb040",
     time: 1,
+    listWindRound:[],
     listCard: [],
+    listPlayer:[],
     idplayers: [],
   }
   listaPlayers: string[]=[];
@@ -40,7 +41,7 @@ export class ListGamesComponent implements OnInit {
       
   }
   ngOnInit(): void {
-    this.playerId =localStorage.getItem('uid') || "";
+   
     this.addPlayerToBoard();
   }
   iniciarJuego(): void {
@@ -53,11 +54,14 @@ export class ListGamesComponent implements OnInit {
   }
 
   addPlayerToBoard(): void {
+   
+    this.playerId =JSON.parse(localStorage.getItem('user') || "").uid;
      this.playerAPIService.getPlayer(this.playerId).subscribe(player =>{
-      this.board.idplayers.push(player.playerId||"")
+      this.board.listPlayer.push(player)
+      player.playerId
       this.boardAPIService.updateBoard(this.board.id, this.board)
     .subscribe();
-  });console.log(this.board.idplayers)
+  });
    
     // this.boardAPIService.getBoardById("62dd61651a07e0562b2cb040")
     //   .subscribe(board=>
