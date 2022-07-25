@@ -36,13 +36,21 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
     public Mono<Board> update(String id, Board board) {
 
         board.setId(id);
-        return repository.save(new BoardDocument(board.getId(),board.getTime(), board.getListCard(), board.getListplayer()))
+        return repository.save(new BoardDocument(board.getId(),board.getTime(),board.getListWinRound(), board.getListCard(), board.getListplayer()))
                 .flatMap(element -> Mono.just(board));
     }
 
     @Override
-    public Mono<String> winRound(Mono<Optional<Card>> win) {
-        return win.map(a->a.get().getPlayerId());
+    public Mono<String> winRound(String idPlayer,  Board board) {
+
+//        board.setListWinRound(listWinRound);
+
+        //board.addNewWinRound(idPlayer);
+        //repository.save(new BoardDocument(board.getId(),board.getTime(),board.getListWinRound(), board.getListCard(), board.getListplayer()))
+        //        .flatMap(element -> Mono.just(board));
+        //return win.map(a->a.get().getPlayerId());
+        //return Mono.just(idPlayer);
+        return Mono.just(idPlayer);
     }
 
     @Override
