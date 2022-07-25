@@ -12,7 +12,7 @@ public interface BoardRepository {
     Mono<Board> findById(String id);
     Mono<Void> delete(String id);
     Mono<Board> update(String id, Board board);
-    Mono<String> winRound(Mono<Optional<Card>> win);
+    Mono<String> winRound(String idPlayer ,Board board);
     Mono<Board> useCard(Board board);
 
 

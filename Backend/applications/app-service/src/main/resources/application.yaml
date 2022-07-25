@@ -13,7 +13,7 @@ spring:
     include: null
   data:
     mongodb:
-      uri: "mongodb+srv://duvan:duvan@cardsgame.alqn6.mongodb.net/?retryWrites=true&w=majority"
+      uri: "mongodb://127.0.0.1:27017/"
       database: "CardsGame"
 management:
   endpoints:

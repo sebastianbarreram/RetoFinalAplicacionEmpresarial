@@ -22,4 +22,6 @@ public class Player {
 
     private  List<Integer> pointsHistory = new ArrayList<>();
     private  List<Card> cardModels = new ArrayList<>();
+
+
 }
