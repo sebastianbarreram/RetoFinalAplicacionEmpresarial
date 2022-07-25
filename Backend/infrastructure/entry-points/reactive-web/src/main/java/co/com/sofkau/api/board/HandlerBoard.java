@@ -106,13 +106,9 @@ public class HandlerBoard {
   public Mono<ServerResponse> listenAddPlayerInBoardUseCase(ServerRequest serverRequest) {
     var idPlayer = serverRequest.pathVariable("idplayer");
 
-    return serverRequest
-        .bodyToMono(Board.class)
-        .flatMap(
-            element ->
-                ServerResponse.ok()
+    return ServerResponse.ok()
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body(addPlayerInBoardUseCase.addPlayerInBord(idPlayer, element), Board.class));
+                    .body(addPlayerInBoardUseCase.addPlayerInBord(idPlayer), Board.class);
   }
 
   public Mono<ServerResponse> listenUpdatePlayerInBoardUseCase(ServerRequest serverRequest) {

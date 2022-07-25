@@ -8,6 +8,8 @@ import co.com.sofkau.usecase.cardusecase.getcardsusecase.GetCardsUseCase;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 public class AddPlayerInBoardUseCase {
 
@@ -16,7 +18,9 @@ public class AddPlayerInBoardUseCase {
     private final GetCardsUseCase getCardsUseCase;
     private final CardRepository cardRepository;
 
-    public Mono<Board>addPlayerInBord(String idPlayer , Board board){
+    public Mono<Board>addPlayerInBord(String idPlayer){
+        var board=boardRepository.findById("62de01f1ee60c664c3d720fb")
+                .toFuture().join();
 
        var newBoard =  playerRepository.findById(idPlayer).
                            map(  player1 -> {
@@ -32,8 +36,8 @@ public class AddPlayerInBoardUseCase {
                                        board.getTime(),
                                        board.getListWinRound(),
                                        board.getListCard(),
-                                       listsPlayers,
-                                       playerId
+                                       listsPlayers.stream().distinct().collect(Collectors.toList()),
+                                       playerId.stream().distinct().collect(Collectors.toList())
 
                                );
                            }).toFuture().join();

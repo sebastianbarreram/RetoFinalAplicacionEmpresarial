@@ -4,6 +4,7 @@ import { Player } from '../../interfaces/player';
 import { BoardAPIService } from '../../services/board-api.service';
 import { Board } from 'src/app/interfaces/board';
 import { map } from 'rxjs/operators';
+import { HttpParams } from '@angular/common/http';
 
 
 
@@ -39,14 +40,15 @@ idPlayers: []
 
   constructor(private playerAPIService: PlayerAPIService, 
     private boardAPIService: BoardAPIService) {
-      this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb")
-    .subscribe(board=>{this.board=board})
+      
     
       
       }
       
   
   ngOnInit(): void {
+    this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb")
+    .subscribe(board=>{this.board.listplayer=board.listplayer})
     if(this.board){
       this.getPlayer();
     }
@@ -56,7 +58,7 @@ idPlayers: []
   iniciarJuego(): void {
   }
   getPlayer():void{
-    this.playerId=(localStorage.getItem("uid")!);
+    this.playerId=localStorage.getItem("uid")!;
     
     if (!this.playerId) {
       location.reload();
@@ -65,10 +67,9 @@ idPlayers: []
     
   }
   addPlayerToBoard(): void {
-
     if (this.board) {
       console.log(this.board.idPlayers);
-      this.boardAPIService.addPlayerInBoard(this.playerId,this.board)
+      this.boardAPIService.addPlayerInBoard(this.playerId)
       .subscribe(respuesta=>console.log(respuesta));
     } 
   }
