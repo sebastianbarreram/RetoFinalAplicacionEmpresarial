@@ -1,6 +1,6 @@
 <div class="cards-container overflow-auto">
   <body *ngFor="let card of cards" [id]="card.cardId">
-    <div [id]="card.cardId">
+    <div *ngIf="playerId==card.playerId" [id]="card.cardId">
       <div class="card" [id]="card.cardId">
         <div class="monster-image" [id]="card.cardId">
           <img
