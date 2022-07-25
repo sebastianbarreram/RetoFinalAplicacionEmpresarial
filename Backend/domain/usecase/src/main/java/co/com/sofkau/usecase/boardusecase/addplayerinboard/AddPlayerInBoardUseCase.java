@@ -22,8 +22,10 @@ public class AddPlayerInBoardUseCase {
                            map(  player1 -> {
 
                                var listsPlayers = board.getListplayer();
+                               var playerId = board.getIdplayers();
 
-                               listsPlayers.add(player1);
+                                listsPlayers.add(player1);
+                                playerId.add(player1.getPlayerId());
 
                                return  new Board(
                                        board.getId(),
@@ -31,7 +33,7 @@ public class AddPlayerInBoardUseCase {
                                        board.getListWinRound(),
                                        board.getListCard(),
                                        listsPlayers,
-                                       board.getIdplayers()
+                                       playerId
                                );
                            }).toFuture().join();
 
