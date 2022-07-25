@@ -78,18 +78,16 @@ private final AddPlayerInBoardUseCase addPlayerInBoardUseCase;
                 .body(   tieBreakUseCase.tieBreak(id) , Board.class);
     }
     public Mono<ServerResponse>listenUseCardUseCase(ServerRequest serverRequest){
-        var id = serverRequest.pathVariable("id");
-        var idCard = serverRequest.pathVariable("idCard");
+        var idCard = serverRequest.pathVariable("id");
+
         return  serverRequest.bodyToMono(Board.class)
                 .flatMap(element -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(usecardUseCase.useCard(id,idCard,element),Board.class));
+                        .body(usecardUseCase.useCard(idCard,element),Board.class));
     }
 
     public Mono<ServerResponse> listenAddPlayerInBoardUseCase(ServerRequest serverRequest) {
        var idPlayer = serverRequest.pathVariable("idplayer");
-
-
 
         return  serverRequest.bodyToMono(Board.class)
                 .flatMap(element ->  ServerResponse.ok()

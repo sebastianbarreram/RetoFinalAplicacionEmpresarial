@@ -60,7 +60,15 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
 
     @Override
     public Mono<Board> useCard(Board board) {
-        return Mono.just(board);
+
+        return repository.save(new BoardDocument(
+                        board.getId(),
+                        board.getTime(),
+                        board.getListWinRound(),
+                        board.getListCard(),
+                        board.getListplayer(),
+                        board.getIdplayers()))
+                .flatMap(element -> Mono.just(board));
     }
 
     @Override
