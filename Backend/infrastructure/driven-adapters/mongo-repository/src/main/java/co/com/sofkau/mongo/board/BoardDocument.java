@@ -19,9 +19,11 @@ import java.util.Map;
 public class BoardDocument {
     @Id
     private String id;
+
     private List<String> listWinRound;
     private Integer time;
     private List<Card> listCard;
     private List<Player> listplayer ;
     private List<String> idPlayers;
+
 }

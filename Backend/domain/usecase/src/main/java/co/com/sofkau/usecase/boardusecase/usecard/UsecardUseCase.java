@@ -12,18 +12,29 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class UsecardUseCase {
-    private final BoardRepository boardRepository;
-    private final CardRepository cardRepository;
+  private final BoardRepository boardRepository;
+  private final CardRepository cardRepository;
 
+  public Mono<Board> useCard(String id, Board board) {
 
-    public Mono<Board> useCard(String idBoard, String id,Board board){
-        boardRepository.findById(idBoard);
-        List<Card> listCards = new ArrayList<>();
-        cardRepository.findById(id).subscribe(card-> {
-            listCards.addAll(board.getListCard());
-            listCards.add(card);
-        });
-        board.setListCard(listCards);
-        return  boardRepository.useCard(board);
-    }
+    var newBoard =
+        cardRepository
+            .findById(id)
+            .map(
+                card -> {
+                  List<Card> listCards = board.getListCard();
+
+                  listCards.add(card);
+
+                  return new Board(
+                      board.getId(),
+                      board.getTime(),
+                      board.getListWinRound(),
+                      listCards,
+                      board.getListplayer(),
+                      board.getIdplayers());
+                }).toFuture().join();
+
+    return boardRepository.useCard(newBoard);
+  }
 }

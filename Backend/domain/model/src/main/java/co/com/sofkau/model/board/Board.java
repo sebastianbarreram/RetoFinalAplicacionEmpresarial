@@ -18,8 +18,9 @@ import java.util.List;
 public class Board {
 
     private String id;
-    private List<String> listWinRound;
     private Integer time;
+
+    private List<String> listWinRound;
     private List<Card> listCard;
     private List<Player> listplayer ;
     private List<String> idplayers;

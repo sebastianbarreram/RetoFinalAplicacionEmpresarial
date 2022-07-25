@@ -2,6 +2,7 @@ package co.com.sofkau.api.board;
 
 import co.com.sofkau.model.board.Board;
 import co.com.sofkau.model.player.Player;
+import co.com.sofkau.usecase.boardusecase.addplayerinboard.AddPlayerInBoardUseCase;
 import co.com.sofkau.usecase.boardusecase.createboard.CreateBoardUseCase;
 import co.com.sofkau.usecase.boardusecase.gettablerobyid.GettablerobyidUseCase;
 import co.com.sofkau.usecase.boardusecase.tiebreak.TieBreakUseCase;
@@ -28,7 +29,7 @@ public class HandlerBoard {
     private final ReallocateCardsUseCase reallocateCardsUseCase;
     private final TieBreakUseCase tieBreakUseCase;
     private final WinGameUseCase winGameUseCase;
-
+private final AddPlayerInBoardUseCase addPlayerInBoardUseCase;
 
     public Mono<ServerResponse> listenPOSTCreateBoardUseCase(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(Board.class)
@@ -77,12 +78,21 @@ public class HandlerBoard {
                 .body(   tieBreakUseCase.tieBreak(id) , Board.class);
     }
     public Mono<ServerResponse>listenUseCardUseCase(ServerRequest serverRequest){
-        var id = serverRequest.pathVariable("id");
-        var idCard = serverRequest.pathVariable("idCard");
+        var idCard = serverRequest.pathVariable("id");
+
         return  serverRequest.bodyToMono(Board.class)
                 .flatMap(element -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(usecardUseCase.useCard(id,idCard,element),Board.class));
+                        .body(usecardUseCase.useCard(idCard,element),Board.class));
+    }
+
+    public Mono<ServerResponse> listenAddPlayerInBoardUseCase(ServerRequest serverRequest) {
+       var idPlayer = serverRequest.pathVariable("idplayer");
+
+        return  serverRequest.bodyToMono(Board.class)
+                .flatMap(element ->  ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body( addPlayerInBoardUseCase.addPlayerInBord(idPlayer, element), Board.class));
     }
 }
 
