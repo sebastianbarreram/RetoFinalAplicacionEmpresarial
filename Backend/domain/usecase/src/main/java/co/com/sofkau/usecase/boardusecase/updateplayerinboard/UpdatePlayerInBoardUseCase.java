@@ -29,7 +29,7 @@ public class UpdatePlayerInBoardUseCase {
     var listPlayerId =
         board.map(
             board1 -> {
-              return board1.getIdplayers().stream()
+              return board1.getIdPlayers().stream()
                       .map( player ->   player).collect(Collectors.toList());
             }).toFuture().join();
 
@@ -45,7 +45,7 @@ public class UpdatePlayerInBoardUseCase {
                 board1.getListWinRound(),
                 board1.getListCard(),
                 newListPlayers,
-                board1.getIdplayers());
+                board1.getIdPlayers());
             }
     ).toFuture().join();
 

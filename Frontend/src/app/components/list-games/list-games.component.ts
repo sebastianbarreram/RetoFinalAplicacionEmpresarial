@@ -3,6 +3,7 @@ import { PlayerAPIService } from '../../services/player-api.service';
 import { Player } from '../../interfaces/player';
 import { BoardAPIService } from '../../services/board-api.service';
 import { Board } from 'src/app/interfaces/board';
+import { map } from 'rxjs/operators';
 
 
 
@@ -27,21 +28,25 @@ export class ListGamesComponent implements OnInit {
 	}
 
   board: Board = {
-    id: "62debea588fdc0240d2ced4d",
-    time: 1,
-    listWindRound:[],
-    listCard: [],
-    listPlayer:[],
-    idplayers: [],
-  }
+    id: "62de01f1ee60c664c3d720fb",
+time: 10000,
+listWinRound: [],
+listCard: [],
+listplayer: [],
+idPlayers: []
+}
   listaPlayers: string[]=[];
 
   constructor(private playerAPIService: PlayerAPIService, 
     private boardAPIService: BoardAPIService) {
-     
-  }
+      this.getPlayer();
+      this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb")
+      .subscribe(board=>this.board=board);
+      this.board.idPlayers.push(this.playerId); 
+      }
+      
+  
   ngOnInit(): void {
-    this.getPlayer();
     this.addPlayerToBoard();
     
   }
@@ -49,18 +54,28 @@ export class ListGamesComponent implements OnInit {
   }
   getPlayer():void{
     this.playerId=(localStorage.getItem("uid")!);
-    
+    if (!this.playerId) {
+      location.reload();
+    }
+    this.board.idPlayers.push(this.playerId)
   }
   addPlayerToBoard(): void {
-    console.log(this.playerId);
-   this.playerAPIService.getPlayer(this.playerId).subscribe(element=>{  
-      this.board.listPlayer.push(this.player)  
-      this.boardAPIService.addPlayerBoard(this.playerId,this.board).subscribe()
-      console.log(this.board);
+    // if(this.playerId==null){
+    //   location.reload();
+    // }
+    //  this.playerAPIService.getPlayer(this.playerId).subscribe(element=>{  
+
+    //   this.boardAPIService.addBoard(this.board)
+    //   console.log(JSON.stringify(this.board.listPlayer));
+      
+    // }
+    //   ) 
+    if (this.board) {
+      
+      console.log(this.board.idPlayers);
+      this.boardAPIService.addBoard(this.board).subscribe(respuesta=>console.log(respuesta));
     }
-      ) 
-      
-      
+    
   }
 
     // this.boardAPIService.getBoardById("62dd61651a07e0562b2cb040")

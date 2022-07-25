@@ -4,8 +4,8 @@ import { Player } from "./player";
 export interface Board {
   id: string;
   time: number;
-  listWindRound:string[];
+  listWinRound:string[];
   listCard: Card[];
-  listPlayer:Player[];
-  idplayers: string[];
+  listplayer:Player[];
+  idPlayers: string[];
 }

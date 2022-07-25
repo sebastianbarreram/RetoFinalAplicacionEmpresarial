@@ -32,7 +32,7 @@ public class UsecardUseCase {
                       board.getListWinRound(),
                       listCards,
                       board.getListplayer(),
-                      board.getIdplayers());
+                      board.getIdPlayers());
                 }).toFuture().join();
 
     return boardRepository.useCard(newBoard);

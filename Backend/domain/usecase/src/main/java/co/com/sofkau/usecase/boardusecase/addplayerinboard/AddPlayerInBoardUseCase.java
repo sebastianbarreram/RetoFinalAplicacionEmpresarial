@@ -31,7 +31,7 @@ public class AddPlayerInBoardUseCase {
                                        board.getListWinRound(),
                                        board.getListCard(),
                                        listsPlayers,
-                                       board.getIdplayers()
+                                       board.getIdPlayers()
                                );
                            }).toFuture().join();
 

@@ -43,7 +43,7 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
                         board.getListWinRound(),
                         board.getListCard(),
                         board.getListplayer(),
-                        board.getIdplayers()))
+                        board.getIdPlayers()))
                 .flatMap(element -> Mono.just(board));
     }
 
@@ -67,7 +67,7 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
                         board.getListWinRound(),
                         board.getListCard(),
                         board.getListplayer(),
-                        board.getIdplayers()))
+                        board.getIdPlayers()))
                 .flatMap(element -> Mono.just(board));
     }
 
@@ -80,7 +80,7 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
                         board.getListWinRound(),
                         board.getListCard(),
                         board.getListplayer(),
-                        board.getIdplayers()))
+                        board.getIdPlayers()))
        .flatMap(element -> Mono.just(board));
     }
 
@@ -93,7 +93,7 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
                         board.getListWinRound(),
                         board.getListCard(),
                         board.getListplayer(),
-                        board.getIdplayers()))
+                        board.getIdPlayers()))
                 .flatMap(element -> Mono.just(board));
     }
 
