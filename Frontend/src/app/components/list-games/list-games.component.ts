@@ -3,6 +3,8 @@ import { PlayerAPIService } from '../../services/player-api.service';
 import { Player } from '../../interfaces/player';
 import { BoardAPIService } from '../../services/board-api.service';
 import { Board } from 'src/app/interfaces/board';
+import { ignoreElements, map } from 'rxjs/operators';
+import { BoundTarget } from '@angular/compiler';
 
 
 @Component({
@@ -14,7 +16,7 @@ export class ListGamesComponent implements OnInit {
 
   Players : Player[]=[];
 	playerId: string = "";
-  boardId: string ="";
+  boardId: string="";
 
 	player: Player = {
 			playerId : "",
@@ -26,15 +28,22 @@ export class ListGamesComponent implements OnInit {
 				cardModels: [],
 	}
 
-  boards: Board | undefined;
+  board: Board = {
+    id: "62dd61651a07e0562b2cb040",
+    time: 1,
+    listCard: [],
+    idplayers: [],
+  }
+  listaPlayers: string[]=[];
 
   constructor(private playerAPIService: PlayerAPIService, 
     private boardAPIService: BoardAPIService) {
+      this.playerId = localStorage.getItem('uid')||"";
 
   }
   ngOnInit(): void {
-    // this.addPlayerToBoard();
-    this.getBoard();
+    
+    this.addPlayerToBoard();
   }
   iniciarJuego(): void {
     
@@ -45,35 +54,27 @@ export class ListGamesComponent implements OnInit {
     
   }
 
-  getBoard(): void {
-   
+  addPlayerToBoard(): void {
+    
     this.boardAPIService.getBoardById("62dd61651a07e0562b2cb040")
     .subscribe(board=>{
-      this.boardId=board.id});
-      console.log(this.boardId);
-      
+      this.board.idplayers=board.idplayers;
+      this.board.idplayers.push(this.playerId);
+    })
+    
+    this.boardAPIService.addBoard(this.board)
+    .subscribe(board => this.listaPlayers.push(this.playerId));
+    
+    
+    // this.boardAPIService.getBoardById("62dd61651a07e0562b2cb040")
+    //   .subscribe(board=>
+    //     board.idplayers.push(playerId||"")
+    //     this.boardAPIService.updateBoard("62dd61651a07e0562b2cb040",board) )
+    //     //board.listplayer.push(playerId}
+
   }
 
-  addPlayerToBoard(): void {
-    const playerId = localStorage.getItem('uid');
-    console.log(playerId);
-    
-    this.playerAPIService.getPlayer(playerId)
-    .subscribe(player => {
-      this.boardAPIService.getBoardById("62dd61651a07e0562b2cb040")
-      .subscribe(board=>{
-        var newBoard=board;
-        var listaJugadores=newBoard.listplayer;
-        console.log(listaJugadores);
-        listaJugadores.push(player);
-        console.log(listaJugadores);
-        board.listplayer=listaJugadores;
-        console.log(typeof(board))
-        this.boardAPIService.updateBoard("62dd61651a07e0562b2cb040",board);
-        console.log("Tiene que actualizar")
-      });
-    })
-  }
+  
 
 
 

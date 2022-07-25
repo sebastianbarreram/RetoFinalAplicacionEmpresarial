@@ -3,8 +3,7 @@ import { Player } from "./player";
 
 export interface Board {
   id: string;
-  time: Date;
-
+  time: number;
   listCard: Card[];
-  listplayer: Player[];
+  idplayers: string[];
 }

@@ -61,7 +61,7 @@ addBoard(board: Board): Observable<Board> {
 
 
 /** PUT: update the board on the server */
-updateBoard(id: string,  board: Board): Observable<any> {
+updateBoard(id: string|null,  board: Board): Observable<any> {
   const url = `${this.boardUrl}/${id}`;
   return this.http.put(url, board, this.httpOptions).pipe(
     tap(_ => console.log(`updated board id=${board.id}`)),
