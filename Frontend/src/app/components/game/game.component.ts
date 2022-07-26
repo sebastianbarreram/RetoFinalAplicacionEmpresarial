@@ -1,4 +1,11 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Board } from 'src/app/interfaces/board';
+import { Card } from 'src/app/interfaces/card';
+import { Game } from 'src/app/interfaces/game';
+import { BoardAPIService } from 'src/app/services/board-api.service';
+import { CardGameAPIService } from '../../services/card-api.service';
+import { PlayerAPIService } from '../../services/player-api.service';
+
 
 @Component({
   selector: 'app-game',
@@ -7,139 +14,58 @@ import { Component, HostListener, OnInit } from '@angular/core';
 })
 export class GameComponent implements OnInit {
   display: any;
-  constructor() { }
+ 
+  board: Board = {
+    id: "62de01f1ee60c664c3d720fb",
+time: 10000,
+listWinRound: [],
+listCard: [],
+listplayer: [],
+idPlayers: []
+}
+  cards: Card[]=[];
+
+  game:Game={
+      id:"",
+      numberPlayers:0,
+      playerModelList:[],
+      cardGamesList:[]
+  }
+
+
+  constructor(private boardAPIService: BoardAPIService, 
+    private cardAPIService: CardGameAPIService,
+    private playerAPIService:PlayerAPIService) {
+    
+   }
 
   ngOnInit(): void {
+    this.getCards();
+    this.getPlayer();
+    
     // this.timer(1);
     //para hacer pruebas en segundos recordar quitar el comentario en el metoo timer
     this.timer(3);
 
   }
 
-  playerId="3";
-  cards = [
-  {
-		cardId: "2222222",
-		xp: 600,
-		image: "../../assets/Pack 108 Pepsicards marvel/303.jpg",
-		hidden: true,
-		playerId: "1"
-	},
-  {
-		cardId: "62dc7e8104e748902a9a82de",
-		xp: 600,
-		image: "../../assets/Pack 108 Pepsicards marvel/063.jpg",
-		hidden: true,
-		playerId: "1"
-	},
-	{
-		cardId: "62dc7e8104e748902a9a82df",
-		xp: 100,
-		image: "../../assets/Pack 108 Pepsicards marvel/0BF.jpg",
-		hidden: true,
-		playerId: "1"
-	},
-	{
-		cardId: "62dc7e8104e748902a9a82e0",
-		xp: 800,
-		image: "../../assets/Pack 108 Pepsicards marvel/0E0.jpg",
-		hidden: true,
-		playerId: "1"
-	},
-	{
-		cardId: "62dc7e8104e748902a9a82e1",
-		xp: 500,
-		image: "../../assets/Pack 108 Pepsicards marvel/138.jpg",
-		hidden: true,
-		playerId: "1"
-	},
-  {
-    cardId: "62dc7e8104e748902a9a82ff",
-    xp: 200,
-    image: "../../assets/Pack 108 Pepsicards marvel/5A6.jpg",
-    hidden: true,
-    playerId: "2"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8300",
-    xp: 1000,
-    image: "../../assets/Pack 108 Pepsicards marvel/5B9.jpg",
-    hidden: true,
-    playerId: "2"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8301",
-    xp: 400,
-    image: "../../assets/Pack 108 Pepsicards marvel/5DE.jpg",
-    hidden: true,
-    playerId: "2"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8302",
-    xp: 1000,
-    image: "../../assets/Pack 108 Pepsicards marvel/5EA.jpg",
-    hidden: true,
-    playerId: "2"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8303",
-    xp: 800,
-    image: "../../assets/Pack 108 Pepsicards marvel/625.jpg",
-    hidden: true,
-    playerId: "2"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8306",
-    xp: 300,
-    image: "../../assets/Pack 108 Pepsicards marvel/6AC.jpg",
-    hidden: true,
-    playerId: "3"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8307",
-    xp: 1000,
-    image: "../../assets/Pack 108 Pepsicards marvel/6B6.jpg",
-    hidden: true,
-    playerId: "3"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8308",
-    xp: 300,
-    image: "../../assets/Pack 108 Pepsicards marvel/740.jpg",
-    hidden: true,
-    playerId: "3"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8309",
-    xp: 700,
-    image: "../../assets/Pack 108 Pepsicards marvel/74D.jpg",
-    hidden: true,
-    playerId: "3"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a830a",
-    xp: 400,
-    image: "../../assets/Pack 108 Pepsicards marvel/763.jpg",
-    hidden: true,
-    playerId: "3"
+  getPlayer():void{
+    this.playerId=localStorage.getItem("uid")!;
+    if (!this.playerId) {
+       location.reload();
+     }
   }
-  
-]
-  aux=[
-    {xp:100,image:"../../assets/Pack 108 Pepsicards marvel/303.jpg",hidden:false},
-    {xp:1000,image:"../../assets/Pack 108 Pepsicards marvel/334.jpg",hidden:false},
-    {xp:900,image:"../../assets/Pack 108 Pepsicards marvel/338.jpg",hidden:false},
-    {xp:500,image:"../../assets/Pack 108 Pepsicards marvel/33C.jpg",hidden:false},
-    {xp:700,image:"../../assets/Pack 108 Pepsicards marvel/34F.jpg",hidden:true},
-    {xp:900,image:"../../assets/Pack 108 Pepsicards marvel/367.jpg",hidden:false},
-    {xp:1000,image:"../../assets/Pack 108 Pepsicards marvel/7D1.jpg",hidden:false},
-{xp:300,image:"../../assets/Pack 108 Pepsicards marvel/7DB.jpg",hidden:false},
-{xp:700,image:"../../assets/Pack 108 Pepsicards marvel/7EB.jpg",hidden:false},
-{xp:1000,image:"../../assets/Pack 108 Pepsicards marvel/807.jpg",hidden:false},
-{xp:600,image:"../../assets/Pack 108 Pepsicards marvel/81F.jpg",hidden:false},
-{xp:900,image:"../../assets/Pack 108 Pepsicards marvel/85F.jpg",hidden:false},
-{xp:700,image:"../../assets/Pack 108 Pepsicards marvel/86A.jpg",hidden:true},
-  ];
+
+  getCards(){
+    this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(
+      board =>{ this.board=board;
+      console.log(this.board);
+    })
+    this.cards=this.board.listCard;
+  }
+
+  playerId= "";
+ 
 
   bettingCards=[  
     // {
@@ -175,8 +101,8 @@ export class GameComponent implements OnInit {
     
     if (!this.players.includes(this.playerId)) {
       // get the clicked element
-    this.cards.forEach(card=>card.cardId==event.target.id? 
-      this.bettingCards.push(card) && this.players.push(card.playerId):NaN);
+    this.board.listCard.forEach(card=>card.cardId==event.target.id? 
+      this.game.cardGamesList.push(card) && this.players.push(card.playerId):NaN);
       console.log("card of player: "+this.playerId)
       
     }
@@ -212,11 +138,11 @@ export class GameComponent implements OnInit {
       if (seconds == 0) {
         console.log("finished: Pasar a definir ganador");
         clearInterval(timer);
-        const randomNuber=Math.floor(Math.random() * this.cards
+        const randomNuber=Math.floor(Math.random() * this.board.listCard
         .filter(cardMap=>cardMap.playerId==this.playerId).length)
         
         if (!this.players.includes(this.playerId)) {
-          const card=this.cards.filter(cardMap=>cardMap.playerId==this.playerId)[randomNuber]
+          const card=this.board.listCard.filter(cardMap=>cardMap.playerId==this.playerId)[randomNuber]
         this.bettingCards.push(card)
         this.players.push(card.playerId)
         }

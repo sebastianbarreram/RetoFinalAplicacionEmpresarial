@@ -3,8 +3,10 @@ import { PlayerAPIService } from '../../services/player-api.service';
 import { Player } from '../../interfaces/player';
 import { BoardAPIService } from '../../services/board-api.service';
 import { Board } from 'src/app/interfaces/board';
-import { map } from 'rxjs/operators';
+import { findIndex, map } from 'rxjs/operators';
 import { HttpParams } from '@angular/common/http';
+import { CardGameAPIService } from '../../services/card-api.service';
+import { Router } from '@angular/router';
 
 
 
@@ -38,9 +40,12 @@ idPlayers: []
 }
   listaPlayers: string[]=[];
 
-  constructor(private playerAPIService: PlayerAPIService, 
-    private boardAPIService: BoardAPIService) {
+  constructor( 
+    private boardAPIService: BoardAPIService,
+    private cardAPIService: CardGameAPIService,
+    private router: Router) {
       
+
     
       
       }
@@ -48,7 +53,8 @@ idPlayers: []
   
   ngOnInit(): void {
     this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb")
-    .subscribe(board=>{this.board.listplayer=board.listplayer})
+    .subscribe(board=>{this.board.listplayer=board.listplayer;
+    this.board.idPlayers=board.idPlayers})
     if(this.board){
       this.getPlayer();
     }
@@ -56,6 +62,12 @@ idPlayers: []
     
   }
   iniciarJuego(): void {
+    console.log(this.board);
+    this.cardAPIService.getRandomCards(this.board.idPlayers.length*5).subscribe(
+      card=>this.board.listCard.push(card))
+      
+    this.router.navigate(['game']);
+    
   }
   getPlayer():void{
     this.playerId=localStorage.getItem("uid")!;
