@@ -7,6 +7,8 @@ import { findIndex, map } from 'rxjs/operators';
 import { HttpParams } from '@angular/common/http';
 import { CardGameAPIService } from '../../services/card-api.service';
 import { Router } from '@angular/router';
+import { GameService } from 'src/app/services/game.service';
+
 
 
 
@@ -43,7 +45,8 @@ idPlayers: []
   constructor( 
     private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
-    private router: Router) {
+    private router: Router,
+    private gameService: GameService) {
       
 
     
@@ -62,11 +65,17 @@ idPlayers: []
     
   }
   iniciarJuego(): void {
-    console.log(this.board);
-    this.cardAPIService.getRandomCards(this.board.idPlayers.length*5).subscribe(
-      card=>this.board.listCard.push(card))
-      
-    this.router.navigate(['game']);
+    this.gameService.getGame().subscribe(game => {
+    
+      (game[0].cardGamesList.length === 0)
+      ?   this.cardAPIService.getRandomCards(this.board.idPlayers.length*5).subscribe(  
+          card=>this.board.listCard.push(card))
+          &&
+          this.router.navigate(['game'])
+      :this.router.navigate(['game']);
+    })
+
+
     
   }
   getPlayer():void{
