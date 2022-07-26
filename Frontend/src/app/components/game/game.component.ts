@@ -43,13 +43,14 @@ idPlayers: []
    }
 
   ngOnInit(): void {
-    this.getCards();
     this.getPlayer();
-
+    this.getCards();
+   
+    this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
     // this.updateCardsRoun(3);
     //this.timer(1);
     //para hacer pruebas en segundos recordar quitar el comentario en el metoo timer
-     this.timer(4);
+    this.timer(4);
 
   }
 
@@ -63,7 +64,6 @@ idPlayers: []
   getCards(){
     this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(
       board =>{ this.board=board;
-      console.log(this.board);
     })
     this.cards=this.board.listCard;
   }
@@ -102,14 +102,17 @@ idPlayers: []
     try {
 
       // console.log("card of player: "+jugadorId)
-
-      if (!this.players.includes(this.playerId)) {
+console.log(this.game.cardGamesList);
+console.log(this.game.playerModelList);
+      if (!this.game.playerModelList.includes(this.playerId)) {
       // get the clicked element
       this.board.listCard.forEach(card=>card.cardId==event.target.id?
-      this.game.cardGamesList.push(card) && this.game.playerModelList.push(card.playerId):NaN);
+      this.game.cardGamesList.push(card) && 
+      this.game.playerModelList.push(card.playerId) && 
+      this.gameAPIService.addPlayerInGame(card.playerId,this.game).subscribe(a => console.log(a)):NaN);
       console.log("card of player: "+this.playerId)
-
-       this.gameAPIService.updateGame(this.game, this.game.id).subscribe();
+    
+      this.gameAPIService.updateGame(this.game, this.game.id).subscribe();
 
     }
     } catch (error) {
@@ -155,7 +158,9 @@ idPlayers: []
   }
 
 
-
+  clearGame(){
+    
+  }
 
 
   timer(minute: number) {
@@ -186,13 +191,17 @@ idPlayers: []
         const randomNuber=Math.floor(Math.random() * this.board.listCard
         .filter(cardMap=>cardMap.playerId==this.playerId).length)
 
-        if (!this.players.includes(this.playerId)) {
+        if (!this.game.playerModelList.includes(this.playerId)) {
           const card=this.board.listCard.filter(cardMap=>cardMap.playerId==this.playerId)[randomNuber]
         this.game.cardGamesList.push(card)
-        this.game.playerModelList.push(card.playerId)
+        this.game.playerModelList.push(card.playerId) && 
+        this.gameAPIService.addPlayerInGame(card.playerId,this.game).subscribe();
         }
         /*actualiza tablero de cartas por ronda*/
-        this.gameAPIService.getGame().subscribe( game => this.game = game[0])
+       //this.game.cardGamesList.push(game[0].cardGamesList) && this.players.push(game[0].playerId))
+        
+       this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
+       
       }
     }, 1000);
   }

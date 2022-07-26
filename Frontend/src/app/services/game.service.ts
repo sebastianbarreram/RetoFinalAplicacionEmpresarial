@@ -51,6 +51,15 @@ export class GameService {
       catchError(this.handleError<any>('retireGame'))
   );
 }
+addPlayerInGame(id: string, game:Game): Observable<any> {
+  return this.http.put(`${this.gameUrl}/player/${id}/`,game, this.httpOptions).pipe(
+    tap(_ => console.log(`updated card cardId=${id}`)),
+    catchError(this.handleError<any>('addPlayerInGame'))
+  );
+}
+
+
+
 
   /**
    * Handle Http operation that failed.
