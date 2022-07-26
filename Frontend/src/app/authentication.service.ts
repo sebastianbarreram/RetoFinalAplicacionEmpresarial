@@ -133,15 +133,6 @@ export class AuthenticationService {
 	GoogleAuth() {
 		return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
 
-			var userId = JSON.parse(localStorage.getItem('user')||"").uid || "";
-			var userEmail = JSON.parse(localStorage.getItem('user')||"").email ||"";
-
-			this.player.playerId = userId;
-			this.player.email = userEmail;
-
-			this.playerAPIService.addPlayer(this.player)
-				.subscribe(playerNew => this.Players.push(playerNew));
-
 			this.router.navigate(['hall']);
 
 		});
