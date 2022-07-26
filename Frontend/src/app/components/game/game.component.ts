@@ -43,9 +43,9 @@ idPlayers: []
     this.getCards();
     this.getPlayer();
     
-    // this.timer(1);
+    this.timer(1);
     //para hacer pruebas en segundos recordar quitar el comentario en el metoo timer
-    this.timer(3);
+    // this.timer(3);
 
   }
 
@@ -115,9 +115,9 @@ idPlayers: []
 
   timer(minute: number) {
     // let minute = 1;
-    // let seconds: number = minute * 60;
+    let seconds: number = minute * 60;
     //aqui esta en segundos para probar
-    let seconds: number = minute ;
+    // let seconds: number = minute ;
 
     let textSec: any = "0";
     let statSec: number = 60;
@@ -143,7 +143,7 @@ idPlayers: []
         
         if (!this.players.includes(this.playerId)) {
           const card=this.board.listCard.filter(cardMap=>cardMap.playerId==this.playerId)[randomNuber]
-        this.bettingCards.push(card)
+        this.game.cardGamesList.push(card)
         this.players.push(card.playerId)
         }
         
