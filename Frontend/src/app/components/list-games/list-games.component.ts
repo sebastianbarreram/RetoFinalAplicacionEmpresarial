@@ -64,20 +64,11 @@ idPlayers: []
     this.addPlayerToBoard();
     
   }
-  iniciarJuego(): void {
-    this.gameService.getGame().subscribe(game => {
-    
-      (game[0].cardGamesList.length === 0)
-      ?   this.cardAPIService.getRandomCards(this.board.idPlayers.length*5).subscribe(  
-          card=>this.board.listCard.push(card))
-          &&
-          this.router.navigate(['game'])
-      :this.router.navigate(['game']);
-    })
-
-
-    
+  
+  iniciarJuego(){
+    this.router.navigate(['game']);
   }
+
   getPlayer():void{
     this.playerId=localStorage.getItem("uid")!;
     
