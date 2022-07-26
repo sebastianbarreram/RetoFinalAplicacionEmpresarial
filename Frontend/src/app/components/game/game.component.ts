@@ -49,7 +49,7 @@ idPlayers: []
     this.getCards();
       this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
 
-     this.updateCardsRoun(10);
+    // this.updateCardsRoun(10);
     //this.timer(1);
     //para hacer pruebas en segundos recordar quitar el comentario en el metoo timer
     this.timer(4);
@@ -218,5 +218,6 @@ console.log(this.game.playerModelList);
   }
 
 }
+
 
 

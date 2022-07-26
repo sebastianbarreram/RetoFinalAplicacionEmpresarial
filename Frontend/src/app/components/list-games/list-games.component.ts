@@ -34,12 +34,12 @@ export class ListGamesComponent implements OnInit {
 
   board: Board = {
     id: "62de01f1ee60c664c3d720fb",
-time: 10000,
-listWinRound: [],
-listCard: [],
-listplayer: [],
-idPlayers: []
-}
+    time: 10000,
+    listWinRound: [],
+    listCard: [],
+    listplayer: [],
+    idPlayers: []
+  }
   listaPlayers: string[]=[];
 
   constructor( 
@@ -70,12 +70,18 @@ idPlayers: []
   }
 
   getPlayer():void{
+   
     this.playerId=localStorage.getItem("uid")!;
-    
+
     if (!this.playerId) {
       location.reload();
-
     }
+    console.log(this.board.idPlayers);
+    this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(resp=>this.board.idPlayers=resp.idPlayers);
+    console.log(this.board.idPlayers);
+
+    
+
     
   }
   addPlayerToBoard(): void {
@@ -86,6 +92,8 @@ idPlayers: []
     } 
   }
   }
+
+
 
   
 
