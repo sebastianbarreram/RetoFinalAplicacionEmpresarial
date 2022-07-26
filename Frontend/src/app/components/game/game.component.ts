@@ -3,6 +3,7 @@ import { Board } from 'src/app/interfaces/board';
 import { Card } from 'src/app/interfaces/card';
 import { Game } from 'src/app/interfaces/game';
 import { BoardAPIService } from 'src/app/services/board-api.service';
+import { GameService } from 'src/app/services/game.service';
 import { CardGameAPIService } from '../../services/card-api.service';
 import { PlayerAPIService } from '../../services/player-api.service';
 
@@ -14,7 +15,7 @@ import { PlayerAPIService } from '../../services/player-api.service';
 })
 export class GameComponent implements OnInit {
   display: any;
- 
+
   board: Board = {
     id: "62de01f1ee60c664c3d720fb",
 time: 10000,
@@ -26,26 +27,29 @@ idPlayers: []
   cards: Card[]=[];
 
   game:Game={
-      id:"",
+      id:"1",
       numberPlayers:0,
       playerModelList:[],
       cardGamesList:[]
   }
 
 
-  constructor(private boardAPIService: BoardAPIService, 
+  constructor(private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
-    private playerAPIService:PlayerAPIService) {
-    
+    private playerAPIService:PlayerAPIService,
+    private gameAPIService: GameService ) {
+
+
    }
 
   ngOnInit(): void {
     this.getCards();
     this.getPlayer();
-    
-    this.timer(1);
+
+    // this.updateCardsRoun(3);
+    //this.timer(1);
     //para hacer pruebas en segundos recordar quitar el comentario en el metoo timer
-    // this.timer(3);
+     this.timer(4);
 
   }
 
@@ -65,9 +69,9 @@ idPlayers: []
   }
 
   playerId= "";
- 
 
-  bettingCards=[  
+
+  bettingCards=[
     // {
     //   cardId: "62dc7e8104e748902a9a82de",
     //   xp: 600,
@@ -81,7 +85,7 @@ idPlayers: []
       image: "../../assets/Pack 108 Pepsicards marvel/1F9.jpg",
       hidden: true,
       playerId: "2"
-    },  
+    },
     // {
     //   cardId: "62dc7e8104e748902a9a82e1",
     //   xp: 500,
@@ -96,28 +100,69 @@ idPlayers: []
   @HostListener('click', ['$event'])
   onClick(event: any) {
     try {
-      
+
       // console.log("card of player: "+jugadorId)
-    
-    if (!this.players.includes(this.playerId)) {
+
+      if (!this.players.includes(this.playerId)) {
       // get the clicked element
-    this.board.listCard.forEach(card=>card.cardId==event.target.id? 
-      this.game.cardGamesList.push(card) && this.players.push(card.playerId):NaN);
+      this.board.listCard.forEach(card=>card.cardId==event.target.id?
+      this.game.cardGamesList.push(card) && this.game.playerModelList.push(card.playerId):NaN);
       console.log("card of player: "+this.playerId)
-      
+
+       this.gameAPIService.updateGame(this.game, this.game.id).subscribe();
+
     }
     } catch (error) {
-      
+
     }
-    
-    
+
+
   }
+
+
+  updateCardsRoun(second: number) {
+    // let minute = 1;
+    //let seconds: number = minute * 60;
+    //aqui esta en segundos para probar
+    let seconds: number = second ;
+
+    let textSec: any = "0";
+    let statSec: number = 60;
+
+    const prefix = second < 10 ? "0" : "";
+
+    const timer = setInterval(() => {
+      seconds--;
+      if (statSec != 0) statSec--;
+      else statSec = 59;
+
+      if (statSec < 10) {
+        textSec = "0" + statSec;
+      } else textSec = statSec;
+
+      this.display = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
+
+      if (seconds == 0) {
+        console.log("Hola timer");
+        clearInterval(timer);
+        this.updateCardsRoun(3);
+
+        this.gameAPIService.getGame().subscribe( game => this.game = game[0])
+        // this.game.cardGamesList.push(game[0].cardGamesList) && this.players.push(game[0].playerId):NaN) )
+      }
+
+    }, 1000);
+  }
+
+
+
+
 
   timer(minute: number) {
     // let minute = 1;
-    let seconds: number = minute * 60;
+    //let seconds: number = minute * 60;
     //aqui esta en segundos para probar
-    // let seconds: number = minute ;
+     let seconds: number = minute ;
 
     let textSec: any = "0";
     let statSec: number = 60;
@@ -140,17 +185,18 @@ idPlayers: []
         clearInterval(timer);
         const randomNuber=Math.floor(Math.random() * this.board.listCard
         .filter(cardMap=>cardMap.playerId==this.playerId).length)
-        
+
         if (!this.players.includes(this.playerId)) {
           const card=this.board.listCard.filter(cardMap=>cardMap.playerId==this.playerId)[randomNuber]
         this.game.cardGamesList.push(card)
-        this.players.push(card.playerId)
+        this.game.playerModelList.push(card.playerId)
         }
-        
+        /*actualiza tablero de cartas por ronda*/
+        this.gameAPIService.getGame().subscribe( game => this.game = game[0])
       }
     }, 1000);
   }
 
 }
 
-  
+
