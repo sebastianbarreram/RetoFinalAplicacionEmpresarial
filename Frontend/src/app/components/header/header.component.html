@@ -1,0 +1,16 @@
+<header class="p-2 bg-dark text-white">
+    <div class="container">
+      <div class="header d-flex flex-wrap align-items-center">
+        <a [routerLink]="['/hall']" class="logo d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <img src="../../../assets/Logo.png" class="img-fluid" alt="" style="width: auto;max-height: 45px;">
+        </a>
+
+        <div class="text-end">
+          <button type="button"
+          class="btn btn-warning"
+          value="Log out"
+          (click)="authenticationService.SignOut()">Salir</button>
+        </div>
+      </div>
+    </div>
+</header>

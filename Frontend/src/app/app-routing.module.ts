@@ -1,6 +1,8 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { DashboardComponent } from "./dashboard/dashboard.component";
+import { BoardComponent } from "./components/board/board.component";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { GameComponent } from "./components/game/game.component";
 import { HallComponent } from "./hall/hall.component";
 import { HeroDetailComponent } from "./hero-detail/hero-detail.component";
 import { HeroesComponent } from "./heroes/heroes.component";
@@ -14,7 +16,9 @@ const routes: Routes = [
 	{ path: "heroes", component: HeroesComponent },
 	{ path: "auth", component: VistaAuthComponent },
 	{ path: "register", component: VistaRegistroComponent },
-	{path: "hall", component: HallComponent}
+	{path: "hall", component: HallComponent},
+	{path: "board", component: BoardComponent},
+	{path: "game", component:GameComponent}
 ];
 
 @NgModule({

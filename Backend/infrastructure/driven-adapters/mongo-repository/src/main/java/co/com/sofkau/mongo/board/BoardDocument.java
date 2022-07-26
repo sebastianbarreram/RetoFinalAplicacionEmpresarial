@@ -1,6 +1,7 @@
 package co.com.sofkau.mongo.board;
 
 import co.com.sofkau.model.card.Card;
+import co.com.sofkau.model.player.Player;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,11 @@ import java.util.Map;
 public class BoardDocument {
     @Id
     private String id;
+
+    private Integer time;
+    private List<String> listWinRound;
     private List<Card> listCard;
-    private Date time;
+    private List<Player> listplayer ;
+    private List<String> idPlayers;
+
 }

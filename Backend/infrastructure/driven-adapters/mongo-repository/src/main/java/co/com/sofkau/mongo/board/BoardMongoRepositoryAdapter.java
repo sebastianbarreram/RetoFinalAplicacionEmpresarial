@@ -5,7 +5,6 @@ import co.com.sofkau.model.board.gateways.BoardRepository;
 import co.com.sofkau.model.card.Card;
 
 import co.com.sofkau.model.player.Player;
-import co.com.sofkau.mongo.card.CardDocument;
 import co.com.sofkau.mongo.helper.AdapterOperations;
 import co.com.sofkau.mongo.player.PlayerDocument;
 import org.reactivecommons.utils.ObjectMapper;
@@ -28,6 +27,7 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
          */
         super(repository, mapper, d -> mapper.map(d, Board.class));
     }
+
     @Override
     public Mono<Void> delete(String id) {
         return repository.deleteById(id);
@@ -37,13 +37,64 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
     public Mono<Board> update(String id, Board board) {
 
         board.setId(id);
-        return repository.save(new BoardDocument(board.getId(),board.getListCard(),board.getTime()))
+        return repository.save(new BoardDocument(
+                board.getId(),
+                        board.getTime(),
+                        board.getListWinRound(),
+                        board.getListCard(),
+                        board.getListplayer(),
+                        board.getIdPlayers()))
                 .flatMap(element -> Mono.just(board));
     }
 
     @Override
-    public Mono<String> winRound(Mono<Optional<Card>> win) {
-        return win.map(a->a.get().getPlayerId());
+    public Mono<String> winRound(Mono<String> playerId) {
+
+        return playerId;
+    }
+
+    @Override
+    public Mono<String> winGame(Mono<String> playerId) {
+        return playerId;
+    }
+
+    @Override
+    public Mono<Board> useCard(Board board) {
+
+        return repository.save(new BoardDocument(
+                        board.getId(),
+                        board.getTime(),
+                        board.getListWinRound(),
+                        board.getListCard(),
+                        board.getListplayer(),
+                        board.getIdPlayers()))
+                .flatMap(element -> Mono.just(board));
+    }
+
+    @Override
+    public Mono<Board> addplayerinboard(Board board) {
+
+        return repository.save(new BoardDocument(
+                        board.getId(),
+                        board.getTime(),
+                        board.getListWinRound(),
+                        board.getListCard(),
+                        board.getListplayer(),
+                        board.getIdPlayers()))
+       .flatMap(element -> Mono.just(board));
+    }
+
+    @Override
+    public Mono<Board> updatePlayerInBoard(Board board) {
+
+        return repository.save(new BoardDocument(
+                        board.getId(),
+                        board.getTime(),
+                        board.getListWinRound(),
+                        board.getListCard(),
+                        board.getListplayer(),
+                        board.getIdPlayers()))
+                .flatMap(element -> Mono.just(board));
     }
 
 

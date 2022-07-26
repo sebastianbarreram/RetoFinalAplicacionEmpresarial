@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { GameService } from '../services/game.service';
+import { Game } from '../interfaces/game';
+import { User } from '../models/user';
+
 
 @Component({
   selector: 'app-hall',
@@ -6,30 +10,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hall.component.css']
 })
 export class HallComponent implements OnInit {
-  
-  constructor() { 
-    
-  }
 
+	constructor(private game : GameService) {}
   ngOnInit(): void {
-    
+    // var userId = JSON.parse(localStorage.getItem('user')||"").uid;
+    //     console.log((userId));
   }
-
-  cards = [
-    {xp:400,image:"../../assets/Pack 108 Pepsicards marvel/2E2.jpg",hidden:false},
-    {xp:100,image:"../../assets/Pack 108 Pepsicards marvel/303.jpg",hidden:false},
-    {xp:1000,image:"../../assets/Pack 108 Pepsicards marvel/334.jpg",hidden:false},
-    {xp:900,image:"../../assets/Pack 108 Pepsicards marvel/338.jpg",hidden:false},
-    {xp:500,image:"../../assets/Pack 108 Pepsicards marvel/33C.jpg",hidden:false},
-    {xp:700,image:"../../assets/Pack 108 Pepsicards marvel/34F.jpg",hidden:true},
-    {xp:900,image:"../../assets/Pack 108 Pepsicards marvel/367.jpg",hidden:false},
-    {xp:1000,image:"../../assets/Pack 108 Pepsicards marvel/7D1.jpg",hidden:false},
-{xp:300,image:"../../assets/Pack 108 Pepsicards marvel/7DB.jpg",hidden:false},
-{xp:700,image:"../../assets/Pack 108 Pepsicards marvel/7EB.jpg",hidden:false},
-{xp:1000,image:"../../assets/Pack 108 Pepsicards marvel/807.jpg",hidden:false},
-{xp:600,image:"../../assets/Pack 108 Pepsicards marvel/81F.jpg",hidden:false},
-{xp:900,image:"../../assets/Pack 108 Pepsicards marvel/85F.jpg",hidden:false},
-{xp:700,image:"../../assets/Pack 108 Pepsicards marvel/86A.jpg",hidden:true},
-  ];
-
+  crearSala():void{
+    //this.game.updateGame({Game},"62dd61651a07e0562b2cb040")
+  }
+ 
 }

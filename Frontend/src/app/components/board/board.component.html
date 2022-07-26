@@ -1,0 +1,15 @@
+<div class="cards-container overflow-auto">
+    <body *ngFor="let card of cards">
+      <div id="container">
+        <div class="card">
+          <div class="monster-image">
+            <img [src]="card.hidden ? card.image: '../../assets/hiddenCard.jpg'" />
+          </div>
+          <div class="description">
+            <p class="atk-def" *ngIf="!card.hidden">XP/{{ card.xp }}</p>
+            <p class="atk-def" *ngIf="card.hidden">XP/????</p>
+          </div>
+        </div>
+      </div>
+    </body>
+  </div>
