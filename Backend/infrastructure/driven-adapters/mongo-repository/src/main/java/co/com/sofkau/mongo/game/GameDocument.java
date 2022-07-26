@@ -20,7 +20,7 @@ public class GameDocument {
     @Id
     private String id;
     private Integer numberPlayers;
-    private List<Player> playerModelList = new ArrayList<>();
+    private List<String> playerModelList = new ArrayList<>();
     private List<Card> cardGamesList = new ArrayList<>();
     //private List<Board> Board = new ArrayList<>();
 }
