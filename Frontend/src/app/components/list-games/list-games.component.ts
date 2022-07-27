@@ -54,9 +54,9 @@ export class ListGamesComponent implements OnInit {
 
 
     this.getPlayerLocal();
-    this.getListPlayerOfDB()
     this.addPlayersToBoard();
-
+    this.addPlayersIdToBoard();
+    this.getBoardOfDB();
   }
 
   iniciarJuego(){
@@ -70,7 +70,7 @@ export class ListGamesComponent implements OnInit {
     }
   }
 
-  getListPlayerOfDB(): void {
+  getBoardOfDB(): void {
     this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(board=>{this.board=board})
     console.log("consulta Db: ",this.board.idPlayers);
   }
@@ -79,6 +79,13 @@ export class ListGamesComponent implements OnInit {
 
     this.board.idPlayers.push(this.playerId);
     this.boardAPIService.addPlayerInBoard(this.playerId).subscribe(respuesta=>console.log(respuesta));
+    console.log("Actualizacion Local: ",this.board.idPlayers);
+  }
+
+  addPlayersIdToBoard(): void {
+
+    this.board.idPlayers.push(this.playerId);
+    this.boardAPIService.addPlayerIdInBoard(this.playerId).subscribe(respuesta=>console.log(respuesta));
     console.log("Actualizacion Local: ",this.board.idPlayers);
   }
 }
