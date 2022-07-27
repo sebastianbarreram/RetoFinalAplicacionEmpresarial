@@ -1,4 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Board } from 'src/app/interfaces/board';
+import { Card } from 'src/app/interfaces/card';
+import { Game } from 'src/app/interfaces/game';
+import { BoardAPIService } from 'src/app/services/board-api.service';
+import { GameService } from 'src/app/services/game.service';
+import { CardGameAPIService } from '../../services/card-api.service';
+import { PlayerAPIService } from '../../services/player-api.service';
+
 
 @Component({
   selector: 'app-game',
@@ -7,141 +15,65 @@ import { Component, HostListener, OnInit } from '@angular/core';
 })
 export class GameComponent implements OnInit {
   display: any;
-  constructor() { }
+
+  board: Board = {
+    id: "62de01f1ee60c664c3d720fb",
+time: 10000,
+listWinRound: [],
+listCard: [],
+listplayer: [],
+idPlayers: []
+}
+  cards: Card[]=[];
+
+  game:Game={
+      id:"1",
+      numberPlayers:0,
+      playerModelList:[],
+      cardGamesList:[]
+  }
+
+
+  constructor(private boardAPIService: BoardAPIService,
+    private cardAPIService: CardGameAPIService,
+    private playerAPIService:PlayerAPIService,
+    private gameAPIService: GameService ) {
+      
+      this.getCards();
+
+   }
 
   ngOnInit(): void {
-    // this.timer(1);
+    this.iniciarJuego();
+    this.getPlayer();
+    this.getCards();
+      this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
+
+    // this.updateCardsRoun(10);
+    //this.timer(1);
     //para hacer pruebas en segundos recordar quitar el comentario en el metoo timer
-    this.timer(3);
+    this.timer(4);
 
   }
 
-  playerId="1";
-  cards = [
-  {
-		cardId: "2222222",
-		xp: 600,
-		image: "../../assets/Pack 108 Pepsicards marvel/303.jpg",
-		hidden: true,
-		playerId: "1"
-	},
-  {
-		cardId: "62dc7e8104e748902a9a82de",
-		xp: 600,
-		image: "../../assets/Pack 108 Pepsicards marvel/063.jpg",
-		hidden: true,
-		playerId: "1"
-	},
-	{
-		cardId: "62dc7e8104e748902a9a82df",
-		xp: 100,
-		image: "../../assets/Pack 108 Pepsicards marvel/0BF.jpg",
-		hidden: true,
-		playerId: "1"
-	},
-	{
-		cardId: "62dc7e8104e748902a9a82e0",
-		xp: 800,
-		image: "../../assets/Pack 108 Pepsicards marvel/0E0.jpg",
-		hidden: true,
-		playerId: "1"
-	},
-	{
-		cardId: "62dc7e8104e748902a9a82e1",
-		xp: 500,
-		image: "../../assets/Pack 108 Pepsicards marvel/138.jpg",
-		hidden: true,
-		playerId: "1"
-	},
-  {
-    cardId: "62dc7e8104e748902a9a82ff",
-    xp: 200,
-    image: "../../assets/Pack 108 Pepsicards marvel/5A6.jpg",
-    hidden: true,
-    playerId: "2"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8300",
-    xp: 1000,
-    image: "../../assets/Pack 108 Pepsicards marvel/5B9.jpg",
-    hidden: true,
-    playerId: "2"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8301",
-    xp: 400,
-    image: "../../assets/Pack 108 Pepsicards marvel/5DE.jpg",
-    hidden: true,
-    playerId: "2"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8302",
-    xp: 1000,
-    image: "../../assets/Pack 108 Pepsicards marvel/5EA.jpg",
-    hidden: true,
-    playerId: "2"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8303",
-    xp: 800,
-    image: "../../assets/Pack 108 Pepsicards marvel/625.jpg",
-    hidden: true,
-    playerId: "2"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8306",
-    xp: 300,
-    image: "../../assets/Pack 108 Pepsicards marvel/6AC.jpg",
-    hidden: true,
-    playerId: "3"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8307",
-    xp: 1000,
-    image: "../../assets/Pack 108 Pepsicards marvel/6B6.jpg",
-    hidden: true,
-    playerId: "3"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8308",
-    xp: 300,
-    image: "../../assets/Pack 108 Pepsicards marvel/740.jpg",
-    hidden: true,
-    playerId: "3"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a8309",
-    xp: 700,
-    image: "../../assets/Pack 108 Pepsicards marvel/74D.jpg",
-    hidden: true,
-    playerId: "3"
-  },
-  {
-    cardId: "62dc7e8104e748902a9a830a",
-    xp: 400,
-    image: "../../assets/Pack 108 Pepsicards marvel/763.jpg",
-    hidden: true,
-    playerId: "3"
+  getPlayer():void{
+    this.playerId=localStorage.getItem("uid")!;
+    if (!this.playerId) {
+       location.reload();
+     }
   }
-  
-]
-  aux=[
-    {xp:100,image:"../../assets/Pack 108 Pepsicards marvel/303.jpg",hidden:false},
-    {xp:1000,image:"../../assets/Pack 108 Pepsicards marvel/334.jpg",hidden:false},
-    {xp:900,image:"../../assets/Pack 108 Pepsicards marvel/338.jpg",hidden:false},
-    {xp:500,image:"../../assets/Pack 108 Pepsicards marvel/33C.jpg",hidden:false},
-    {xp:700,image:"../../assets/Pack 108 Pepsicards marvel/34F.jpg",hidden:true},
-    {xp:900,image:"../../assets/Pack 108 Pepsicards marvel/367.jpg",hidden:false},
-    {xp:1000,image:"../../assets/Pack 108 Pepsicards marvel/7D1.jpg",hidden:false},
-{xp:300,image:"../../assets/Pack 108 Pepsicards marvel/7DB.jpg",hidden:false},
-{xp:700,image:"../../assets/Pack 108 Pepsicards marvel/7EB.jpg",hidden:false},
-{xp:1000,image:"../../assets/Pack 108 Pepsicards marvel/807.jpg",hidden:false},
-{xp:600,image:"../../assets/Pack 108 Pepsicards marvel/81F.jpg",hidden:false},
-{xp:900,image:"../../assets/Pack 108 Pepsicards marvel/85F.jpg",hidden:false},
-{xp:700,image:"../../assets/Pack 108 Pepsicards marvel/86A.jpg",hidden:true},
-  ];
 
-  bettingCards=[  
+  getCards(){
+    this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(
+      board =>{ this.board=board;
+    })
+    this.cards=this.board.listCard;
+  }
+
+  playerId= "";
+
+
+  bettingCards=[
     // {
     //   cardId: "62dc7e8104e748902a9a82de",
     //   xp: 600,
@@ -155,7 +87,7 @@ export class GameComponent implements OnInit {
       image: "../../assets/Pack 108 Pepsicards marvel/1F9.jpg",
       hidden: true,
       playerId: "2"
-    },  
+    },
     // {
     //   cardId: "62dc7e8104e748902a9a82e1",
     //   xp: 500,
@@ -170,28 +102,82 @@ export class GameComponent implements OnInit {
   @HostListener('click', ['$event'])
   onClick(event: any) {
     try {
-      
+
       // console.log("card of player: "+jugadorId)
-    
-    if (!this.players.includes(this.playerId)) {
+console.log(this.game.cardGamesList);
+console.log(this.game.playerModelList);
+      if (!this.game.playerModelList.includes(this.playerId)) {
       // get the clicked element
-    this.cards.forEach(card=>card.cardId==event.target.id? 
-      this.bettingCards.push(card) && this.players.push(card.playerId):NaN);
+      this.board.listCard.forEach(card=>card.cardId==event.target.id?
+      this.game.cardGamesList.push(card) && 
+      this.game.playerModelList.push(card.playerId) && 
+      this.gameAPIService.addPlayerInGame(card.playerId,this.game).subscribe(a => console.log(a)):NaN);
       console.log("card of player: "+this.playerId)
-      
+    
+      this.gameAPIService.updateGame(this.game, this.game.id).subscribe();
+
     }
     } catch (error) {
-      
+
     }
+
+
+  }
+
+
+  updateCardsRoun(second: number) {
+    // let minute = 1;
+    //let seconds: number = minute * 60;
+    //aqui esta en segundos para probar
+    let seconds: number = second ;
+
+    let textSec: any = "0";
+    let statSec: number = 60;
+
+    const prefix = second < 10 ? "0" : "";
+
+    const timer = setInterval(() => {
+      seconds--;
+      if (statSec != 0) statSec--;
+      else statSec = 59;
+
+      if (statSec < 10) {
+        textSec = "0" + statSec;
+      } else textSec = statSec;
+
+      this.display = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
+
+      if (seconds == 0) {
+        console.log("Hola timer");
+        clearInterval(timer);
+        this.updateCardsRoun(3);
+
+        this.gameAPIService.getGame().subscribe( game => this.game = game[0])
+        // this.game.cardGamesList.push(game[0].cardGamesList) && this.players.push(game[0].playerId):NaN) )
+      }
+
+    }, 1000);
+  }
+
+
+  clearGame(){   
     
-    
+  }
+
+  iniciarJuego(): void {
+    this.gameAPIService.getGame().subscribe(game => {
+      (game[0].cardGamesList.length === 0)
+      ?   this.cardAPIService.getRandomCards(this.board.idPlayers.length*5).subscribe(  
+          card=>this.board.listCard.push(card))
+      :NaN
+    }) 
   }
 
   timer(minute: number) {
     // let minute = 1;
-    // let seconds: number = minute * 60;
+    //let seconds: number = minute * 60;
     //aqui esta en segundos para probar
-    let seconds: number = minute ;
+     let seconds: number = minute ;
 
     let textSec: any = "0";
     let statSec: number = 60;
@@ -212,19 +198,26 @@ export class GameComponent implements OnInit {
       if (seconds == 0) {
         console.log("finished: Pasar a definir ganador");
         clearInterval(timer);
-        const randomNuber=Math.floor(Math.random() * this.cards
+
+        /*actualiza tablero de cartas por ronda*/
+        //this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
+
+        const randomNuber=Math.floor(Math.random() * this.board.listCard        
         .filter(cardMap=>cardMap.playerId==this.playerId).length)
-        
-        if (!this.players.includes(this.playerId)) {
-          const card=this.cards.filter(cardMap=>cardMap.playerId==this.playerId)[randomNuber]
-        this.bettingCards.push(card)
-        this.players.push(card.playerId)
+
+        if (!this.game.playerModelList.includes(this.playerId)) {
+          const card=this.board.listCard.filter(cardMap=>cardMap.playerId==this.playerId)[randomNuber]
+          this.game.cardGamesList.push(card)
+          this.game.playerModelList.push(card.playerId) && 
+          this.gameAPIService.addPlayerInGame(card.playerId,this.game).subscribe();
         }
-        
+    
+       
       }
     }, 1000);
   }
 
 }
 
-  
+
+

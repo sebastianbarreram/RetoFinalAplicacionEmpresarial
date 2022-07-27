@@ -1,9 +1,11 @@
 package co.com.sofkau.api.game;
 
+import co.com.sofkau.model.board.Board;
 import co.com.sofkau.model.card.Card;
 import co.com.sofkau.model.game.Game;
 import co.com.sofkau.model.game.gateways.GameRepository;
 import co.com.sofkau.model.player.Player;
+import co.com.sofkau.usecase.gameusecase.addplayeringame.AddPlayerInGameUseCase;
 import co.com.sofkau.usecase.gameusecase.creategame.CreateGameUseCase;
 import co.com.sofkau.usecase.gameusecase.deletegame.DeletegameUseCase;
 
@@ -27,6 +29,8 @@ public class HandlerGame {
     private final UpdategameUseCase updategameUseCase;
     private final GetgameUseCase getgameUseCase;
     private final ListgamebyidUseCase listgamebyidUseCase;
+
+    private final AddPlayerInGameUseCase addPlayerInGameUseCase;
 
     private final RetireGamePlayerUseCase retireGamePlayerUseCase;
     public Mono<ServerResponse> createGamePostUseCase(ServerRequest serverRequest) {
@@ -69,5 +73,14 @@ public class HandlerGame {
                 .flatMap(element -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(  retireGamePlayerUseCase.retireGamePlayer (idPlayer, element), Game.class));
+    }
+
+    public Mono<ServerResponse> listenAddPlayerInGameUseCase(ServerRequest serverRequest) {
+        var idPlayer = serverRequest.pathVariable("idPlayer");
+
+        return serverRequest.bodyToMono(Game.class)
+                .flatMap(element -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body( addPlayerInGameUseCase.addPlayerInGame(idPlayer, element), Game.class));
     }
 }

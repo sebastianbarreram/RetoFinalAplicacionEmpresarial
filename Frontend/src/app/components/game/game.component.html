@@ -1,5 +1,5 @@
 <div class="cards-container overflow-auto">
-  <body *ngFor="let card of cards" [id]="card.cardId">
+  <body *ngFor="let card of board.listCard" [id]="card.cardId">
     <div *ngIf="playerId==card.playerId" [id]="card.cardId">
       <div class="card" [id]="card.cardId">
         <div class="monster-image" [id]="card.cardId">
@@ -18,7 +18,7 @@
 </div>
 
 <div class="bet-cards overflow-auto">
-  <body *ngFor="let card of bettingCards">
+  <body *ngFor="let card of game.cardGamesList">
     <div id="container">
       <div class="card">
         <div class="monster-image">
@@ -36,3 +36,11 @@
 </div>
 
 <div>{{display}}</div>
+
+<!-- 
+<div>
+  <button
+  (click)="clearBoard()">
+    Limpiar tablero
+  </button>
+</div> -->
