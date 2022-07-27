@@ -43,17 +43,19 @@ export class ListGamesComponent implements OnInit {
     private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
     private router: Router,
-    private gameService: GameService) {
+    private gameService: GameService,
+    ) {
       }
 
 
   ngOnInit(): void {
-
-
     this.getPlayerLocal();
-    this.addPlayersToBoard();
+
+    this.addPlayerToBoard();
     //this.addPlayersIdToBoard();
+
     this.getBoardOfDB();
+ 
   }
 
   iniciarJuego(){
@@ -72,16 +74,17 @@ export class ListGamesComponent implements OnInit {
     console.log("consulta Db: ",this.board.idPlayers);
   }
 
-  addPlayersToBoard(): void {
+  // addPlayersToBoard(): void {
+
+  //   this.board.idPlayers.push(this.playerId);
+    
+  //   console.log("Actualizacion Local: ",this.board.idPlayers);
+  // }
+
+  addPlayerToBoard(): void {
 
     this.board.idPlayers.push(this.playerId);
-    this.boardAPIService.addPlayerInBoard(this.playerId).subscribe(respuesta=>console.log(respuesta));
-    console.log("Actualizacion Local: ",this.board.idPlayers);
-  }
-
-  addPlayersIdToBoard(): void {
-
-    this.board.idPlayers.push(this.playerId);
+    this.boardAPIService.addPlayerInBoard(this.playerId).subscribe();
     this.boardAPIService.addPlayerIdInBoard(this.playerId).subscribe(respuesta=>console.log(respuesta));
     console.log("Actualizacion Local: ",this.board.idPlayers);
   }
