@@ -1,4 +1,4 @@
-package co.com.sofkau.usecase.boardusecase.addplayerinboard;
+package co.com.sofkau.usecase.boardusecase.addplayeridinboard;
 
 import co.com.sofkau.model.board.Board;
 import co.com.sofkau.model.board.gateways.BoardRepository;
@@ -11,33 +11,33 @@ import reactor.core.publisher.Mono;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class AddPlayerInBoardUseCase {
+public class AddPlayerIdInBoardUseCase {
 
     private final BoardRepository boardRepository;
     private final PlayerRepository playerRepository;
     private final GetCardsUseCase getCardsUseCase;
     private final CardRepository cardRepository;
 
-    public Mono<Board>addPlayerInBord(String idPlayer){
+    public Mono<Board>addPlayerIdInBord(String idPlayer){
         var board=boardRepository.findById("62de01f1ee60c664c3d720fb")
                 .toFuture().join();
 
        var newBoard =  playerRepository.findById(idPlayer)
                           . map(  player1 -> {
 
-                               var listsPlayers = board.getListplayer();
-                               //var playerId = board.getIdPlayers();
+                               //var listsPlayers = board.getListplayer();
+                               var playerId = board.getIdPlayers();
 
-                                listsPlayers.add(player1);
-                                //playerId.add(player1.getPlayerId());
+                                //listsPlayers.add(player1);
+                                playerId.add(player1.getPlayerId());
 
                                return  new Board(
                                        board.getId(),
                                        board.getTime(),
                                        board.getListWinRound(),
                                        board.getListCard(),
-                                       listsPlayers.stream().distinct().collect(Collectors.toList()),
-                                       board.getIdPlayers()// playerId.stream().distinct().collect(Collectors.toList())
+                                       board.getListplayer(),//listsPlayers.stream().distinct().collect(Collectors.toList()),
+                                       playerId.stream().distinct().collect(Collectors.toList())
                                );
 
                            })
