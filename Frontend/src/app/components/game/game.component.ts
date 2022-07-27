@@ -101,10 +101,6 @@ idPlayers: []
   @HostListener('click', ['$event'])
   onClick(event: any) {
     try {
-
-      // console.log("card of player: "+jugadorId)
-console.log(this.game.cardGamesList);
-console.log(this.game.playerModelList);
       if (!this.game.playerModelList.includes(this.playerId)) {
       // get the clicked element
       this.board.listCard.forEach(card=>card.cardId==event.target.id?
@@ -120,9 +116,7 @@ console.log(this.game.playerModelList);
 
     }
 
-
   }
-
 
   updateCardsRoun(second: number) {
     // let minute = 1;
@@ -147,30 +141,27 @@ console.log(this.game.playerModelList);
       this.display = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
 
       if (seconds == 0) {
-        console.log("Hola timer");
         clearInterval(timer);
-        this.updateCardsRoun(3);
-
+       // this.updateCardsRoun(3);
         this.gameAPIService.getGame().subscribe( game => this.game = game[0])
-        // this.game.cardGamesList.push(game[0].cardGamesList) && this.players.push(game[0].playerId):NaN) )
+      // this.game.cardGamesList.push(game[0].cardGamesList) && this.players.push(game[0].playerId):NaN) )
       }
 
     }, 1000);
   }
-
-
   clearGame(){   
     
   }
 
   iniciarJuego(): void {
+  
     this.gameAPIService.getGame().subscribe(game => {
-    
       (game[0].cardGamesList.length === 0)
       ?   this.cardAPIService.getRandomCards(this.board.idPlayers.length*5).subscribe(  
           card=>this.board.listCard.push(card))
       :NaN
     }) 
+  
   }
 
   timer(minute: number) {

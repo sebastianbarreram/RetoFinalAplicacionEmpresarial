@@ -46,13 +46,12 @@ export class ListGamesComponent implements OnInit {
     private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
     private router: Router,
-    private gameService: GameService) {
+    private gameService: GameService,
+    ) {
       }
 
 
   ngOnInit(): void {
-
-
     this.getPlayerLocal();
     this.addPlayersToBoard();
     this.addPlayersIdToBoard();
