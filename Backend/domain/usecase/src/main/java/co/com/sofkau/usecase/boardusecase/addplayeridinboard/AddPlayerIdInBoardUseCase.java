@@ -21,6 +21,7 @@ public class AddPlayerIdInBoardUseCase {
     private final CardRepository cardRepository;
 
     public Mono<Board>addPlayerIdInBord(String idPlayer){
+        // var board=boardRepository.findById("1")
         var board=boardRepository.findById("62de01f1ee60c664c3d720fb")
                 .toFuture().join();
 
@@ -37,10 +38,9 @@ public class AddPlayerIdInBoardUseCase {
                   }
 
                   playerId.add(idPlayer);
-                  System.out.println(idPlayer);
 
                   return new Board(
-                          board.getId(),
+                       board.getId(),
                       board.getTime(),
                       board.getListWinRound(),
                       board.getListCard(),

@@ -9,9 +9,6 @@ import { CardGameAPIService } from '../../services/card-api.service';
 import { Router } from '@angular/router';
 import { GameService } from 'src/app/services/game.service';
 
-
-
-
 @Component({
   selector: 'app-list-games',
   templateUrl: './list-games.component.html',
@@ -55,7 +52,7 @@ export class ListGamesComponent implements OnInit {
 
     this.getPlayerLocal();
     this.addPlayersToBoard();
-    this.addPlayersIdToBoard();
+    //this.addPlayersIdToBoard();
     this.getBoardOfDB();
   }
 
