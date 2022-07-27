@@ -22,14 +22,14 @@ public class AddPlayerInBoardUseCase {
         var board=boardRepository.findById("62de01f1ee60c664c3d720fb")
                 .toFuture().join();
 
-       var newBoard =  playerRepository.findById(idPlayer).
-                           map(  player1 -> {
+       var newBoard =  playerRepository.findById(idPlayer)
+                          . map(  player1 -> {
 
                                var listsPlayers = board.getListplayer();
-                               var playerId = board.getIdPlayers();
+                               //var playerId = board.getIdPlayers();
 
                                 listsPlayers.add(player1);
-                                playerId.add(player1.getPlayerId());
+                                //playerId.add(player1.getPlayerId());
 
                                return  new Board(
                                        board.getId(),
@@ -37,13 +37,12 @@ public class AddPlayerInBoardUseCase {
                                        board.getListWinRound(),
                                        board.getListCard(),
                                        listsPlayers.stream().distinct().collect(Collectors.toList()),
-                                       playerId.stream().distinct().collect(Collectors.toList())
-
+                                       board.getIdPlayers()// playerId.stream().distinct().collect(Collectors.toList())
                                );
-                           }).toFuture().join();
 
+                           })
+               .toFuture().join();
 
         return boardRepository.addplayerinboard(newBoard);
     }
-
 }

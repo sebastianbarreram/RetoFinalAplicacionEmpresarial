@@ -2,6 +2,7 @@ package co.com.sofkau.api.board;
 
 import co.com.sofkau.model.board.Board;
 import co.com.sofkau.model.player.Player;
+import co.com.sofkau.usecase.boardusecase.addplayeridinboard.AddPlayerIdInBoardUseCase;
 import co.com.sofkau.usecase.boardusecase.addplayerinboard.AddPlayerInBoardUseCase;
 import co.com.sofkau.usecase.boardusecase.createboard.CreateBoardUseCase;
 import co.com.sofkau.usecase.boardusecase.gettablerobyid.GettablerobyidUseCase;
@@ -31,6 +32,7 @@ public class HandlerBoard {
   private final TieBreakUseCase tieBreakUseCase;
   private final WinGameUseCase winGameUseCase;
   private final AddPlayerInBoardUseCase addPlayerInBoardUseCase;
+  private final AddPlayerIdInBoardUseCase addPlayerIdInBoardUseCase;
   private final UpdatePlayerInBoardUseCase updatePlayerInBoardUseCase;
 
   public Mono<ServerResponse> listenPOSTCreateBoardUseCase(ServerRequest serverRequest) {
@@ -109,6 +111,14 @@ public class HandlerBoard {
     return ServerResponse.ok()
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(addPlayerInBoardUseCase.addPlayerInBord(idPlayer), Board.class);
+  }
+
+  public Mono<ServerResponse> listenAddPlayerIdInBoardUseCase(ServerRequest serverRequest) {
+    var idPlayer = serverRequest.pathVariable("idplayer");
+
+    return ServerResponse.ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(addPlayerIdInBoardUseCase.addPlayerIdInBord(idPlayer), Board.class);
   }
 
   public Mono<ServerResponse> listenUpdatePlayerInBoardUseCase(ServerRequest serverRequest) {

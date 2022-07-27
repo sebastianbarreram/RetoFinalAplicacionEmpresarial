@@ -126,6 +126,12 @@ deleteHero(id: number): Observable<Player> {
       catchError(this.handleError<any>('updateUseCards')))
     }
 
+  addPlayerIdInBoard(id:string):Observable<any>{
+    const url = `${this.boardUrl}/playerid/${id}`;
+    return this.http.put(url, this.httpOptions).pipe(
+      tap(_ => console.log(`addPlayer ${id} InBoard`)),
+      catchError(this.handleError<any>('updateUseCards')))
+    }
 /**
  * Handle Http operation that failed.
  * Let the app continue.

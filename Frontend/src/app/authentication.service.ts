@@ -113,7 +113,6 @@ export class AuthenticationService {
 				up and returns promise */
 
 				this.SetUserData(result.user);
-				console.log("Hola John")
 
 				this.player.playerId = result.user?.uid || " ";
 				this.player.email = email;
@@ -122,7 +121,6 @@ export class AuthenticationService {
 					.subscribe(playerNew => this.Players.push(playerNew));
 
 				this.router.navigate(['hall']);
-
 
 			})
 			.catch((error) => {
