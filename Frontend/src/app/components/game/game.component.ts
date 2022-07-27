@@ -33,6 +33,12 @@ idPlayers: []
       cardGamesList:[]
   }
 
+  game2:Game={
+      id:"1",
+      numberPlayers:0,
+      playerModelList:[],
+      cardGamesList:[]
+  }
   playerId= "";
   constructor(private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
@@ -152,9 +158,8 @@ idPlayers: []
 
 
   clearGame(){
-    this.gameAPIService.deleteGame().subscribe()
-
- 
+    this.gameAPIService.updateGame(this.game2,"1").subscribe()
+    location.reload();
   }
 
   // iniciarJuego(): void {
