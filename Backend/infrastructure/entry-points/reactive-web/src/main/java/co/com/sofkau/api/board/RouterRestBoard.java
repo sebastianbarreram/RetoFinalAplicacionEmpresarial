@@ -23,6 +23,7 @@ public RouterFunction<ServerResponse> routerFunctionBoard(HandlerBoard handler) 
             .andRoute(GET("/api/board/{id}"), handler::listenGETListByIdUseCase)
             .andRoute(PUT("/api/board/set/{id}"),handler::listenUseCardUseCase)
             .andRoute(PUT("/api/board/player/{idplayer}"),handler::listenAddPlayerInBoardUseCase)
+            .andRoute(PUT("/api/board/playerid/{idplayer}"),handler::listenAddPlayerIdInBoardUseCase)
             .andRoute(PUT("/api/board/players/{idboard}"),handler::listenUpdatePlayerInBoardUseCase);
     }
 }

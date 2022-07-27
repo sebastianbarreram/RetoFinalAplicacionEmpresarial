@@ -21,7 +21,7 @@ export class ListGamesComponent implements OnInit {
 
   boards : Board[]=[];
 	playerId: string= "";
-  
+
 	player: Player = {
 			playerId : "",
 				nickName : "",
@@ -42,57 +42,57 @@ export class ListGamesComponent implements OnInit {
   }
   listaPlayers: string[]=[];
 
-  constructor( 
+  constructor(
     private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
     private router: Router,
     private gameService: GameService) {
-      
-
-    
-      
       }
-      
-  
+
+
   ngOnInit(): void {
-    this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb")
-    .subscribe(board=>{this.board.listplayer=board.listplayer;
-    this.board.idPlayers=board.idPlayers})
-    if(this.board){
-      this.getPlayer();
-    }
-    this.addPlayerToBoard();
-    
+
+
+    this.getPlayerLocal();
+    this.addPlayersToBoard();
+    this.addPlayersIdToBoard();
+    this.getBoardOfDB();
   }
-  
+
   iniciarJuego(){
     this.router.navigate(['game']);
   }
 
-  getPlayer():void{
-   
+  getPlayerLocal():void{
     this.playerId=localStorage.getItem("uid")!;
-
     if (!this.playerId) {
       location.reload();
     }
-    console.log(this.board.idPlayers);
-    this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(resp=>this.board.idPlayers=resp.idPlayers);
-    console.log(this.board.idPlayers);
-    
   }
-  addPlayerToBoard(): void {
-    if (this.board) {
-      console.log(this.board.idPlayers);
-      this.boardAPIService.addPlayerInBoard(this.playerId)
-      .subscribe(respuesta=>console.log(respuesta));
-    } 
+
+  getBoardOfDB(): void {
+    this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(board=>{this.board=board})
+    console.log("consulta Db: ",this.board.idPlayers);
   }
+
+  addPlayersToBoard(): void {
+
+    this.board.idPlayers.push(this.playerId);
+    this.boardAPIService.addPlayerInBoard(this.playerId).subscribe(respuesta=>console.log(respuesta));
+    console.log("Actualizacion Local: ",this.board.idPlayers);
   }
+
+  addPlayersIdToBoard(): void {
+
+    this.board.idPlayers.push(this.playerId);
+    this.boardAPIService.addPlayerIdInBoard(this.playerId).subscribe(respuesta=>console.log(respuesta));
+    console.log("Actualizacion Local: ",this.board.idPlayers);
+  }
+}
 
 
 
-  
+
 
 
 
