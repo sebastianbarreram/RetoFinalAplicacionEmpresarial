@@ -29,7 +29,7 @@ public class AddPlayerIdInBoardUseCase {
                                var playerId = board.getIdPlayers();
 
                                 //listsPlayers.add(player1);
-                                playerId.add(player1.getPlayerId());
+                                playerId.add(idPlayer);
 
                                return  new Board(
                                        board.getId(),
@@ -37,7 +37,7 @@ public class AddPlayerIdInBoardUseCase {
                                        board.getListWinRound(),
                                        board.getListCard(),
                                        board.getListplayer(),//listsPlayers.stream().distinct().collect(Collectors.toList()),
-                                       playerId.stream().distinct().collect(Collectors.toList())
+                                       board.getIdPlayers()//playerId.stream().distinct().collect(Collectors.toList())
                                );
 
                            })
