@@ -16,7 +16,7 @@ export class GameComponent implements OnInit {
 
   }
 
-  playerId="3";
+  playerId="1";
   cards = [
   {
 		cardId: "2222222",
@@ -165,7 +165,7 @@ export class GameComponent implements OnInit {
     // }
   ]
 
-  players=["2"]
+  players=["3"]
 
   @HostListener('click', ['$event'])
   onClick(event: any) {
