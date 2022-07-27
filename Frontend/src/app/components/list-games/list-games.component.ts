@@ -79,9 +79,6 @@ export class ListGamesComponent implements OnInit {
     console.log(this.board.idPlayers);
     this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(resp=>this.board.idPlayers=resp.idPlayers);
     console.log(this.board.idPlayers);
-
-    
-
     
   }
   addPlayerToBoard(): void {
