@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,6 @@ public class BoardDocument {
     private List<String> listWinRound;
     private List<Card> listCard;
     private List<Player> listplayer ;
-    private List<String> idPlayers;
+    private List<String> idPlayers = new ArrayList<>();
 
 }

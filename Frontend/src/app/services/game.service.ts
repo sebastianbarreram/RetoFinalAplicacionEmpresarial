@@ -16,7 +16,7 @@ export class GameService {
   };
 
   constructor(private http: HttpClient) { }
-  
+
     /** GET cards from the server */
   getGame(): Observable<Game[]> {
     return this.http.get<Game[]>(this.gameUrl)
@@ -25,17 +25,17 @@ export class GameService {
         catchError(this.handleError<Game[]>('createGame', []))
       );
   }
-  
+
   addGame(game: Game): Observable<Game> {
     return this.http.post<Game>(this.gameUrl, game, this.httpOptions).pipe(
       tap((newGame: Game) => console.log(`creating game w/ id=${newGame.id}`)),
       catchError(this.handleError<Game>('addGame'))
     );
   }
-  deleteGame(id: string): Observable<Game> {
-    const url = `${this.gameUrl}/${id}`;
-    return this.http.delete<Game>(url, this.httpOptions).pipe(
-      tap(_ => console.log(`deleted game gameId=${id}`)),
+  deleteGame(): Observable<Game> {
+    const url = `${this.gameUrl}`;
+    return this.http.post<Game>(url, this.httpOptions).pipe(
+      tap(_ => console.log(`deleted game`)),
       catchError(this.handleError<Game>('deleteGame'))
     );
   }
