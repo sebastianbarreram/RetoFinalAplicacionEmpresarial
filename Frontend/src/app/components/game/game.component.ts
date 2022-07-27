@@ -33,7 +33,7 @@ idPlayers: []
       cardGamesList:[]
   }
 
-
+  playerId= "";
   constructor(private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
     private playerAPIService:PlayerAPIService,
@@ -48,14 +48,13 @@ idPlayers: []
     this.getPlayer();
     this.getCards();
       this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
-
     // this.updateCardsRoun(10);
     //this.timer(1);
     //para hacer pruebas en segundos recordar quitar el comentario en el metoo timer
-    this.timer(4);
+    this.timer(10);
 
   }
-
+  
   getPlayer():void{
     this.playerId=localStorage.getItem("uid")!;
     if (!this.playerId) {
@@ -70,7 +69,7 @@ idPlayers: []
     this.cards=this.board.listCard;
   }
 
-  playerId= "";
+
 
 
   bettingCards=[
