@@ -8,6 +8,8 @@ import co.com.sofkau.usecase.cardusecase.getcardsusecase.GetCardsUseCase;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -22,26 +24,32 @@ public class AddPlayerIdInBoardUseCase {
         var board=boardRepository.findById("62de01f1ee60c664c3d720fb")
                 .toFuture().join();
 
-       var newBoard =  playerRepository.findById(idPlayer)
-                          . map(  player1 -> {
+    var newBoard =
+        playerRepository
+            .findById(idPlayer)
+            .map(
+                player1 -> {
 
-                               //var listsPlayers = board.getListplayer();
-                               var playerId = board.getIdPlayers();
+                  List<String> playerId = new ArrayList<>();
 
-                                //listsPlayers.add(player1);
-                                playerId.add(idPlayer);
+                  if(board.getIdPlayers() != null){
+                         playerId = board.getIdPlayers();
+                  }
 
-                               return  new Board(
-                                       board.getId(),
-                                       board.getTime(),
-                                       board.getListWinRound(),
-                                       board.getListCard(),
-                                       board.getListplayer(),//listsPlayers.stream().distinct().collect(Collectors.toList()),
-                                       board.getIdPlayers()//playerId.stream().distinct().collect(Collectors.toList())
-                               );
+                  playerId.add(idPlayer);
+                  System.out.println(idPlayer);
 
-                           })
-               .toFuture().join();
+                  return new Board(
+                          board.getId(),
+                      board.getTime(),
+                      board.getListWinRound(),
+                      board.getListCard(),
+                      board.getListplayer(),
+                      playerId.stream().distinct().collect(Collectors.toList())
+                      );
+                })
+            .toFuture()
+            .join();
 
         return boardRepository.addplayerinboard(newBoard);
     }
