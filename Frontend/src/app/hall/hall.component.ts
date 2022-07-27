@@ -24,23 +24,26 @@ export class HallComponent implements OnInit {
 }
 	constructor(private game : GameService, private playerAPIService: PlayerAPIService) {}
   ngOnInit(): void {
-    // var userId = JSON.parse(localStorage.getItem('user')||"").uid;
-    //     console.log((userId));
+
     this.addPlayer();
+
   }
-  crearSala():void{
-    //this.game.updateGame({Game},"62dd61651a07e0562b2cb040")
-  }
- 
 
   addPlayer(){
 			var userId = JSON.parse(localStorage.getItem('user')||"").uid! ;
 			var userEmail = JSON.parse(localStorage.getItem('user')||"").email;
 
-			this.player.playerId = userId;
-			this.player.email = userEmail;
+      var userIdMongoDb = "";
 
-			this.playerAPIService.addPlayer(this.player)
-				.subscribe();
+      this.playerAPIService.getPlayer(userId).subscribe(user => userIdMongoDb= user.playerId!);
+
+      if(userId !== userId){
+
+	      this.player.playerId = userId;
+			  this.player.email = userEmail;
+
+			  this.playerAPIService.addPlayer(this.player)
+			  .subscribe();
+      }
   }
 }
