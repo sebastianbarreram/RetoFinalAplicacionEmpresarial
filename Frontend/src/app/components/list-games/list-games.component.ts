@@ -8,6 +8,7 @@ import { HttpParams } from '@angular/common/http';
 import { CardGameAPIService } from '../../services/card-api.service';
 import { Router } from '@angular/router';
 import { GameService } from 'src/app/services/game.service';
+import { Card } from '../../interfaces/card';
 
 @Component({
   selector: 'app-list-games',
@@ -38,6 +39,7 @@ export class ListGamesComponent implements OnInit {
     idPlayers: []
   }
   listaPlayers: string[]=[];
+  handPlayer:Card[]=[];
 
   constructor(
     private boardAPIService: BoardAPIService,
@@ -50,16 +52,20 @@ export class ListGamesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPlayerLocal();
-
     this.addPlayerToBoard();
     //this.addPlayersIdToBoard();
-
     this.getBoardOfDB();
  
   }
 
   iniciarJuego(){
-    this.router.navigate(['game']);
+      this.gameService.getGame().subscribe(game => {
+        (game[0].cardGamesList.length === 0)
+        ?   this.cardAPIService.getRandomCards(this.board.idPlayers.length*5).subscribe(
+            card=>this.board.listCard.push(card))
+        :NaN
+      })
+      this.router.navigate(['game']);
   }
 
   getPlayerLocal():void{
@@ -68,6 +74,7 @@ export class ListGamesComponent implements OnInit {
       location.reload();
     }
   }
+
 
   getBoardOfDB(): void {
     this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(board=>{this.board=board})
