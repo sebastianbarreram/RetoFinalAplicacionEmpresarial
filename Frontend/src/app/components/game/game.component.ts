@@ -33,7 +33,7 @@ idPlayers: []
       cardGamesList:[]
   }
 
-
+  playerId= "";
   constructor(private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
     private playerAPIService:PlayerAPIService,
@@ -48,14 +48,13 @@ idPlayers: []
     this.getPlayer();
     this.getCards();
       this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
-
     // this.updateCardsRoun(10);
     //this.timer(1);
     //para hacer pruebas en segundos recordar quitar el comentario en el metoo timer
-    this.timer(4);
+    this.timer(10);
 
   }
-
+  
   getPlayer():void{
     this.playerId=localStorage.getItem("uid")!;
     if (!this.playerId) {
@@ -70,7 +69,7 @@ idPlayers: []
     this.cards=this.board.listCard;
   }
 
-  playerId= "";
+
 
 
   bettingCards=[
@@ -166,6 +165,7 @@ console.log(this.game.playerModelList);
 
   iniciarJuego(): void {
     this.gameAPIService.getGame().subscribe(game => {
+    
       (game[0].cardGamesList.length === 0)
       ?   this.cardAPIService.getRandomCards(this.board.idPlayers.length*5).subscribe(  
           card=>this.board.listCard.push(card))
@@ -198,20 +198,19 @@ console.log(this.game.playerModelList);
       if (seconds == 0) {
         console.log("finished: Pasar a definir ganador");
         clearInterval(timer);
-
-        /*actualiza tablero de cartas por ronda*/
-        //this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
-
-        const randomNuber=Math.floor(Math.random() * this.board.listCard        
+        const randomNuber=Math.floor(Math.random() * this.board.listCard
         .filter(cardMap=>cardMap.playerId==this.playerId).length)
 
         if (!this.game.playerModelList.includes(this.playerId)) {
           const card=this.board.listCard.filter(cardMap=>cardMap.playerId==this.playerId)[randomNuber]
-          this.game.cardGamesList.push(card)
-          this.game.playerModelList.push(card.playerId) && 
-          this.gameAPIService.addPlayerInGame(card.playerId,this.game).subscribe();
+        this.game.cardGamesList.push(card)
+        this.game.playerModelList.push(card.playerId) && 
+        this.gameAPIService.addPlayerInGame(card.playerId,this.game).subscribe();
         }
-    
+        /*actualiza tablero de cartas por ronda*/
+       //this.game.cardGamesList.push(game[0].cardGamesList) && this.players.push(game[0].playerId))
+        
+       this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
        
       }
     }, 1000);
