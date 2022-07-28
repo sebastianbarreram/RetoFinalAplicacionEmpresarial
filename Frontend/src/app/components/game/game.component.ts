@@ -234,6 +234,11 @@ idPlayers: []
 
           this.addPlayerInDb(card);
         }
+
+        setTimeout(() => {
+          this.getGameOfDb();
+          console.log("tiempo de espera");
+        }, 10000);
         /*actualiza tablero de cartas por ronda*/
         //this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
       }
