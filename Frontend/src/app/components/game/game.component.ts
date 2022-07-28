@@ -81,7 +81,7 @@ winnerCard: Card ={
     this.getGameOfDb();
        // this.updateCardsRoun(10);
        //this.timer(1);
-    this.timer(4);
+    this.timer(10);
 
   }
 
@@ -273,11 +273,11 @@ winnerCard: Card ={
 
         setTimeout(() => {
           this.getGameOfDb();
-        }, 2000);
+        }, 8000);
 
         setTimeout(() => {
           this.getGameOfDbEnd();
-        }, 3000);
+        }, 8000);
         
         
         /*actualiza tablero de cartas por ronda*/
@@ -290,7 +290,10 @@ winnerCard: Card ={
     this.gameAPIService.getWinnerRound("1").subscribe(winner=>{
       this.playerAPIService.getPlayer(winner.playerId).subscribe(
         winnerRound=>{this.winner=winnerRound;
-        this.open(this.mymodal);}
+        this.open(this.mymodal);
+      this.boardAPIService.updateReallocateCards("62de01f1ee60c664c3d720fb").subscribe(a=>{
+        this.getCards();
+        this.getGameOfDb()});}
       );
       this.winnerCard=winner
     })
