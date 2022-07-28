@@ -7,7 +7,6 @@ import { GameService } from 'src/app/services/game.service';
 import { CardGameAPIService } from '../../services/card-api.service';
 import { PlayerAPIService } from '../../services/player-api.service';
 
-
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -18,12 +17,13 @@ export class GameComponent implements OnInit {
 
   board: Board = {
     id: "62de01f1ee60c664c3d720fb",
-time: 10000,
-listWinRound: [],
-listCard: [],
-listplayer: [],
-idPlayers: []
-}
+    time: 10000,
+    listWinRound: [],
+    listCard: [],
+    listplayer: [],
+    idPlayers: []
+  }
+
   cards: Card[]=[];
 
   game:Game={
@@ -32,7 +32,6 @@ idPlayers: []
       playerModelList:[],
       cardGamesList:[]
   }
-
   game2:Game={
       id:"1",
       numberPlayers:0,
@@ -40,28 +39,22 @@ idPlayers: []
       cardGamesList:[]
   }
 
-
-  handPlayer: Card[]=[];
-
   playerId= "";
   constructor(private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
     private playerAPIService:PlayerAPIService,
     private gameAPIService: GameService ) {
-
-      this.getCards();
-
    }
 
 
   ngOnInit(): void {
+
     this.iniciarJuego();
     this.getPlayer();
     this.getCards();
-      this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
-    // this.updateCardsRoun(10);
-    //this.timer(1);
-    //para hacer pruebas en segundos recordar quitar el comentario en el metoo timer
+    this.getGameOfDb();
+       // this.updateCardsRoun(10);
+       //this.timer(1);
     this.timer(10);
 
   }
@@ -74,13 +67,52 @@ idPlayers: []
   }
 
   getCards(){
-
     this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(
       board =>{
         this.board=board;
-        this.handPlayer = board.listCard;
     })
     this.cards=this.board.listCard;
+  }
+
+  getGameOfDb(){
+    this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
+  }
+
+  getGameOfDbEnd(){
+    this.gameAPIService.getGame().subscribe( game => {
+      this.game = game[0];
+      this.showCards();
+    });
+  }
+
+
+  saveSelectedCard(event: any){
+
+    this.board.listCard.forEach(card=>{
+      if(card.cardId==event.target.id){
+        this.addPlayerInDb(card);
+      }
+    });
+  }
+
+  addPlayerInDb(card: Card): void{
+     this.gameAPIService.addPlayerInGame(card.playerId).subscribe(
+       game =>{
+         console.log(`se agrego el player al game= ${game}`)
+         this.addCardInDb(card)
+       }
+     );
+  }
+
+  addCardInDb(card: Card): void{
+     this.gameAPIService.addCardsInGame(card.cardId).subscribe(
+       game =>{
+         console.log(`se agreg la card al game= ${game}`)
+         this.getGameOfDb();
+       }
+
+
+     );
   }
 
 
@@ -109,26 +141,19 @@ idPlayers: []
     // }
   ]
 
-  players=["2"]
+  players=["2"];
 
   @HostListener('click', ['$event'])
   onClick(event: any) {
     try {
       if (!this.game.playerModelList.includes(this.playerId)) {
-      // get the clicked element
-      this.board.listCard.forEach(card=>card.cardId==event.target.id?
-      this.game.cardGamesList.push(card) &&
-      this.game.playerModelList.push(card.playerId) &&
-      this.gameAPIService.addPlayerInGame(card.playerId,this.game).subscribe(a => console.log(a)):NaN);
-      console.log("card of player: "+this.playerId)
-
-      this.gameAPIService.updateGame(this.game, this.game.id).subscribe();
-
-    }
+        // get the clicked element
+        this.getGameOfDb()
+        this.saveSelectedCard(event);
+      }
     } catch (error) {
 
     }
-
   }
 
   updateCardsRoun(second: number) {
@@ -162,20 +187,28 @@ idPlayers: []
 
     }, 1000);
   }
-
-
   clearGame(){
     this.gameAPIService.updateGame(this.game2,"1").subscribe()
     location.reload();
   }
 
-   iniciarJuego(): void {
+  iniciarJuego(): void {
      this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(board => {
-       if(board.listCard.length === 0){
-           this.cardAPIService.getRandomCards(this.board.idPlayers.length*5).subscribe(
-           card=>this.board.listCard.push(card))
+       if(board.listCard.length == 0){
+           this.cardAPIService.getRandomCards(board.idPlayers.length*5).subscribe(
+           card=>{this.board.listCard.push(card)
+            console.log(board.idPlayers.length);
+            
+          })
        }
      })
+  }
+
+  showCards(): void{
+    this.game.cardGamesList.forEach(card =>{
+      card.hidden = false;
+      console.log(`Cartas: Xp=${card.xp} hidden=${card.hidden}`)
+    });
   }
 
   timer(minute: number) {
@@ -203,22 +236,32 @@ idPlayers: []
       if (seconds == 0) {
         console.log("finished: Pasar a definir ganador");
         clearInterval(timer);
-        const randomNuber=Math.floor(Math.random() * this.board.listCard
-        .filter(cardMap=>cardMap.playerId==this.playerId).length)
 
         if (!this.game.playerModelList.includes(this.playerId)) {
+          const randomNuber=Math.floor(Math.random() * this.board.listCard.filter(cardMap=>cardMap.playerId==this.playerId).length)
           const card=this.board.listCard.filter(cardMap=>cardMap.playerId==this.playerId)[randomNuber]
 
-          this.game.cardGamesList.push(card)
-          this.game.playerModelList.push(card.playerId) &&
-          this.gameAPIService.addPlayerInGame(card.playerId,this.game).subscribe();
+          this.addPlayerInDb(card);
         }
 
+        setTimeout(() => {
+          this.getGameOfDb();
+        }, 2000);
+
+        setTimeout(() => {
+          this.getGameOfDbEnd();
+        }, 10000);
         /*actualiza tablero de cartas por ronda*/
-        this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
+        //this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
       }
     }, 1000);
   }
+
+
+
+ 
+
+
 
 }
 

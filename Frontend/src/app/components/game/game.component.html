@@ -1,5 +1,5 @@
 <div class="cards-container overflow-auto">
-  <body *ngFor="let card of handPlayer" [id]="card.cardId">
+  <body *ngFor="let card of board.listCard" [id]="card.cardId">
     <div *ngIf="playerId==card.playerId" [id]="card.cardId">
       <div class="card" [id]="card.cardId">
         <div class="monster-image" [id]="card.cardId">
@@ -20,7 +20,7 @@
 <div class="bet-cards overflow-auto">
   <body *ngFor="let card of game.cardGamesList">
     <div id="container">
-      <div class="card">
+      <div class="card" *ngIf="card.hidden == true" >
         <div class="monster-image">
           <img
             [src]="playerId==card.playerId ? card.image : '../../assets/hiddenCard.jpg'"
@@ -29,6 +29,17 @@
         <div class="description">
           <p class="atk-def" *ngIf="playerId==card.playerId">XP/{{ card.xp }}</p>
           <p class="atk-def" *ngIf="playerId!=card.playerId">XP/????</p>
+        </div>
+      </div>
+
+      <div class="card" *ngIf="card.hidden == false" >
+        <div class="monster-image">
+          <img
+            [src]="card.image"
+          />
+        </div>
+        <div class="description">
+          <p class="atk-def">XP/{{ card.xp }}</p>
         </div>
       </div>
     </div>
@@ -41,6 +52,6 @@
 <div>
   <button
   (click)="clearGame()">
-    Limpiar tablero
+    Limpiar Ronda
   </button>
 </div>

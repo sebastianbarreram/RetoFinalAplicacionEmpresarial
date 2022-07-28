@@ -5,6 +5,7 @@ import co.com.sofkau.model.card.Card;
 import co.com.sofkau.model.game.Game;
 import co.com.sofkau.model.game.gateways.GameRepository;
 import co.com.sofkau.model.player.Player;
+import co.com.sofkau.usecase.gameusecase.addcardsingame.AddCardsInGameUseCase;
 import co.com.sofkau.usecase.gameusecase.addplayeringame.AddPlayerInGameUseCase;
 import co.com.sofkau.usecase.gameusecase.creategame.CreateGameUseCase;
 import co.com.sofkau.usecase.gameusecase.deletegame.DeletegameUseCase;
@@ -29,10 +30,10 @@ public class HandlerGame {
     private final UpdategameUseCase updategameUseCase;
     private final GetgameUseCase getgameUseCase;
     private final ListgamebyidUseCase listgamebyidUseCase;
-
-    private final AddPlayerInGameUseCase addPlayerInGameUseCase;
-
     private final RetireGamePlayerUseCase retireGamePlayerUseCase;
+    private final AddPlayerInGameUseCase addPlayerInGameUseCase;
+    private final AddCardsInGameUseCase addCardsInGameUseCase;
+
     public Mono<ServerResponse> createGamePostUseCase(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(Game.class)
                 .flatMap(element -> ServerResponse.ok()
@@ -76,11 +77,18 @@ public class HandlerGame {
     }
 
     public Mono<ServerResponse> listenAddPlayerInGameUseCase(ServerRequest serverRequest) {
-        var idPlayer = serverRequest.pathVariable("idPlayer");
+        var id = serverRequest.pathVariable("id");
 
-        return serverRequest.bodyToMono(Game.class)
-                .flatMap(element -> ServerResponse.ok()
+        return ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body( addPlayerInGameUseCase.addPlayerInGame(idPlayer, element), Game.class));
+                        .body( addPlayerInGameUseCase.addPlayerInGame(id), Game.class);
+    }
+
+    public Mono<ServerResponse> listenAddCardsInGameUseCase(ServerRequest serverRequest) {
+        var id = serverRequest.pathVariable("id");
+
+        return ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body( addCardsInGameUseCase.addCardsInGame(id), Game.class);
     }
 }
