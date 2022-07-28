@@ -8,9 +8,7 @@ import { HttpParams } from '@angular/common/http';
 import { CardGameAPIService } from '../../services/card-api.service';
 import { Router } from '@angular/router';
 import { GameService } from 'src/app/services/game.service';
-
-
-
+import { Card } from '../../interfaces/card';
 
 @Component({
   selector: 'app-list-games',
@@ -41,26 +39,27 @@ export class ListGamesComponent implements OnInit {
     idPlayers: []
   }
   listaPlayers: string[]=[];
+  handPlayer:Card[]=[];
 
   constructor(
     private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
     private router: Router,
-    private gameService: GameService) {
+    private gameService: GameService,
+    ) {
       }
 
 
   ngOnInit(): void {
-
-
     this.getPlayerLocal();
-    this.addPlayersToBoard();
-    this.addPlayersIdToBoard();
+    this.addPlayerToBoard();
+    //this.addPlayersIdToBoard();
     this.getBoardOfDB();
+
   }
 
   iniciarJuego(){
-    this.router.navigate(['game']);
+      this.router.navigate(['game']);
   }
 
   getPlayerLocal():void{
@@ -70,22 +69,23 @@ export class ListGamesComponent implements OnInit {
     }
   }
 
+
   getBoardOfDB(): void {
     this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(board=>{this.board=board})
     console.log("consulta Db: ",this.board.idPlayers);
   }
 
-  addPlayersToBoard(): void {
+  // addPlayersToBoard(): void {
+
+  //   this.board.idPlayers.push(this.playerId);
+
+  //   console.log("Actualizacion Local: ",this.board.idPlayers);
+  // }
+
+  addPlayerToBoard(): void {
 
     this.board.idPlayers.push(this.playerId);
-    this.boardAPIService.addPlayerInBoard(this.playerId).subscribe(respuesta=>console.log(respuesta));
-    console.log("Actualizacion Local: ",this.board.idPlayers);
-  }
-
-  addPlayersIdToBoard(): void {
-
-    this.board.idPlayers.push(this.playerId);
-    this.boardAPIService.addPlayerIdInBoard(this.playerId).subscribe(respuesta=>console.log(respuesta));
+    this.boardAPIService.addPlayerInBoard(this.playerId).subscribe();
     console.log("Actualizacion Local: ",this.board.idPlayers);
   }
 }
