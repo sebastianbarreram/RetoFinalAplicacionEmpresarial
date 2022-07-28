@@ -5,6 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Game } from '../interfaces/game';
 import { Router } from '@angular/router';
+import { Card } from '../interfaces/card';
 @Injectable({
   providedIn: 'root'
 })
@@ -65,6 +66,15 @@ export class GameService {
     catchError(this.handleError<any>('addPlayerInGame'))
     );
   }
+
+  /** GET Winner round*/
+getWinnerRound(id: string | null): Observable<Card> {
+  const url = `${this.gameUrl}/win/${id}`;
+  return this.http.get<Card>(url).pipe(
+    tap(_ => console.log(`fetched win board id=${id}`)),
+    catchError(this.handleError<Card>(`getWinBoard id=${id}`))
+  );
+}
 
   /**
    * Handle Http operation that failed.

@@ -101,3 +101,7 @@ body {
     margin-left: 5px;
     display: flex;
   }
+  div.winnerCard{
+    display: flex;
+    justify-content: center;
+  }
