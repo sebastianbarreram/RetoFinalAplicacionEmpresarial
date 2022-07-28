@@ -55,13 +55,14 @@ idPlayers: []
 
 
   ngOnInit(): void {
+
     this.iniciarJuego();
     this.getPlayer();
     this.getCards();
-      this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
-    // this.updateCardsRoun(10);
-    //this.timer(1);
-    //para hacer pruebas en segundos recordar quitar el comentario en el metoo timer
+    this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
+       // this.updateCardsRoun(10);
+        //this.timer(1);
+          //para hacer pruebas en segundos recordar quitar el comentario en el metoo timer
     this.timer(10);
 
   }
@@ -203,19 +204,17 @@ idPlayers: []
       if (seconds == 0) {
         console.log("finished: Pasar a definir ganador");
         clearInterval(timer);
-        const randomNuber=Math.floor(Math.random() * this.board.listCard
-        .filter(cardMap=>cardMap.playerId==this.playerId).length)
 
         if (!this.game.playerModelList.includes(this.playerId)) {
+          const randomNuber=Math.floor(Math.random() * this.board.listCard.filter(cardMap=>cardMap.playerId==this.playerId).length)
           const card=this.board.listCard.filter(cardMap=>cardMap.playerId==this.playerId)[randomNuber]
 
           this.game.cardGamesList.push(card)
           this.game.playerModelList.push(card.playerId) &&
           this.gameAPIService.addPlayerInGame(card.playerId,this.game).subscribe();
         }
-
         /*actualiza tablero de cartas por ronda*/
-        this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
+        //this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
       }
     }, 1000);
   }
