@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Board } from 'src/app/interfaces/board';
 import { Card } from 'src/app/interfaces/card';
 import { Game } from 'src/app/interfaces/game';
@@ -13,6 +13,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
+ 
 })
 export class GameComponent implements OnInit {
   display: any;
@@ -62,12 +63,13 @@ winnerCard: Card ={
   hidden: true,
   playerId: ""
 }
+@ViewChild('mymodal') mymodal: any;
 
   constructor(private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
     private playerAPIService:PlayerAPIService,
     private gameAPIService: GameService,
-    private modalService: NgbModal ) {
+    private modalService: NgbModal) {
    }
 
 
@@ -276,6 +278,8 @@ winnerCard: Card ={
         setTimeout(() => {
           this.getGameOfDbEnd();
         }, 3000);
+        
+        
         /*actualiza tablero de cartas por ronda*/
         //this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
       }
@@ -285,7 +289,8 @@ winnerCard: Card ={
   winnerRound(){
     this.gameAPIService.getWinnerRound("1").subscribe(winner=>{
       this.playerAPIService.getPlayer(winner.playerId).subscribe(
-        winnerRound=>this.winner=winnerRound
+        winnerRound=>{this.winner=winnerRound;
+        this.open(this.mymodal);}
       );
       this.winnerCard=winner
     })
