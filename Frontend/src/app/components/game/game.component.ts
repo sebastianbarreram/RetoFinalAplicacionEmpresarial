@@ -81,7 +81,7 @@ winnerCard: Card ={
     this.getGameOfDb();
        // this.updateCardsRoun(10);
        //this.timer(1);
-    this.timer(10);
+    this.timer(5);
 
   }
 
@@ -277,7 +277,7 @@ winnerCard: Card ={
 
         setTimeout(() => {
           this.getGameOfDbEnd();
-        }, 8000);
+        }, 10000);
         
         
         /*actualiza tablero de cartas por ronda*/
