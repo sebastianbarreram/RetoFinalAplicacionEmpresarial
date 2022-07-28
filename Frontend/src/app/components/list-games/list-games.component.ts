@@ -55,16 +55,10 @@ export class ListGamesComponent implements OnInit {
     this.addPlayerToBoard();
     //this.addPlayersIdToBoard();
     this.getBoardOfDB();
- 
+
   }
 
   iniciarJuego(){
-      this.gameService.getGame().subscribe(game => {
-        (game[0].cardGamesList.length === 0)
-        ?   this.cardAPIService.getRandomCards(this.board.idPlayers.length*5).subscribe(
-            card=>this.board.listCard.push(card))
-        :NaN
-      })
       this.router.navigate(['game']);
   }
 
@@ -84,7 +78,7 @@ export class ListGamesComponent implements OnInit {
   // addPlayersToBoard(): void {
 
   //   this.board.idPlayers.push(this.playerId);
-    
+
   //   console.log("Actualizacion Local: ",this.board.idPlayers);
   // }
 
@@ -92,7 +86,6 @@ export class ListGamesComponent implements OnInit {
 
     this.board.idPlayers.push(this.playerId);
     this.boardAPIService.addPlayerInBoard(this.playerId).subscribe();
-    this.boardAPIService.addPlayerIdInBoard(this.playerId).subscribe(respuesta=>console.log(respuesta));
     console.log("Actualizacion Local: ",this.board.idPlayers);
   }
 }

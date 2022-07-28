@@ -39,6 +39,10 @@ idPlayers: []
       playerModelList:[],
       cardGamesList:[]
   }
+
+
+  handPlayer: Card[]=[];
+
   playerId= "";
   constructor(private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
@@ -49,8 +53,9 @@ idPlayers: []
 
    }
 
+
   ngOnInit(): void {
-   // this.iniciarJuego();
+    this.iniciarJuego();
     this.getPlayer();
     this.getCards();
       this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
@@ -69,12 +74,14 @@ idPlayers: []
   }
 
   getCards(){
+
     this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(
-      board =>{ this.board=board;
+      board =>{
+        this.board=board;
+        this.handPlayer = board.listCard;
     })
     this.cards=this.board.listCard;
   }
-
 
 
 
@@ -162,14 +169,14 @@ idPlayers: []
     location.reload();
   }
 
-  // iniciarJuego(): void {
-  //   this.gameAPIService.getGame().subscribe(game => {
-  //     (game[0].cardGamesList.length === 0)
-  //     ?   this.cardAPIService.getRandomCards(this.board.idPlayers.length*5).subscribe(
-  //         card=>this.board.listCard.push(card))
-  //     :NaN
-  //   })
-  // }
+   iniciarJuego(): void {
+     this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(board => {
+       if(board.listCard.length === 0){
+           this.cardAPIService.getRandomCards(this.board.idPlayers.length*5).subscribe(
+           card=>this.board.listCard.push(card))
+       }
+     })
+  }
 
   timer(minute: number) {
     // let minute = 1;
