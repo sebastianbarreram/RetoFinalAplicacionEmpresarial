@@ -2,10 +2,12 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Board } from 'src/app/interfaces/board';
 import { Card } from 'src/app/interfaces/card';
 import { Game } from 'src/app/interfaces/game';
+import { Player } from 'src/app/interfaces/player';
 import { BoardAPIService } from 'src/app/services/board-api.service';
 import { GameService } from 'src/app/services/game.service';
 import { CardGameAPIService } from '../../services/card-api.service';
 import { PlayerAPIService } from '../../services/player-api.service';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-game',
@@ -40,10 +42,32 @@ export class GameComponent implements OnInit {
   }
 
   playerId= "";
+
+  title = 'appBootstrap';
+  closeResult: string = '';
+
+  winner: Player = {
+    playerId : "",
+      nickName : "",
+      email: "",
+      score: 0,
+      pointsHistory: [],
+      cardModels: [],
+}
+
+winnerCard: Card ={
+  cardId: "",
+  xp: 0,
+  image: "",
+  hidden: true,
+  playerId: ""
+}
+
   constructor(private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
     private playerAPIService:PlayerAPIService,
-    private gameAPIService: GameService ) {
+    private gameAPIService: GameService,
+    private modalService: NgbModal ) {
    }
 
 
@@ -55,7 +79,7 @@ export class GameComponent implements OnInit {
     this.getGameOfDb();
        // this.updateCardsRoun(10);
        //this.timer(1);
-    this.timer(10);
+    this.timer(4);
 
   }
 
@@ -209,6 +233,7 @@ export class GameComponent implements OnInit {
       card.hidden = false;
       console.log(`Cartas: Xp=${card.xp} hidden=${card.hidden}`)
     });
+    this.winnerRound();
   }
 
   timer(minute: number) {
@@ -250,15 +275,40 @@ export class GameComponent implements OnInit {
 
         setTimeout(() => {
           this.getGameOfDbEnd();
-        }, 10000);
+        }, 3000);
         /*actualiza tablero de cartas por ronda*/
         //this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
       }
     }, 1000);
   }
 
+  winnerRound(){
+    this.gameAPIService.getWinnerRound("1").subscribe(winner=>{
+      this.playerAPIService.getPlayer(winner.playerId).subscribe(
+        winnerRound=>this.winner=winnerRound
+      );
+      this.winnerCard=winner
+    })
+  }
 
 
+  open(content:any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
  
 
 

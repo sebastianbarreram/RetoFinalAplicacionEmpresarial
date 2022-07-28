@@ -2,19 +2,13 @@ package co.com.sofkau.usecase.boardusecase.tiebreak;
 
 import co.com.sofkau.model.board.Board;
 import co.com.sofkau.model.board.gateways.BoardRepository;
-import co.com.sofkau.model.card.Card;
 import co.com.sofkau.model.player.gateways.PlayerRepository;
 import co.com.sofkau.usecase.boardusecase.gettablerobyid.GettablerobyidUseCase;
-import co.com.sofkau.usecase.boardusecase.winround.WinroundUseCase;
-import co.com.sofkau.usecase.gameusecase.getgame.GetgameUseCase;
+import co.com.sofkau.usecase.gameusecase.winround.WinroundUseCase;
 import co.com.sofkau.usecase.gameusecase.listgamebyid.ListgamebyidUseCase;
 import co.com.sofkau.usecase.playerusecase.findplayer.FindPlayerUseCase;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 public class TieBreakUseCase {

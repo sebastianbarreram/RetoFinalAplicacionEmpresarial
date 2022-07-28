@@ -1,4 +1,4 @@
-package co.com.sofkau.usecase.boardusecase.winround;
+package co.com.sofkau.usecase.gameusecase.winround;
 
 import co.com.sofkau.model.board.Board;
 import co.com.sofkau.model.board.gateways.BoardRepository;
@@ -24,18 +24,18 @@ public class WinroundUseCase {
     private final GetCardsUseCase getCardsUseCase;
     private final CardRepository cardRepository;
 
-    public Mono<String> winRound(String id){
+    public Mono<Card> winRound(String id){
 
 
         //var board = boardRepository.findById(id).toFuture().join();
 
-        var playerId = gameRepository.findById(id)
+        var card = gameRepository.findById(id)
                 .map(e->e.getCardGamesList().stream()
                         .reduce((value1,value2)->(value1.getXp()>value2.getXp())?value1:value2))
-                .map(player -> player.get().getPlayerId());
+                .map(player -> player.get());
 
 
 
-        return  boardRepository.winRound(playerId);
+        return  boardRepository.winRound(card);
     }
 }

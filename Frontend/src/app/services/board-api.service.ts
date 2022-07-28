@@ -39,15 +39,6 @@ getBoardById(id: string | null): Observable<Board> {
   );
 }
 
-/** GET Win Board*/
-getWinBoard(id: string | null): Observable<string> {
-  const url = `${this.boardUrl}/win/${id}`;
-  return this.http.get<string>(url).pipe(
-    tap(_ => console.log(`fetched win board id=${id}`)),
-    catchError(this.handleError<string>(`getWinBoard id=${id}`))
-  );
-}
-
 
 //////// Save methods //////////
 /** POST: add a new hero to the server */

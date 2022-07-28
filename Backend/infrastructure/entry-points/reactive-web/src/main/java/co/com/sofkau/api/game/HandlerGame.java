@@ -14,6 +14,7 @@ import co.com.sofkau.usecase.gameusecase.retiregameplayer.RetireGamePlayerUseCas
 import co.com.sofkau.usecase.gameusecase.getgame.GetgameUseCase;
 import co.com.sofkau.usecase.gameusecase.listgamebyid.ListgamebyidUseCase;
 import co.com.sofkau.usecase.gameusecase.updategame.UpdategameUseCase;
+import co.com.sofkau.usecase.gameusecase.winround.WinroundUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -33,6 +34,7 @@ public class HandlerGame {
     private final RetireGamePlayerUseCase retireGamePlayerUseCase;
     private final AddPlayerInGameUseCase addPlayerInGameUseCase;
     private final AddCardsInGameUseCase addCardsInGameUseCase;
+    private final WinroundUseCase winroundUseCase;
 
     public Mono<ServerResponse> createGamePostUseCase(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(Game.class)
@@ -90,5 +92,11 @@ public class HandlerGame {
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body( addCardsInGameUseCase.addCardsInGame(id), Game.class);
+    }
+    public Mono<ServerResponse> listenGetWinBoardUseCase(ServerRequest serverRequest) {
+        var id = serverRequest.pathVariable("id");
+        return ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(winroundUseCase.winRound(id), Board.class);
     }
 }
