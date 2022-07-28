@@ -15,33 +15,29 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AddPlayerInGameUseCase {
 
-    private final BoardRepository boardRepository;
-    private final PlayerRepository playerRepository;
-    private final GameRepository gameRepository;
+  private final BoardRepository boardRepository;
+  private final PlayerRepository playerRepository;
+  private final GameRepository gameRepository;
 
+  public Mono<Game> addPlayerInGame(String idPlayer) {
 
+    var game = gameRepository.findById("1").toFuture().join();
 
-    public Mono<Game>addPlayerInGame(String idPlayer, Game game){
+    var newGame = playerRepository.findById(idPlayer).map(
+            player1 -> {
+                var listPlayersId = game.getPlayerModelList();
 
-       var newGame =  playerRepository.findById(idPlayer).
-                           map(  player1 -> {
+                listPlayersId.add(player1.getPlayerId());
 
+                return new Game(
+                      game.getId(),
+                      game.getNumberPlayers(),
+                      listPlayersId.stream().distinct().collect(Collectors.toList()),
+                      game.getCardGamesList()
+                  );
+               }
+            ).toFuture().join();
 
-                               var listPlayersId = game.getPlayerModelList();
-
-
-                               listPlayersId.add(player1.getPlayerId());
-
-                               return  new Game(
-                                       game.getId(),
-                                       game.getNumberPlayers(),
-                                       listPlayersId.stream().distinct().collect(Collectors.toList()),
-                                       game.getCardGamesList()
-                                       );
-                           }).toFuture().join();
-
-
-        return gameRepository.save(newGame);
-    }
-
+    return gameRepository.addPlayersInGame(newGame);
+  }
 }

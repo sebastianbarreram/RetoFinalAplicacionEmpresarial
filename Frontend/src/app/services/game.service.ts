@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class GameService {
-  private gameUrl = 'api/game/'; // URL to web api
+  private gameUrl = 'api/game'; // URL to web api
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -46,20 +46,25 @@ export class GameService {
     );
   }
   retireGame(idPlayer:string,game: Game):Observable<any>{
-  return this.http.put(`${this.gameUrl}/retire/${idPlayer}`, game, this.httpOptions).pipe(
-    tap(_ => console.log(`retired player id=${game.id}`)),
+    return this.http.put(`${this.gameUrl}/retire/${idPlayer}`, game, this.httpOptions).pipe(
+      tap(_ => console.log(`retired player id=${game.id}`)),
       catchError(this.handleError<any>('retireGame'))
-  );
-}
-addPlayerInGame(id: string, game:Game): Observable<any> {
-  return this.http.put(`${this.gameUrl}/player/${id}/`,game, this.httpOptions).pipe(
+    );
+  }
+
+  addPlayerInGame(id: string): Observable<any> {
+    return this.http.put(`${this.gameUrl}/player/${id}/`, this.httpOptions).pipe(
     tap(_ => console.log(`updated card cardId=${id}`)),
     catchError(this.handleError<any>('addPlayerInGame'))
-  );
-}
+    );
+  }
 
-
-
+  addCardsInGame(id: string): Observable<any> {
+    return this.http.put(`${this.gameUrl}/card/${id}/`, this.httpOptions).pipe(
+    tap(_ => console.log(`updated card cardId=${id}`)),
+    catchError(this.handleError<any>('addPlayerInGame'))
+    );
+  }
 
   /**
    * Handle Http operation that failed.
