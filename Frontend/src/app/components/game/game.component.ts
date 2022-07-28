@@ -32,7 +32,6 @@ export class GameComponent implements OnInit {
       playerModelList:[],
       cardGamesList:[]
   }
-
   game2:Game={
       id:"1",
       numberPlayers:0,
@@ -188,8 +187,6 @@ export class GameComponent implements OnInit {
 
     }, 1000);
   }
-
-
   clearGame(){
     this.gameAPIService.updateGame(this.game2,"1").subscribe()
     location.reload();
@@ -197,9 +194,12 @@ export class GameComponent implements OnInit {
 
   iniciarJuego(): void {
      this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(board => {
-       if(board.listCard.length === 0){
-           this.cardAPIService.getRandomCards(this.board.idPlayers.length*5).subscribe(
-           card=>this.board.listCard.push(card))
+       if(board.listCard.length == 0){
+           this.cardAPIService.getRandomCards(board.idPlayers.length*5).subscribe(
+           card=>{this.board.listCard.push(card)
+            console.log(board.idPlayers.length);
+            
+          })
        }
      })
   }
@@ -256,6 +256,12 @@ export class GameComponent implements OnInit {
       }
     }, 1000);
   }
+
+
+
+ 
+
+
 
 }
 
