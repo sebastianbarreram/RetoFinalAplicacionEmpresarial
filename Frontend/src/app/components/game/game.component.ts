@@ -146,12 +146,10 @@ export class GameComponent implements OnInit {
 
   @HostListener('click', ['$event'])
   onClick(event: any) {
-
-    this.getGameOfDb()
-
     try {
       if (!this.game.playerModelList.includes(this.playerId)) {
         // get the clicked element
+        this.getGameOfDb()
         this.saveSelectedCard(event);
       }
     } catch (error) {
@@ -247,8 +245,12 @@ export class GameComponent implements OnInit {
         }
 
         setTimeout(() => {
+          this.getGameOfDb();
+        }, 2000);
+
+        setTimeout(() => {
           this.getGameOfDbEnd();
-        }, 8000);
+        }, 10000);
         /*actualiza tablero de cartas por ronda*/
         //this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
       }
