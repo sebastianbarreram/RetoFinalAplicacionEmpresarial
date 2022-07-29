@@ -150,7 +150,6 @@ winnerCard: Card ={
       playerId: "2"
     },
   ]
-
   @HostListener('click', ['$event'])
   onClick(event: any) {
     try {
@@ -202,6 +201,7 @@ winnerCard: Card ={
     this.gameAPIService.updateGame(this.game2,"1").subscribe()
     location.reload();
   }
+ 
 
   iniciarJuego(): void {
      this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(board => {
@@ -260,9 +260,9 @@ winnerCard: Card ={
           this.getGameOfDb();
         }, 10000);
 
-        setTimeout(() => {
-          this.getGameOfDbEnd();
-        }, 20000);
+        // setTimeout(() => {
+        //   this.getGameOfDbEnd();
+        // }, 20000);
 
       }
     }, 1000);
@@ -278,7 +278,8 @@ winnerCard: Card ={
             this.open(this.mymodal);
             this.boardAPIService.updateReallocateCards("62de01f1ee60c664c3d720fb").subscribe(a=>{
             this.getCards();
-            this.getGameOfDb()});
+            //this.getGameOfDb()
+          });
 
           // this.nextGame();
         }
