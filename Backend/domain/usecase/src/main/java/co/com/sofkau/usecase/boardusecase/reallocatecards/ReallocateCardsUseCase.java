@@ -35,54 +35,67 @@ public class ReallocateCardsUseCase {
 
     public Mono<Board> reallocateCards(String idBoard) {
 
+        Card cardNull = new Card("0", 0, "",true,"0");
+
         var game = listgamebyidUseCase.listGameId("1").toFuture().join();
         var listCardRound = game.getCardGamesList();
         var winId = winroundUseCase.winRound(game.getId()).toFuture().join().getPlayerId();
 
-        var listCardRoundNew = listCardRound.stream().map(
-                card -> {
-                    return new Card(
-                            card.getCardId(),
-                            card.getXp(),
-                            card.getImage(),
-                            card.getHidden(),
-                            winId);
-                    //addCardsInBoardUseCase.addCardsInGame(newCard.getPlayerId());
-                }).collect(Collectors.toList());
+
+        var listCardRoundNew =
+                listCardRound.stream()
+                        .map(
+                                card -> {
+                                    return new Card(
+                                            card.getCardId(), card.getXp(), card.getImage(), card.getHidden(), winId);
+                                    // addCardsInBoardUseCase.addCardsInGame(newCard.getPlayerId());
+                                })
+                        .collect(Collectors.toList());
+
+        var newBoard =
+                gettablerobyidUseCase
+                        .listBoardId("62de01f1ee60c664c3d720fb")
+                        .map(
+                                board -> {
+                                    var newList =
+                                            board.getListCard().stream()
+                                                    .map(
+                                                            card -> {
+                                                                var list = new ArrayList<Card>();
+                                                                listCardRoundNew.stream()
+                                                                        .forEach(
+                                                                                newCards -> {
+                                                                                    if (!newCards.getCardId().equals(card.getCardId())) {
+                                                                                        list.add(card);
+                                                                                    }
+                                                                                });
+
+                                                                var newList2 = new ArrayList<Card>();
+
+                                                                if (list.size() == 2) {
+                                                                    newList2.add(
+                                                                            list.stream().distinct().collect(Collectors.toList()).get(0));
+                                                                }else{
+                                                                    newList2.add(cardNull);
+                                                                }
 
 
-        var newBoard = gettablerobyidUseCase.listBoardId("62de01f1ee60c664c3d720fb").map(
-                board -> {
+                                                                return newList2.get(0);
+                                                            }).filter(card -> !card.getCardId().equals("0")).collect(Collectors.toList());
 
-                    var newList =  board.getListCard().stream().map(
-                            card ->{
+                                    newList.addAll(listCardRoundNew);
 
-                                var list = new ArrayList<Card>();
-                                listCardRoundNew.stream().forEach(
-                                        newCards ->{
-                                            if (!newCards.getCardId().equals(card.getCardId())) {
-                                                list.add(card);
-                                            }
-                                        }
-                                );
-                                return    list.stream().distinct().collect(Collectors.toList()).get(0);
-                            }
-                    ).collect(Collectors.toList());
-
-                    newList.addAll(listCardRoundNew);
-
-                    return new Board(
-                            board.getId(),
-                            board.getTime(),
-                            board.getListWinRound(),
-                            newList,
-                            board.getListplayer(),
-                            board.getIdPlayers()
-                    );
-
-                }).toFuture().join();
+                                    return new Board(
+                                            board.getId(),
+                                            board.getTime(),
+                                            board.getListWinRound(),
+                                            newList,
+                                            board.getListplayer(),
+                                            board.getIdPlayers());
+                                })
+                        .toFuture()
+                        .join();
 
         return boardRepository.update("62de01f1ee60c664c3d720fb", newBoard);
-
     }
 }
