@@ -280,8 +280,7 @@ winnerCard: Card ={
         }
       );
     }else{
-      //this.open(this.mymodal);
-      this.open(this.winnerGameModal);
+      this.open(this.mymodal);
     }
   }
 
