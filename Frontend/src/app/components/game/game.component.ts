@@ -168,6 +168,7 @@ winnerCard: Card ={
     }
   }
 
+  /*
   updateCardsRoun(second: number) {
     // let minute = 1;
     //let seconds: number = minute * 60;
@@ -199,7 +200,9 @@ winnerCard: Card ={
 
     }, 1000);
   }
-  clearGame(){
+*/
+
+  nextGame(){
     this.gameAPIService.updateGame(this.game2,"1").subscribe()
     location.reload();
   }
@@ -265,24 +268,30 @@ winnerCard: Card ={
           this.getGameOfDbEnd();
         }, 6000);
 
-
-        /*actualiza tablero de cartas por ronda*/
-        //this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
       }
     }, 1000);
   }
 
   winnerRound(){
-    this.gameAPIService.getWinnerRound("1").subscribe(winner=>{
-      this.playerAPIService.getPlayer(winner.playerId).subscribe(
-        winnerRound=>{this.winner=winnerRound;
-        this.open(this.mymodal);
-      this.boardAPIService.updateReallocateCards("62de01f1ee60c664c3d720fb").subscribe(a=>{
-        this.getCards();
-        this.getGameOfDb()});}
-      );
-      this.winnerCard=winner
-    })
+
+        if(this.game.cardGamesList.length > 1){
+          this.gameAPIService.getWinnerRound("1").subscribe(winner=>{
+
+          this.playerAPIService.getPlayer(winner.playerId).subscribe(
+          winnerRound=>{
+
+            this.winner=winnerRound;
+            this.open(this.mymodal);
+            this.boardAPIService.updateReallocateCards("62de01f1ee60c664c3d720fb").subscribe(a=>{
+            this.getCards();
+            this.getGameOfDb()});
+
+          // this.nextGame();
+        }
+        );
+        this.winnerCard=winner
+      })
+    }
   }
 
 
