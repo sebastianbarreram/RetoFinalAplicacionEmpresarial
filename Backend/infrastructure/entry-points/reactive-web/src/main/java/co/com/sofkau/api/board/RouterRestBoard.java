@@ -15,7 +15,6 @@ public class RouterRestBoard {
 @Bean
 public RouterFunction<ServerResponse> routerFunctionBoard(HandlerBoard handler) {
     return route(POST("/api/board"), handler::listenPOSTCreateBoardUseCase)
-            .andRoute(PUT("/api/board/wingame/{id}"), handler::listenGetWinGameUseCase)
             .andRoute(PUT("/api/board/{id}"), handler::listenPUTUpdateBoardUseCase)
             .and(route(PUT("/api/board/reallocatecards/{id}"), handler::listenReallocateCardsUseCase))
             .and(route(PUT("/api/board/tiebreak/{id}"), handler::listenTieBreakUseCase))
