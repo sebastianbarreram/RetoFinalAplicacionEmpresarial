@@ -171,8 +171,12 @@ winnerCard: Card ={
   }
 
   nextGame(){
-    this.gameAPIService.updateGame(this.game2,"1").subscribe()
-    location.reload();
+    if(this.board.idPlayers.length > 1){
+      this.gameAPIService.updateGame(this.game2,"1").subscribe()
+      location.reload();
+    }else{
+      this.router.navigate(['hall'])
+    }
   }
 
 
@@ -292,7 +296,8 @@ winnerCard: Card ={
   }
   RetireGame(){
     alert("seguro que desea retirarse del juego?")
-    this.router.navigate(['hall']);
+    this.gameAPIService.retireGame(this.playerId).subscribe(a=>{
+      this.router.navigate(['auth'])});
   }
 
 }

@@ -46,9 +46,9 @@ export class GameService {
       catchError(this.handleError<any>('updateCard'))
     );
   }
-  retireGame(idPlayer:string,game: Game):Observable<any>{
-    return this.http.put(`${this.gameUrl}/retire/${idPlayer}`, game, this.httpOptions).pipe(
-      tap(_ => console.log(`retired player id=${game.id}`)),
+  retireGame(idPlayer:string):Observable<any>{
+    return this.http.put(`${this.gameUrl}/retire/${idPlayer}`, this.httpOptions).pipe(
+      tap(_ => console.log(`retired player id=${idPlayer}`)),
       catchError(this.handleError<any>('retireGame'))
     );
   }
