@@ -22,6 +22,6 @@ public class Board {
     private List<String> listWinRound;
     private List<Card> listCard;
     private List<Player> listplayer ;
-    private List<String> idPlayers;
+    private List<String> idPlayers = new ArrayList<>();
 
 }

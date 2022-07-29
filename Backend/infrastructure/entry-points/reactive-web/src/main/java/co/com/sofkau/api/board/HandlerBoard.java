@@ -12,7 +12,7 @@ import co.com.sofkau.usecase.boardusecase.updateboard.UpdateboardUseCase;
 import co.com.sofkau.usecase.boardusecase.updateplayerinboard.UpdatePlayerInBoardUseCase;
 import co.com.sofkau.usecase.boardusecase.usecard.UsecardUseCase;
 import co.com.sofkau.usecase.boardusecase.wingame.WinGameUseCase;
-import co.com.sofkau.usecase.boardusecase.winround.WinroundUseCase;
+import co.com.sofkau.usecase.gameusecase.winround.WinroundUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -26,7 +26,6 @@ public class HandlerBoard {
   private final UpdateboardUseCase updateboardUseCase;
   private final GettablerobyidUseCase gettablerobyidUseCase;
   private final CreateBoardUseCase createBoardUseCase;
-  private final WinroundUseCase winroundUseCase;
   private final UsecardUseCase usecardUseCase;
   private final ReallocateCardsUseCase reallocateCardsUseCase;
   private final TieBreakUseCase tieBreakUseCase;
@@ -61,13 +60,6 @@ public class HandlerBoard {
                 ServerResponse.ok()
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(updateboardUseCase.updateBoard(id, element), Board.class));
-  }
-
-  public Mono<ServerResponse> listenGetWinBoardUseCase(ServerRequest serverRequest) {
-    var id = serverRequest.pathVariable("id");
-    return ServerResponse.ok()
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(winroundUseCase.winRound(id), Board.class);
   }
 
   public Mono<ServerResponse> listenGetWinGameUseCase(ServerRequest serverRequest) {

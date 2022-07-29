@@ -1,29 +1,32 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Board } from 'src/app/interfaces/board';
 import { Card } from 'src/app/interfaces/card';
 import { Game } from 'src/app/interfaces/game';
+import { Player } from 'src/app/interfaces/player';
 import { BoardAPIService } from 'src/app/services/board-api.service';
 import { GameService } from 'src/app/services/game.service';
 import { CardGameAPIService } from '../../services/card-api.service';
 import { PlayerAPIService } from '../../services/player-api.service';
-
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
+
 })
 export class GameComponent implements OnInit {
   display: any;
 
   board: Board = {
     id: "62de01f1ee60c664c3d720fb",
-time: 10000,
-listWinRound: [],
-listCard: [],
-listplayer: [],
-idPlayers: []
-}
+    time: 10000,
+    listWinRound: [],
+    listCard: [],
+    listplayer: [],
+    idPlayers: []
+  }
+
   cards: Card[]=[];
 
   game:Game={
@@ -32,29 +35,56 @@ idPlayers: []
       playerModelList:[],
       cardGamesList:[]
   }
+  game2:Game={
+      id:"1",
+      numberPlayers:0,
+      playerModelList:[],
+      cardGamesList:[]
+  }
 
   playerId= "";
+
+  title = 'appBootstrap';
+  closeResult: string = '';
+
+  winner: Player = {
+    playerId : "",
+      nickName : "",
+      email: "",
+      score: 0,
+      pointsHistory: [],
+      cardModels: [],
+}
+
+winnerCard: Card ={
+  cardId: "",
+  xp: 0,
+  image: "",
+  hidden: true,
+  playerId: ""
+}
+@ViewChild('mymodal') mymodal: any;
+
   constructor(private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
     private playerAPIService:PlayerAPIService,
-    private gameAPIService: GameService ) {
-      
-      this.getCards();
-
+    private gameAPIService: GameService,
+    private modalService: NgbModal) {
    }
 
+
   ngOnInit(): void {
+
     this.iniciarJuego();
     this.getPlayer();
     this.getCards();
-      this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
-    // this.updateCardsRoun(10);
-    //this.timer(1);
-    //para hacer pruebas en segundos recordar quitar el comentario en el metoo timer
-    this.timer(10);
+    this.getGameOfDb();
+       // this.updateCardsRoun(10);
+       //this.timer(1);
+    this.timer(5);
 
   }
-  
+
   getPlayer():void{
     this.playerId=localStorage.getItem("uid")!;
     if (!this.playerId) {
@@ -64,22 +94,54 @@ idPlayers: []
 
   getCards(){
     this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(
-      board =>{ this.board=board;
+      board =>{
+        this.board=board;
     })
     this.cards=this.board.listCard;
   }
 
+  getGameOfDb(){
+    this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
+  }
+
+  getGameOfDbEnd(){
+    this.gameAPIService.getGame().subscribe( game => {
+      this.game = game[0];
+      this.showCards();
+    });
+  }
 
 
+  saveSelectedCard(event: any){
+
+    this.board.listCard.forEach(card=>{
+      if(card.cardId==event.target.id){
+        this.addPlayerInDb(card);
+      }
+    });
+  }
+
+  addPlayerInDb(card: Card): void{
+     this.gameAPIService.addPlayerInGame(card.playerId).subscribe(
+       game =>{
+         console.log(`se agrego el player al game= ${game}`)
+         this.addCardInDb(card)
+       }
+     );
+  }
+
+  addCardInDb(card: Card): void{
+     this.gameAPIService.addCardsInGame(card.cardId).subscribe(
+       game =>{
+         console.log(`se agreg la card al game= ${game}`)
+         this.getGameOfDb();
+       }
+
+
+     );
+  }
 
   bettingCards=[
-    // {
-    //   cardId: "62dc7e8104e748902a9a82de",
-    //   xp: 600,
-    //   image: "../../assets/Pack 108 Pepsicards marvel/063.jpg",
-    //   hidden: true,
-    //   playerId: 1
-    // },
     {
       cardId: "62dc7e8104e748902a9a82e8",
       xp: 1000,
@@ -87,43 +149,22 @@ idPlayers: []
       hidden: true,
       playerId: "2"
     },
-    // {
-    //   cardId: "62dc7e8104e748902a9a82e1",
-    //   xp: 500,
-    //   image: "../../assets/Pack 108 Pepsicards marvel/807.jpg",
-    //   hidden: true,
-    //   playerId: "3"
-    // }
   ]
-
-  players=["3"]
 
   @HostListener('click', ['$event'])
   onClick(event: any) {
     try {
-
-      // console.log("card of player: "+jugadorId)
-console.log(this.game.cardGamesList);
-console.log(this.game.playerModelList);
       if (!this.game.playerModelList.includes(this.playerId)) {
-      // get the clicked element
-      this.board.listCard.forEach(card=>card.cardId==event.target.id?
-      this.game.cardGamesList.push(card) && 
-      this.game.playerModelList.push(card.playerId) && 
-      this.gameAPIService.addPlayerInGame(card.playerId,this.game).subscribe(a => console.log(a)):NaN);
-      console.log("card of player: "+this.playerId)
-    
-      this.gameAPIService.updateGame(this.game, this.game.id).subscribe();
-
-    }
+        // get the clicked element
+        this.getGameOfDb()
+        this.saveSelectedCard(event);
+      }
     } catch (error) {
 
     }
-
-
   }
 
-
+  /*
   updateCardsRoun(second: number) {
     // let minute = 1;
     //let seconds: number = minute * 60;
@@ -147,30 +188,39 @@ console.log(this.game.playerModelList);
       this.display = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
 
       if (seconds == 0) {
-        console.log("Hola timer");
         clearInterval(timer);
-        this.updateCardsRoun(3);
-
+       // this.updateCardsRoun(3);
         this.gameAPIService.getGame().subscribe( game => this.game = game[0])
-        // this.game.cardGamesList.push(game[0].cardGamesList) && this.players.push(game[0].playerId):NaN) )
+      // this.game.cardGamesList.push(game[0].cardGamesList) && this.players.push(game[0].playerId):NaN) )
       }
 
     }, 1000);
   }
+*/
 
-
-  clearGame(){   
-    
+  nextGame(){
+    this.gameAPIService.updateGame(this.game2,"1").subscribe()
+    location.reload();
   }
 
+
   iniciarJuego(): void {
-    this.gameAPIService.getGame().subscribe(game => {
-    
-      (game[0].cardGamesList.length === 0)
-      ?   this.cardAPIService.getRandomCards(this.board.idPlayers.length*5).subscribe(  
-          card=>this.board.listCard.push(card))
-      :NaN
-    }) 
+     this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(board => {
+       if(board.listCard.length !== 5*board.idPlayers.length){
+           this.cardAPIService.getRandomCards(board.idPlayers.length*5).subscribe(
+           card=>{this.board.listCard.push(card)
+            console.log(board.idPlayers.length);
+          })
+       }
+     })
+  }
+
+  showCards(): void{
+    this.game.cardGamesList.forEach(card =>{
+      card.hidden = false;
+      console.log(`Cartas: Xp=${card.xp} hidden=${card.hidden}`)
+    });
+    this.winnerRound();
   }
 
   timer(minute: number) {
@@ -198,25 +248,65 @@ console.log(this.game.playerModelList);
       if (seconds == 0) {
         console.log("finished: Pasar a definir ganador");
         clearInterval(timer);
-        const randomNuber=Math.floor(Math.random() * this.board.listCard
-        .filter(cardMap=>cardMap.playerId==this.playerId).length)
 
         if (!this.game.playerModelList.includes(this.playerId)) {
+          const randomNuber=Math.floor(Math.random() * this.board.listCard.filter(cardMap=>cardMap.playerId==this.playerId).length)
           const card=this.board.listCard.filter(cardMap=>cardMap.playerId==this.playerId)[randomNuber]
-        this.game.cardGamesList.push(card)
-        this.game.playerModelList.push(card.playerId) && 
-        this.gameAPIService.addPlayerInGame(card.playerId,this.game).subscribe();
+
+          this.addPlayerInDb(card);
         }
-        /*actualiza tablero de cartas por ronda*/
-       //this.game.cardGamesList.push(game[0].cardGamesList) && this.players.push(game[0].playerId))
-        
-       this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
-       
+
+        setTimeout(() => {
+          this.getGameOfDb();
+        }, 10000);
+
+        // setTimeout(() => {
+        //   this.getGameOfDbEnd();
+        // }, 20000);
+
       }
     }, 1000);
   }
 
+  winnerRound(){
+
+    if(this.game.cardGamesList.length == this.board.idPlayers.length){
+          this.gameAPIService.getWinnerRound("1").subscribe(winner=>{
+          this.playerAPIService.getPlayer(winner.playerId).subscribe(
+          winnerRound=>{
+            this.winner=winnerRound;
+            this.open(this.mymodal);
+            this.boardAPIService.updateReallocateCards("62de01f1ee60c664c3d720fb").subscribe(a=>{
+            this.getCards();
+            //this.getGameOfDb()
+          });
+
+          // this.nextGame();
+        }
+        );
+        this.winnerCard=winner
+      })
+    }
+  }
+
+
+  open(content:any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+
 }
-
-
 

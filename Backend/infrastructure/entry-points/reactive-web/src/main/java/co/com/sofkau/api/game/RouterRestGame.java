@@ -18,7 +18,9 @@ public class RouterRestGame {
                 .and(route(PUT("/api/game/actualizar/{id}"), handlerGame::listenPUTUpdateGameUseCase))
                 .and(route(GET("/api/game/id/{id}"), handlerGame::listenGETListByIdUseCase))
                 .and(route(PUT("/api/game/retire/{idPlayer}"), handlerGame::listenRetireGamePlayerUseCase))
-                .and(route(PUT("/api/game/player/{idPlayer}"), handlerGame::listenAddPlayerInGameUseCase));
+                .and(route(PUT("/api/game/player/{id}"), handlerGame::listenAddPlayerInGameUseCase))
+                .and(route(PUT("/api/game/card/{id}"), handlerGame::listenAddCardsInGameUseCase))
+                .andRoute(GET("/api/game/win/{id}"), handlerGame::listenGetWinBoardUseCase);
 
     }
 }

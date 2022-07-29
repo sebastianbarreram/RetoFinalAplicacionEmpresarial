@@ -1,3 +1,4 @@
+
 <div class="cards-container overflow-auto">
   <body *ngFor="let card of board.listCard" [id]="card.cardId">
     <div *ngIf="playerId==card.playerId" [id]="card.cardId">
@@ -20,7 +21,7 @@
 <div class="bet-cards overflow-auto">
   <body *ngFor="let card of game.cardGamesList">
     <div id="container">
-      <div class="card">
+      <div class="card" *ngIf="card.hidden == true" >
         <div class="monster-image">
           <img
             [src]="playerId==card.playerId ? card.image : '../../assets/hiddenCard.jpg'"
@@ -31,16 +32,65 @@
           <p class="atk-def" *ngIf="playerId!=card.playerId">XP/????</p>
         </div>
       </div>
+
+      <div class="card" *ngIf="card.hidden == false" >
+        <div class="monster-image">
+          <img
+            [src]="card.image"
+          />
+        </div>
+        <div class="description">
+          <p class="atk-def">XP/{{ card.xp }}</p>
+        </div>
+      </div>
     </div>
   </body>
 </div>
 
 <div>{{display}}</div>
 
-<!-- 
+
 <div>
   <button
-  (click)="clearBoard()">
-    Limpiar tablero
+  (click)="nextGame()">
+  Siguiente Ronda
   </button>
-</div> -->
+</div>
+<div>
+  <button
+  (click)="getGameOfDbEnd()">
+  Verificar Ganador
+  </button>
+</div>
+
+
+
+<ng-template #mymodal let-modal id="winnerModal">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">El ganador es {{winner.email}} </h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class=" winnerCard overflow-auto">
+      <body>
+        <div id="container">
+          <div class="card">
+            <div class="monster-image">
+              <img
+                [src]="winnerCard.image"
+              />
+            </div>
+            <div class="description">
+              <p class="atk-def">XP/{{ winnerCard.xp }}</p>
+            </div>
+          </div>
+        </div>
+      </body>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+  </div>
+</ng-template>

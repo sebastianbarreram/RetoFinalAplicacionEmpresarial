@@ -48,9 +48,9 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
     }
 
     @Override
-    public Mono<String> winRound(Mono<String> playerId) {
+    public Mono<Card> winRound(Mono<Card> card) {
 
-        return playerId;
+        return card;
     }
 
     @Override
