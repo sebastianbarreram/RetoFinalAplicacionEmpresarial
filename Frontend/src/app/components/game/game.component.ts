@@ -141,8 +141,6 @@ winnerCard: Card ={
      );
   }
 
-
-
   bettingCards=[
     {
       cardId: "62dc7e8104e748902a9a82e8",
@@ -152,8 +150,6 @@ winnerCard: Card ={
       playerId: "2"
     },
   ]
-
-  players=["2"];
 
   @HostListener('click', ['$event'])
   onClick(event: any) {
@@ -266,7 +262,7 @@ winnerCard: Card ={
 
         setTimeout(() => {
           this.getGameOfDbEnd();
-        }, 6000);
+        }, 20000);
 
       }
     }, 1000);
@@ -274,12 +270,10 @@ winnerCard: Card ={
 
   winnerRound(){
 
-        if(this.game.cardGamesList.length > 1){
+    if(this.game.cardGamesList.length == this.board.idPlayers.length){
           this.gameAPIService.getWinnerRound("1").subscribe(winner=>{
-
           this.playerAPIService.getPlayer(winner.playerId).subscribe(
           winnerRound=>{
-
             this.winner=winnerRound;
             this.open(this.mymodal);
             this.boardAPIService.updateReallocateCards("62de01f1ee60c664c3d720fb").subscribe(a=>{
