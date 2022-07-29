@@ -8,6 +8,8 @@ import { GameService } from 'src/app/services/game.service';
 import { CardGameAPIService } from '../../services/card-api.service';
 import { PlayerAPIService } from '../../services/player-api.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-game',
@@ -15,6 +17,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./game.component.css']
 
 })
+
 export class GameComponent implements OnInit {
   display: any;
 
@@ -69,7 +72,8 @@ winnerCard: Card ={
     private cardAPIService: CardGameAPIService,
     private playerAPIService:PlayerAPIService,
     private gameAPIService: GameService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,
+    private router: Router,) {
    }
 
 
@@ -305,6 +309,10 @@ winnerCard: Card ={
     } else {
       return  `with: ${reason}`;
     }
+  }
+  RetireGame(){
+    alert("seguro que desea retirarse del juego?")
+    this.router.navigate(['hall']);
   }
 
 }

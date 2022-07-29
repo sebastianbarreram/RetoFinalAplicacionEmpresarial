@@ -72,7 +72,7 @@ public class ReallocateCardsUseCase {
 
                                                                 var newList2 = new ArrayList<Card>();
 
-                                                                if (list.size() == board.getListplayer().size()) {
+                                                                if (list.size() == game.getPlayerModelList().size()) {
                                                                     newList2.add(
                                                                             list.stream().distinct().collect(Collectors.toList()).get(0));
                                                                 }else{

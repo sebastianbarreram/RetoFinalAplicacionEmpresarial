@@ -71,11 +71,10 @@ public class HandlerGame {
 
     public Mono<ServerResponse> listenRetireGamePlayerUseCase(ServerRequest serverRequest) {
         var idPlayer = serverRequest.pathVariable("id");
-     //   var idGame = serverRequest.pathVariable("idGame");
         return serverRequest.bodyToMono(Game.class)
                 .flatMap(element -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(  retireGamePlayerUseCase.retireGamePlayer (idPlayer, element), Game.class));
+                        .body(  retireGamePlayerUseCase.retireGamePlayer (idPlayer), Game.class));
     }
 
     public Mono<ServerResponse> listenAddPlayerInGameUseCase(ServerRequest serverRequest) {

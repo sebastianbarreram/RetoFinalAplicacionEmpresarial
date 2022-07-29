@@ -47,7 +47,6 @@ public class GameMongoRepositoryAdapter
 
   @Override
   public Mono<Game> retireGamePlayer(Game game) {
-
     return repository
         .save(
             new GameDocument(
