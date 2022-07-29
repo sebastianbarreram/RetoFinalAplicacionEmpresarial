@@ -117,5 +117,9 @@ body {
     background-attachment: fixed;
     opacity: 85%;
 }
+#timer{
+  color: white;
+  font-size: 25px;
+}
 
 
