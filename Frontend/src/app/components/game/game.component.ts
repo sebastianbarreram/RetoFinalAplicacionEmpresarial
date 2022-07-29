@@ -13,7 +13,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
- 
+
 })
 export class GameComponent implements OnInit {
   display: any;
@@ -144,13 +144,6 @@ winnerCard: Card ={
 
 
   bettingCards=[
-    // {
-    //   cardId: "62dc7e8104e748902a9a82de",
-    //   xp: 600,
-    //   image: "../../assets/Pack 108 Pepsicards marvel/063.jpg",
-    //   hidden: true,
-    //   playerId: 1
-    // },
     {
       cardId: "62dc7e8104e748902a9a82e8",
       xp: 1000,
@@ -158,13 +151,6 @@ winnerCard: Card ={
       hidden: true,
       playerId: "2"
     },
-    // {
-    //   cardId: "62dc7e8104e748902a9a82e1",
-    //   xp: 500,
-    //   image: "../../assets/Pack 108 Pepsicards marvel/807.jpg",
-    //   hidden: true,
-    //   playerId: "3"
-    // }
   ]
 
   players=["2"];
@@ -224,7 +210,7 @@ winnerCard: Card ={
            this.cardAPIService.getRandomCards(board.idPlayers.length*5).subscribe(
            card=>{this.board.listCard.push(card)
             console.log(board.idPlayers.length);
-            
+
           })
        }
      })
@@ -278,8 +264,8 @@ winnerCard: Card ={
         setTimeout(() => {
           this.getGameOfDbEnd();
         }, 6000);
-        
-        
+
+
         /*actualiza tablero de cartas por ronda*/
         //this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
       }
@@ -307,7 +293,7 @@ winnerCard: Card ={
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
-  
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -317,11 +303,6 @@ winnerCard: Card ={
       return  `with: ${reason}`;
     }
   }
- 
-
-
 
 }
-
-
 
