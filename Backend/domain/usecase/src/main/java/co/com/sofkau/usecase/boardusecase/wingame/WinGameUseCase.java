@@ -1,33 +1,24 @@
 package co.com.sofkau.usecase.boardusecase.wingame;
 
 import co.com.sofkau.model.board.gateways.BoardRepository;
-import co.com.sofkau.model.card.gateways.CardRepository;
-import co.com.sofkau.usecase.cardusecase.getcardsusecase.GetCardsUseCase;
+import co.com.sofkau.model.game.gateways.GameRepository;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 public class WinGameUseCase {
     private final BoardRepository boardRepository;
-    private final GetCardsUseCase getCardsUseCase;
-    private final CardRepository cardRepository;
+    private final GameRepository gameRepository;
 
 
     public Mono<String> winGame(String id){
 
-        var playerId = boardRepository.findById(id)
-                .map( board ->  board.getListplayer().stream()
-                        .reduce((value1,value2)->{
-                            return (value1.getCardModels().size() >value2.getCardModels().size())
-                                    ?value1
-                                    :value2
-                                    ;
-                        }))
-                .map( player -> {
-                    return (player.isPresent())
-                            ? player.get().getPlayerId() : "Ningun jugador";
-                    }
-                    );
+        var playerId = gameRepository.findById(id)
+                .map(e->e.getCardGamesList().stream()
+                        .reduce((value1,value2)->(value1.getXp()>value2.getXp())?value1:value2))
+                .map(player -> player.get().getPlayerId());
+
+
         return  boardRepository.winGame(playerId);
     }
 }

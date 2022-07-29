@@ -20,6 +20,7 @@ import { Router } from '@angular/router';
 
 export class GameComponent implements OnInit {
   display: any;
+  imagenPrueba:string="../../assets/Pack 108 Pepsicards marvel/807.jpg"
 
   board: Board = {
     id: "62de01f1ee60c664c3d720fb",
@@ -67,6 +68,7 @@ winnerCard: Card ={
   playerId: ""
 }
 @ViewChild('mymodal') mymodal: any;
+@ViewChild('winnerGameModal') winnerGameModal: any;
 
   constructor(private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
@@ -154,6 +156,7 @@ winnerCard: Card ={
       playerId: "2"
     },
   ]
+
   @HostListener('click', ['$event'])
   onClick(event: any) {
     try {
@@ -166,40 +169,6 @@ winnerCard: Card ={
 
     }
   }
-
-  /*
-  updateCardsRoun(second: number) {
-    // let minute = 1;
-    //let seconds: number = minute * 60;
-    //aqui esta en segundos para probar
-    let seconds: number = second ;
-
-    let textSec: any = "0";
-    let statSec: number = 60;
-
-    const prefix = second < 10 ? "0" : "";
-
-    const timer = setInterval(() => {
-      seconds--;
-      if (statSec != 0) statSec--;
-      else statSec = 59;
-
-      if (statSec < 10) {
-        textSec = "0" + statSec;
-      } else textSec = statSec;
-
-      this.display = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
-
-      if (seconds == 0) {
-        clearInterval(timer);
-       // this.updateCardsRoun(3);
-        this.gameAPIService.getGame().subscribe( game => this.game = game[0])
-      // this.game.cardGamesList.push(game[0].cardGamesList) && this.players.push(game[0].playerId):NaN) )
-      }
-
-    }, 1000);
-  }
-*/
 
   nextGame(){
     this.gameAPIService.updateGame(this.game2,"1").subscribe()
@@ -273,15 +242,14 @@ winnerCard: Card ={
 
   winnerRound(){
 
-    if(this.game.cardGamesList.length == this.board.idPlayers.length){
+    if(this.game.cardGamesList.length == this.game.playerModelList.length){
           this.gameAPIService.getWinnerRound("1").subscribe(winner=>{
           this.playerAPIService.getPlayer(winner.playerId).subscribe(
           winnerRound=>{
             this.winner=winnerRound;
-            this.open(this.mymodal);
             this.boardAPIService.updateReallocateCards("62de01f1ee60c664c3d720fb").subscribe(a=>{
             this.getCards();
-            //this.getGameOfDb()
+            this.winnerGame();
           });
 
           // this.nextGame();
@@ -292,6 +260,18 @@ winnerCard: Card ={
     }
   }
 
+  winnerGame(){
+    const numCards = this.board.listCard.filter(card => card.playerId == this.winner.playerId).length + 1;
+    if( numCards >= (5*this.game.playerModelList.length)){
+      this.gameAPIService.getWinnerGame("1").subscribe(
+        winGAme => {
+          this.open(this.winnerGameModal);
+        }
+      );
+    }else{
+      this.open(this.mymodal);
+    }
+  }
 
   open(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
