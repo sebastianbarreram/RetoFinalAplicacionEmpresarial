@@ -89,11 +89,9 @@ body {
     transform: scale(.98);
   }
   div.cards-container {
-    width: 800px;
-    margin-left: 5px;
+    width: 100%;
+    padding: 0 150px;
     display: flex;
-    float: bottom; 
-    position: absolute;
     float: bottom;
     bottom: 5px;
     position:fixed;
@@ -120,4 +118,4 @@ body {
     opacity: 85%;
 }
 
- 
+
