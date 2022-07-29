@@ -18,12 +18,13 @@ public class RetireGamePlayerUseCase {
     private final BoardRepository boardRepository;
     private final PlayerRepository playerRepository;
     public Mono<Game> retireGamePlayer(String idPlayer){
-        var game =  gameRepository.findById("1").toFuture().join();
-                game.getPlayerModelList().stream().filter(player-> player.equals(idPlayer));
+       var newGame= gameRepository.findById("1");
 
+        var board = newGame.
+                game.getPlayerModelList().stream().filter(player-> player.equals(idPlayer));
         List<Card> cardsNew = game.getCardGamesList().stream().filter(card -> card.getPlayerId().equals(idPlayer)).collect(Collectors.toList());
         game.setCardGamesList(cardsNew);
-        System.out.println(game.getCardGamesList());
+        System.out.println(game);
        return gameRepository.retireGamePlayer(game);
     }
 }
