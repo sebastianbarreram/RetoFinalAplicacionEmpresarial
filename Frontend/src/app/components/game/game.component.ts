@@ -201,15 +201,14 @@ winnerCard: Card ={
     this.gameAPIService.updateGame(this.game2,"1").subscribe()
     location.reload();
   }
- 
+
 
   iniciarJuego(): void {
      this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(board => {
-       if(board.listCard.length == 0){
+       if(board.listCard.length !== 5*board.idPlayers.length){
            this.cardAPIService.getRandomCards(board.idPlayers.length*5).subscribe(
            card=>{this.board.listCard.push(card)
             console.log(board.idPlayers.length);
-
           })
        }
      })
