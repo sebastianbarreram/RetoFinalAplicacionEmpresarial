@@ -15,7 +15,7 @@ public interface BoardRepository {
     Mono<Card> winRound(Mono<Card> playerId);
     Mono<String> winGame(Mono<String> playerId);
     Mono<Board> useCard(Board board);
-
+    Mono<Board> retireGamePlayer(Board board);
     Mono<Board> addplayerinboard(Board board);
 
     Mono<Board> updatePlayerInBoard(Board board);

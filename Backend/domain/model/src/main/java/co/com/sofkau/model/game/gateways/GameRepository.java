@@ -1,5 +1,6 @@
 package co.com.sofkau.model.game.gateways;
 
+import co.com.sofkau.model.board.Board;
 import co.com.sofkau.model.game.Game;
 import co.com.sofkau.model.player.Player;
 import reactor.core.publisher.Flux;
@@ -16,7 +17,7 @@ public interface GameRepository {
 
     Mono<Game> updateGame(String id, Game game);
 
-    Mono<Game> retireGamePlayer(Game game);
+
 
     Mono<Game> addPlayersInGame(Game game);
 
