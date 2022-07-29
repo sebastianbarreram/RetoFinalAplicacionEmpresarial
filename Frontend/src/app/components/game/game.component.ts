@@ -271,7 +271,7 @@ winnerCard: Card ={
 
   winnerRound(){
 
-    if(this.game.cardGamesList.length == this.board.idPlayers.length){
+    if(this.game.cardGamesList.length == this.game.playerModelList.length){
           this.gameAPIService.getWinnerRound("1").subscribe(winner=>{
           this.playerAPIService.getPlayer(winner.playerId).subscribe(
           winnerRound=>{
@@ -279,7 +279,7 @@ winnerCard: Card ={
             this.open(this.mymodal);
             this.boardAPIService.updateReallocateCards("62de01f1ee60c664c3d720fb").subscribe(a=>{
             this.getCards();
-            //this.getGameOfDb()
+            this.winnerGame();
           });
 
           // this.nextGame();
@@ -290,6 +290,13 @@ winnerCard: Card ={
     }
   }
 
+  winnerGame(){
+    const numCards = this.board.listCard.filter(card => card.playerId == this.winner.playerId).length + 1;
+    if( numCards == (5*this.game.playerModelList.length)){
+      console.log("**************paso condisional***********")
+      this.gameAPIService.getWinnerGame("1").subscribe(a => console.log("Ganador de juego"+a));
+    }
+  }
 
   open(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
