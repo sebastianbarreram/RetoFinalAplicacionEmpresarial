@@ -118,4 +118,39 @@
       </button>
     </div>
   </ng-template>
+
+
+  <ng-template #winnerGameModal  let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        El ganador del juego es: {{ winner.email }}
+      </h4>
+    </div>
+    <div class="modal-body">
+      <div class="winnerCard overflow-auto">
+        <body>
+          <div id="container">
+            <div class="card">
+              <div class="monster-image">
+                <img [src]="winnerCard.image" />
+              </div>
+              <div class="description">
+                <p class="atk-def">XP/{{ winnerCard.xp }}</p>
+              </div>
+            </div>
+          </div>
+        </body>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="modal.close('Save click')"
+      >
+        Ok
+      </button>
+    </div>
+  </ng-template>
+
 </section>
