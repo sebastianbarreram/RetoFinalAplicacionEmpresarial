@@ -59,7 +59,11 @@ export class ListGamesComponent implements OnInit {
   }
 
   iniciarJuego(){
+    if(this.board.idPlayers.length>1 && this.board.idPlayers.length<7){
       this.router.navigate(['game']);
+      alert("cantidad de jugadores en linea : "+ this.board.idPlayers.length);
+    }else {alert("No puedes iniciar juego, cantidad de usuarios no valido.. ")
+  }
   }
 
   getPlayerLocal():void{

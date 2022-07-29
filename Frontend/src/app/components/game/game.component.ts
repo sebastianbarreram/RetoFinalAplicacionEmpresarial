@@ -8,15 +8,19 @@ import { GameService } from 'src/app/services/game.service';
 import { CardGameAPIService } from '../../services/card-api.service';
 import { PlayerAPIService } from '../../services/player-api.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
- 
+
 })
+
 export class GameComponent implements OnInit {
   display: any;
+  imagenPrueba:string="../../assets/Pack 108 Pepsicards marvel/807.jpg"
 
   board: Board = {
     id: "62de01f1ee60c664c3d720fb",
@@ -26,7 +30,14 @@ export class GameComponent implements OnInit {
     listplayer: [],
     idPlayers: []
   }
-
+  board2: Board = {
+    id: "62de01f1ee60c664c3d720fb",
+    time: 10000,
+    listWinRound: [],
+    listCard: [],
+    listplayer: [],
+    idPlayers: []
+  }
   cards: Card[]=[];
 
   game:Game={
@@ -64,12 +75,14 @@ winnerCard: Card ={
   playerId: ""
 }
 @ViewChild('mymodal') mymodal: any;
+@ViewChild('winnerGameModal') winnerGameModal: any;
 
   constructor(private boardAPIService: BoardAPIService,
     private cardAPIService: CardGameAPIService,
     private playerAPIService:PlayerAPIService,
     private gameAPIService: GameService,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,
+    private router: Router,) {
    }
 
 
@@ -81,7 +94,7 @@ winnerCard: Card ={
     this.getGameOfDb();
        // this.updateCardsRoun(10);
        //this.timer(1);
-    this.timer(4);
+    this.timer(5);
 
   }
 
@@ -141,16 +154,7 @@ winnerCard: Card ={
      );
   }
 
-
-
   bettingCards=[
-    // {
-    //   cardId: "62dc7e8104e748902a9a82de",
-    //   xp: 600,
-    //   image: "../../assets/Pack 108 Pepsicards marvel/063.jpg",
-    //   hidden: true,
-    //   playerId: 1
-    // },
     {
       cardId: "62dc7e8104e748902a9a82e8",
       xp: 1000,
@@ -158,16 +162,7 @@ winnerCard: Card ={
       hidden: true,
       playerId: "2"
     },
-    // {
-    //   cardId: "62dc7e8104e748902a9a82e1",
-    //   xp: 500,
-    //   image: "../../assets/Pack 108 Pepsicards marvel/807.jpg",
-    //   hidden: true,
-    //   playerId: "3"
-    // }
   ]
-
-  players=["2"];
 
   @HostListener('click', ['$event'])
   onClick(event: any) {
@@ -182,49 +177,22 @@ winnerCard: Card ={
     }
   }
 
-  updateCardsRoun(second: number) {
-    // let minute = 1;
-    //let seconds: number = minute * 60;
-    //aqui esta en segundos para probar
-    let seconds: number = second ;
-
-    let textSec: any = "0";
-    let statSec: number = 60;
-
-    const prefix = second < 10 ? "0" : "";
-
-    const timer = setInterval(() => {
-      seconds--;
-      if (statSec != 0) statSec--;
-      else statSec = 59;
-
-      if (statSec < 10) {
-        textSec = "0" + statSec;
-      } else textSec = statSec;
-
-      this.display = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
-
-      if (seconds == 0) {
-        clearInterval(timer);
-       // this.updateCardsRoun(3);
-        this.gameAPIService.getGame().subscribe( game => this.game = game[0])
-      // this.game.cardGamesList.push(game[0].cardGamesList) && this.players.push(game[0].playerId):NaN) )
-      }
-
-    }, 1000);
+  nextGame(){
+    if(this.board.idPlayers.length > 1){
+      this.gameAPIService.updateGame(this.game2,"1").subscribe()
+      location.reload();
+    }else{
+      this.router.navigate(['hall'])
+    }
   }
-  clearGame(){
-    this.gameAPIService.updateGame(this.game2,"1").subscribe()
-    location.reload();
-  }
+
 
   iniciarJuego(): void {
      this.boardAPIService.getBoardById("62de01f1ee60c664c3d720fb").subscribe(board => {
-       if(board.listCard.length == 0){
+       if(board.listCard.length !== 5*board.idPlayers.length){
            this.cardAPIService.getRandomCards(board.idPlayers.length*5).subscribe(
            card=>{this.board.listCard.push(card)
             console.log(board.idPlayers.length);
-            
           })
        }
      })
@@ -273,30 +241,56 @@ winnerCard: Card ={
 
         setTimeout(() => {
           this.getGameOfDb();
-        }, 2000);
+        }, 10000);
 
-        setTimeout(() => {
-          this.getGameOfDbEnd();
-        }, 3000);
-        
-        
-        /*actualiza tablero de cartas por ronda*/
-        //this.gameAPIService.getGame().subscribe( game => this.game = game[0]);
+        // setTimeout(() => {
+        //   this.getGameOfDbEnd();
+        // }, 20000);
+
       }
     }, 1000);
   }
 
   winnerRound(){
-    this.gameAPIService.getWinnerRound("1").subscribe(winner=>{
-      this.playerAPIService.getPlayer(winner.playerId).subscribe(
-        winnerRound=>{this.winner=winnerRound;
-        this.open(this.mymodal);}
-      );
-      this.winnerCard=winner
-    })
+
+    if(this.game.cardGamesList.length == this.game.playerModelList.length){
+          this.gameAPIService.getWinnerRound("1").subscribe(winner=>{
+          this.playerAPIService.getPlayer(winner.playerId).subscribe(
+          winnerRound=>{
+            this.winner=winnerRound;
+            this.boardAPIService.updateReallocateCards("62de01f1ee60c664c3d720fb").subscribe(a=>{
+            this.getCards();
+            this.winnerGame();
+          });
+
+          // this.nextGame();
+        }
+        );
+        this.winnerCard=winner
+      })
+    }
   }
 
+  winnerGame(){
+    const numCards = this.board.listCard.filter(card => card.playerId == this.winner.playerId).length + 1;
+    if( numCards >= (5*this.game.playerModelList.length)){
+      this.gameAPIService.getWinnerGame("1").subscribe(
+        winGAme => {
+          this.open(this.winnerGameModal);
+        }
+      );
+    }else{
+      this.open(this.mymodal);
+    }
+  }
 
+  buttonWinnerGame(){
+    this.modalService.dismissAll();
+    this.router.navigate(['hall']);
+    this.boardAPIService.updateBoard("62de01f1ee60c664c3d720fb", this.board2).subscribe(a =>{
+      this.gameAPIService.updateGame(this.game2,"1").subscribe()
+    });
+  }
   open(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -304,7 +298,7 @@ winnerCard: Card ={
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
-  
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -314,11 +308,11 @@ winnerCard: Card ={
       return  `with: ${reason}`;
     }
   }
- 
-
-
+  RetireGame(){
+    alert("seguro que desea retirarse del juego?")
+    this.gameAPIService.retireGame(this.playerId).subscribe(a=>{
+      this.router.navigate(['auth'])});
+  }
 
 }
-
-
 

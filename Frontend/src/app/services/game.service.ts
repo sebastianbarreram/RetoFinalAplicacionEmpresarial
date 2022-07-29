@@ -46,9 +46,9 @@ export class GameService {
       catchError(this.handleError<any>('updateCard'))
     );
   }
-  retireGame(idPlayer:string,game: Game):Observable<any>{
-    return this.http.put(`${this.gameUrl}/retire/${idPlayer}`, game, this.httpOptions).pipe(
-      tap(_ => console.log(`retired player id=${game.id}`)),
+  retireGame(idPlayer:string):Observable<any>{
+    return this.http.put(`${this.gameUrl}/retire/${idPlayer}`, this.httpOptions).pipe(
+      tap(_ => console.log(`retired player id=${idPlayer}`)),
       catchError(this.handleError<any>('retireGame'))
     );
   }
@@ -76,6 +76,14 @@ getWinnerRound(id: string | null): Observable<Card> {
   );
 }
 
+/** GET Winner round*/
+getWinnerGame(idBoard: string | null): Observable<string> {
+  const url = `${this.gameUrl}/wingame/${idBoard}`;
+  return this.http.get<string>(url).pipe(
+    tap(_ => console.log(`fetched win board id=${idBoard}`)),
+    catchError(this.handleError<string>(`getWinBoard id=${idBoard}`))
+  );
+}
   /**
    * Handle Http operation that failed.
    * Let the app continue.

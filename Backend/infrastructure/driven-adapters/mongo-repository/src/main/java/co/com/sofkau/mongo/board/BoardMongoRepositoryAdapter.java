@@ -97,5 +97,25 @@ public class BoardMongoRepositoryAdapter extends AdapterOperations<Board, BoardD
                 .flatMap(element -> Mono.just(board));
     }
 
+    @Override
+    public Mono<Board> retireGamePlayer(Board board) {
+        return repository.save(new BoardDocument(
+                        board.getId(),
+                        board.getTime(),
+                        board.getListWinRound(),
+                        board.getListCard(),
+                        board.getListplayer(),
+                        board.getIdPlayers()))
+                .flatMap(element -> Mono.just(board));
+    /*
+    return repository
+        .save(
+            new GameDocument(
+                game.getId(),
+                game.getNumberPlayers(),
+                game.getPlayerModelList(),
+                game.getCardGamesList()))
+        .flatMap(element -> Mono.just(game));*/
+    }
 
 }

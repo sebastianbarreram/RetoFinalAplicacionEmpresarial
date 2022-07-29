@@ -1,9 +1,11 @@
+
 body {
     margin: 2px 2px 2px 2px;
     padding: 0;
     font-family: futura-pt, sans-serif;
     font-weight: 400;
     font-style: normal;
+    background-color: rgba(0, 0, 0, 0.0);
   }
   p {
     margin: 0;
@@ -17,6 +19,7 @@ body {
     justify-content: center;
     padding: 20px 0;
     box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.00000008);
   }
   .card {
     cursor: pointer;
@@ -86,11 +89,9 @@ body {
     transform: scale(.98);
   }
   div.cards-container {
-    width: 800px;
-    margin-left: 5px;
+    width: 100%;
+    padding: 0 150px;
     display: flex;
-    float: bottom; 
-    position: absolute;
     float: bottom;
     bottom: 5px;
     position:fixed;
@@ -105,3 +106,20 @@ body {
     display: flex;
     justify-content: center;
   }
+
+  .img-section {
+    background-image: url(../../../assets/game.jpg);
+    height: 100vh;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    opacity: 85%;
+}
+#timer{
+  color: white;
+  font-size: 25px;
+}
+
+

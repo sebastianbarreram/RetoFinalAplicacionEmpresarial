@@ -29,7 +29,6 @@ public class HandlerBoard {
   private final UsecardUseCase usecardUseCase;
   private final ReallocateCardsUseCase reallocateCardsUseCase;
   private final TieBreakUseCase tieBreakUseCase;
-  private final WinGameUseCase winGameUseCase;
   private final AddPlayerInBoardUseCase addPlayerInBoardUseCase;
   private final AddPlayerIdInBoardUseCase addPlayerIdInBoardUseCase;
   private final UpdatePlayerInBoardUseCase updatePlayerInBoardUseCase;
@@ -62,12 +61,6 @@ public class HandlerBoard {
                     .body(updateboardUseCase.updateBoard(id, element), Board.class));
   }
 
-  public Mono<ServerResponse> listenGetWinGameUseCase(ServerRequest serverRequest) {
-    var id = serverRequest.pathVariable("id");
-    return ServerResponse.ok()
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(winGameUseCase.winGame(id), Board.class);
-  }
 
   public Mono<ServerResponse> listenReallocateCardsUseCase(ServerRequest serverRequest) {
     var id = serverRequest.pathVariable("id");
