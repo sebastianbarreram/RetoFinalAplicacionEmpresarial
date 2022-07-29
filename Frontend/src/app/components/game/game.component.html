@@ -1,3 +1,4 @@
+
 <div class="cards-container overflow-auto">
   <body *ngFor="let card of board.listCard" [id]="card.cardId">
     <div *ngIf="playerId==card.playerId" [id]="card.cardId">
@@ -87,4 +88,3 @@
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
   </div>
 </ng-template>
-
