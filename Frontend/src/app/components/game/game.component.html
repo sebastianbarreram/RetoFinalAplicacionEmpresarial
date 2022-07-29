@@ -1,96 +1,136 @@
+<section class="img-section">
+  <button
+    type="button"
+    class="btn btn-outline-light btn-sm"
+    (click)="nextGame()"
+  >
+    Siguiente Ronda
+  </button>
+  <button
+    type="button"
+    class="btn btn-outline-light btn-sm"
+    (click)="getGameOfDbEnd()"
+  >
+    Verificar Ganador
+  </button>
 
-<div class="cards-container overflow-auto">
-  <body *ngFor="let card of board.listCard" [id]="card.cardId">
-    <div *ngIf="playerId==card.playerId" [id]="card.cardId">
-      <div class="card" [id]="card.cardId">
-        <div class="monster-image" [id]="card.cardId">
-          <img
-            [src]="playerId==card.playerId ? card.image : '../../assets/hiddenCard.jpg'"
-            [id]="card.cardId"
-          />
-        </div>
-        <div class="description" [id]="card.cardId">
-          <p class="atk-def" *ngIf="playerId==card.playerId" [id]="card.cardId">XP/{{ card.xp }}</p>
-          <!-- <p class="atk-def" *ngIf="card.hidden">XP/????</p> -->
-        </div>
-      </div>
-    </div>
-  </body>
-</div>
-
-<div class="bet-cards overflow-auto">
-  <body *ngFor="let card of game.cardGamesList">
+  <div class="bet-cards overflow-auto">
+  <body>
     <div id="container">
-      <div class="card" *ngIf="card.hidden == true" >
+      <div class="card">
         <div class="monster-image">
-          <img
-            [src]="playerId==card.playerId ? card.image : '../../assets/hiddenCard.jpg'"
-          />
+          <img [src]="imagenPrueba" />
         </div>
         <div class="description">
-          <p class="atk-def" *ngIf="playerId==card.playerId">XP/{{ card.xp }}</p>
-          <p class="atk-def" *ngIf="playerId!=card.playerId">XP/????</p>
-        </div>
-      </div>
-
-      <div class="card" *ngIf="card.hidden == false" >
-        <div class="monster-image">
-          <img
-            [src]="card.image"
-          />
-        </div>
-        <div class="description">
-          <p class="atk-def">XP/{{ card.xp }}</p>
+          <p class="atk-def">XP/{{ winnerCard.xp }}</p>
         </div>
       </div>
     </div>
   </body>
 </div>
 
-<div>{{display}}</div>
-
-
-<div>
-  <button
-  (click)="nextGame()">
-  Siguiente Ronda
-  </button>
-</div>
-<div>
-  <button
-  (click)="getGameOfDbEnd()">
-  Verificar Ganador
-  </button>
-</div>
-
-
-
-<ng-template #mymodal let-modal id="winnerModal">
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">El ganador es {{winner.email}} </h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">×</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class=" winnerCard overflow-auto">
-      <body>
-        <div id="container">
-          <div class="card">
-            <div class="monster-image">
-              <img
-                [src]="winnerCard.image"
-              />
-            </div>
-            <div class="description">
-              <p class="atk-def">XP/{{ winnerCard.xp }}</p>
-            </div>
+  <div class="cards-container overflow-auto">
+    <body *ngFor="let card of board.listCard" [id]="card.cardId">
+      <div *ngIf="playerId == card.playerId" [id]="card.cardId">
+        <div class="card" [id]="card.cardId">
+          <div class="monster-image" [id]="card.cardId">
+            <img
+              [src]="
+                playerId == card.playerId
+                  ? card.image
+                  : '../../assets/hiddenCard.jpg'
+              "
+              [id]="card.cardId"
+            />
+          </div>
+          <div class="description" [id]="card.cardId">
+            <p
+              class="atk-def"
+              *ngIf="playerId == card.playerId"
+              [id]="card.cardId"
+            >
+              XP/{{ card.xp }}
+            </p>
+            <!-- <p class="atk-def" *ngIf="card.hidden">XP/????</p> -->
           </div>
         </div>
-      </body>
+      </div>
+    </body>
+  </div>
+
+  <div class="bet-cards overflow-auto">
+    <body *ngFor="let card of game.cardGamesList">
+      <div id="container">
+        <div class="card" *ngIf="card.hidden == true">
+          <div class="monster-image">
+            <img
+              [src]="
+                playerId == card.playerId
+                  ? card.image
+                  : '../../assets/hiddenCard.jpg'
+              "
+            />
+          </div>
+          <div class="description">
+            <p class="atk-def" *ngIf="playerId == card.playerId">
+              XP/{{ card.xp }}
+            </p>
+            <p class="atk-def" *ngIf="playerId != card.playerId">XP/????</p>
+          </div>
+        </div>
+
+        <div class="card" *ngIf="card.hidden == false">
+          <div class="monster-image">
+            <img [src]="card.image" />
+          </div>
+          <div class="description">
+            <p class="atk-def">XP/{{ card.xp }}</p>
+          </div>
+        </div>
+      </div>
+    </body>
+  </div>
+
+  <div>{{ display }}</div>
+
+  <ng-template #mymodal let-modal id="winnerModal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        El ganador es {{ winner.email }}
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">×</span>
+      </button>
     </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
-  </div>
-</ng-template>
+    <div class="modal-body">
+      <div class="winnerCard overflow-auto">
+        <body>
+          <div id="container">
+            <div class="card">
+              <div class="monster-image">
+                <img [src]="winnerCard.image" />
+              </div>
+              <div class="description">
+                <p class="atk-def">XP/{{ winnerCard.xp }}</p>
+              </div>
+            </div>
+          </div>
+        </body>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="modal.close('Save click')"
+      >
+        Ok
+      </button>
+    </div>
+  </ng-template>
+</section>

@@ -17,6 +17,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class GameComponent implements OnInit {
   display: any;
+  imagenPrueba:string="../../assets/Pack 108 Pepsicards marvel/807.jpg"
 
   board: Board = {
     id: "62de01f1ee60c664c3d720fb",
