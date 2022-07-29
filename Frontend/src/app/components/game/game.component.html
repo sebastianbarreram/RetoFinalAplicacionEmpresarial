@@ -22,6 +22,8 @@
   </button>
 
 
+  <div id="timer">{{ display }}</div>
+
 
   <div class="cards-container overflow-auto">
     <body *ngFor="let card of board.listCard" [id]="card.cardId">
@@ -85,8 +87,6 @@
       </div>
     </body>
   </div>
-
-  <div id="timer">{{ display }}</div>
 
   <ng-template #mymodal let-modal id="winnerModal">
     <div class="modal-header">
@@ -156,7 +156,7 @@
       <button
         type="button"
         class="btn btn-outline-dark"
-        (click)="modal.close('Save click')"
+        (click)="buttonWinnerGame()"
       >
         Ok
       </button>

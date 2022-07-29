@@ -30,7 +30,14 @@ export class GameComponent implements OnInit {
     listplayer: [],
     idPlayers: []
   }
-
+  board2: Board = {
+    id: "62de01f1ee60c664c3d720fb",
+    time: 10000,
+    listWinRound: [],
+    listCard: [],
+    listplayer: [],
+    idPlayers: []
+  }
   cards: Card[]=[];
 
   game:Game={
@@ -273,10 +280,18 @@ winnerCard: Card ={
         }
       );
     }else{
-      this.open(this.mymodal);
+      //this.open(this.mymodal);
+      this.open(this.winnerGameModal);
     }
   }
 
+  buttonWinnerGame(){
+    this.modalService.dismissAll();
+    this.router.navigate(['hall']);
+    this.boardAPIService.updateBoard("62de01f1ee60c664c3d720fb", this.board2).subscribe(a =>{
+      this.gameAPIService.updateGame(this.game2,"1").subscribe()
+    });
+  }
   open(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
