@@ -1,9 +1,9 @@
-import { Card } from './card';
-import { Player } from './player';
+import { Card } from "./card";
+import { Player } from "./player";
 
-export interface Game{
-    id:string,
-    numberPlayers:number,
-    playerModelList: string[],
-    cardGamesList:Card[];
+export interface Game {
+	id: string;
+	numberPlayers: number;
+	playerModelList: string[];
+	cardGamesList: Card[];
 }

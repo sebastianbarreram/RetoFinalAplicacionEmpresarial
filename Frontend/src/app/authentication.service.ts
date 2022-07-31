@@ -6,11 +6,10 @@ import {
 } from "@angular/fire/compat/firestore";
 import { User } from "./user";
 import * as auth from "firebase/auth";
-import {PlayerAPIService} from "./services/player-api.service";
-import { Player } from "./interfaces/player"
+import { PlayerAPIService } from "./services/player-api.service";
+import { Player } from "./interfaces/player";
 
-import { Router } from '@angular/router';
-
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -18,29 +17,30 @@ import { Router } from '@angular/router';
 export class AuthenticationService {
 	userData: any; // Save logged in user data
 
-	Players :Player[] = [];
+	Players: Player[] = [];
 	playerId: string = "";
 
 	player: Player = {
-			playerId : "",
-				nickName : "",
-				email: "",
-				score: 0,
+		playerId: "",
+		nickName: "",
+		email: "",
+		score: 0,
 
-				pointsHistory: [],
-				cardModels: [],
-	}
+		pointsHistory: [],
+		cardModels: [],
+	};
 
-	constructor(public afAuth: AngularFireAuth,
-				public afs: AngularFirestore,
-				public router: Router,
-				public playerAPIService: PlayerAPIService,
-			   ) {
-			this.afAuth.authState.subscribe((user) => {
+	constructor(
+		public afAuth: AngularFireAuth,
+		public afs: AngularFirestore,
+		public router: Router,
+		public playerAPIService: PlayerAPIService,
+	) {
+		this.afAuth.authState.subscribe((user) => {
 			if (user) {
 				this.userData = user;
 				localStorage.setItem("user", JSON.stringify(this.userData));
-				localStorage.setItem("uid",this.userData.uid);
+				localStorage.setItem("uid", this.userData.uid);
 				JSON.parse(localStorage.getItem("user")!);
 			} else {
 				localStorage.setItem("user", "null");
@@ -48,7 +48,6 @@ export class AuthenticationService {
 			}
 		});
 	}
-
 
 	/**
 	 * Metodo para ingresar a al cuenta
@@ -58,8 +57,7 @@ export class AuthenticationService {
 			.signInWithEmailAndPassword(email, password)
 			.then((result) => {
 				this.SetUserData(result.user);
-				this.router.navigate(['hall']);
-
+				this.router.navigate(["hall"]);
 			})
 			.catch((error) => {
 				window.alert(error.message);
@@ -70,12 +68,11 @@ export class AuthenticationService {
 		return this.afAuth.signOut().then(() => {
 			window.alert("se ha cerrado la sesión");
 			localStorage.clear();
-			this.router.navigate(['auth']);
+			this.router.navigate(["auth"]);
 		});
 	}
 
 	SetUserData(user: any) {
-
 		const userRef: AngularFirestoreDocument<any> = this.afs.doc(
 			`users/${user.uid}`,
 		);
@@ -117,11 +114,11 @@ export class AuthenticationService {
 				this.player.playerId = result.user?.uid || " ";
 				this.player.email = email;
 
-				this.playerAPIService.addPlayer(this.player)
-					.subscribe(playerNew => this.Players.push(playerNew));
+				this.playerAPIService.addPlayer(this.player).subscribe(
+					(playerNew) => this.Players.push(playerNew),
+				);
 
-				this.router.navigate(['hall']);
-
+				this.router.navigate(["hall"]);
 			})
 			.catch((error) => {
 				window.alert(error.message);
@@ -130,9 +127,7 @@ export class AuthenticationService {
 
 	GoogleAuth() {
 		return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-
-			this.router.navigate(['hall']);
-
+			this.router.navigate(["hall"]);
 		});
 	}
 }

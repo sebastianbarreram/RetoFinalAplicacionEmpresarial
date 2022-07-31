@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header/header.component';
-import { RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { HeaderComponent } from "./header/header.component";
+import { RouterModule } from "@angular/router";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
-import { ListGamesComponent } from './list-games/list-games.component';
-import { CarouselComponent } from './carousel/carousel.component';
+import { ListGamesComponent } from "./list-games/list-games.component";
+import { CarouselComponent } from "./carousel/carousel.component";
 
 @NgModule({
   declarations: [
@@ -23,5 +23,4 @@ import { CarouselComponent } from './carousel/carousel.component';
     ListGamesComponent
   ]
 })
-
-export class ComponentsModule { }
+export class ComponentsModule {}

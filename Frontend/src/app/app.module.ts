@@ -14,10 +14,9 @@ import { VistaRegistroComponent } from "./vista-registro/vista-registro.componen
 import { HallComponent } from "./hall/hall.component";
 
 import { ComponentsModule } from "./components/components.module";
-import { BoardComponent } from './components/board/board.component';
-import { GameComponent } from './components/game/game.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { BoardComponent } from "./components/board/board.component";
+import { GameComponent } from "./components/game/game.component";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [

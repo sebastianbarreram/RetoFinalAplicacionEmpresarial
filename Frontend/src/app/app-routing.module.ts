@@ -10,9 +10,9 @@ const routes: Routes = [
 	{ path: "", redirectTo: "/auth", pathMatch: "full" },
 	{ path: "auth", component: VistaAuthComponent },
 	{ path: "register", component: VistaRegistroComponent },
-	{path: "hall", component: HallComponent},
-	{path: "board", component: BoardComponent},
-	{path: "game", component:GameComponent}
+	{ path: "hall", component: HallComponent },
+	{ path: "board", component: BoardComponent },
+	{ path: "game", component: GameComponent },
 ];
 
 @NgModule({
