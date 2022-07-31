@@ -17,6 +17,7 @@ import { ComponentsModule } from "./components/components.module";
 import { BoardComponent } from "./components/board/board.component";
 import { GameComponent } from "./components/game/game.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     VistaRegistroComponent,
     HallComponent,
     BoardComponent,
-    GameComponent
+    GameComponent,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,4 @@
-import {
-	Component,
-	ElementRef,
-	HostListener,
-	OnInit,
-	Renderer2,
-	ViewChild,
-} from "@angular/core";
+import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
 import { Board } from "src/app/interfaces/board";
 import { Card } from "src/app/interfaces/card";
 import { Game } from "src/app/interfaces/game";
@@ -253,7 +246,7 @@ export class GameComponent implements OnInit {
 					this.winner = winnerRound;
 					this.boardAPIService.updateReallocateCards(
 						"62de01f1ee60c664c3d720fb",
-					).subscribe((a) => {
+					).subscribe(() => {
 						this.getCards();
 						this.winnerGame();
 					});
@@ -270,7 +263,7 @@ export class GameComponent implements OnInit {
 				(card) => card.playerId == this.winner.playerId,
 			).length + 1;
 		if (numCards >= (5 * this.game.playerModelList.length)) {
-			this.gameAPIService.getWinnerGame("1").subscribe((winGAme) => {
+			this.gameAPIService.getWinnerGame("1").subscribe(() => {
 				this.open(this.winnerGameModal);
 			});
 		} else {
@@ -284,7 +277,7 @@ export class GameComponent implements OnInit {
 		this.boardAPIService.updateBoard(
 			"62de01f1ee60c664c3d720fb",
 			this.board2,
-		).subscribe((a) => {
+		).subscribe(() => {
 			this.gameAPIService.updateGame(this.game2, "1").subscribe();
 		});
 	}
@@ -312,7 +305,7 @@ export class GameComponent implements OnInit {
 	}
 	RetireGame() {
 		alert("seguro que desea retirarse del juego?");
-		this.gameAPIService.retireGame(this.playerId).subscribe((a) => {
+		this.gameAPIService.retireGame(this.playerId).subscribe(() => {
 			this.router.navigate(["auth"]);
 		});
 	}

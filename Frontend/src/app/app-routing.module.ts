@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { BoardComponent } from "./components/board/board.component";
 import { GameComponent } from "./components/game/game.component";
 import { HallComponent } from "./hall/hall.component";
+import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 import { VistaAuthComponent } from "./vista-auth/vista-auth.component";
 import { VistaRegistroComponent } from "./vista-registro/vista-registro.component";
 
@@ -13,6 +14,7 @@ const routes: Routes = [
 	{ path: "hall", component: HallComponent },
 	{ path: "board", component: BoardComponent },
 	{ path: "game", component: GameComponent },
+	{ path: "**", component: PagenotfoundComponent },
 ];
 
 @NgModule({
