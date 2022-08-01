@@ -41,9 +41,12 @@ export class AuthenticationService {
 				this.userData = user;
 				localStorage.setItem("user", JSON.stringify(this.userData));
 				localStorage.setItem("uid", this.userData.uid);
+				sessionStorage.setItem("user", JSON.stringify(this.userData));
+				sessionStorage.setItem("uid", this.userData.uid);
 				JSON.parse(localStorage.getItem("user")!);
 			} else {
 				localStorage.setItem("user", "null");
+				sessionStorage.setItem("user", "null");
 				JSON.parse(localStorage.getItem("user")!);
 			}
 		});
@@ -56,6 +59,11 @@ export class AuthenticationService {
 		return this.afAuth
 			.signInWithEmailAndPassword(email, password)
 			.then((result) => {
+				localStorage.setItem("user", JSON.stringify(this.userData));
+				localStorage.setItem("uid", this.userData.uid);
+				sessionStorage.setItem("user", JSON.stringify(this.userData));
+				sessionStorage.setItem("uid", this.userData.uid);
+
 				this.SetUserData(result.user);
 				this.router.navigate(["hall"]);
 			})
@@ -127,7 +135,16 @@ export class AuthenticationService {
 
 	GoogleAuth() {
 		return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-			this.router.navigate(["hall"]);
+			this.afAuth.authState.subscribe((user) => {
+				if (user) {
+					localStorage.setItem("user", JSON.stringify(this.userData));
+					localStorage.setItem("uid", this.userData.uid);
+					sessionStorage.setItem("user", JSON.stringify(this.userData));
+					sessionStorage.setItem("uid", this.userData.uid);
+
+					this.router.navigate(["hall"]);
+				}
+			});
 		});
 	}
 }
